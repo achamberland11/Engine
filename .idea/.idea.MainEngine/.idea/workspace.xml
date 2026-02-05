@@ -9,22 +9,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8e791ab4-f64f-4f25-bb39-1c244c0b31b0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.MainEngine/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MainEngine/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainEngine.sln" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine.sln" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainEngine/MainEngine.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/MainEngine.vcxproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MainEngine/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainEngine/x64/Debug/MainEngine.ilk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainEngine/x64/Debug/MainEngine.tlog/CL.command.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/x64/Debug/MainEngine.tlog/CL.command.1.tlog" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainEngine/x64/Debug/MainEngine.tlog/CL.read.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/x64/Debug/MainEngine.tlog/CL.read.1.tlog" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainEngine/x64/Debug/MainEngine.tlog/CL.write.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/x64/Debug/MainEngine.tlog/CL.write.1.tlog" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainEngine/x64/Debug/MainEngine.tlog/link.command.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/x64/Debug/MainEngine.tlog/link.command.1.tlog" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainEngine/x64/Debug/MainEngine.tlog/link.read.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/x64/Debug/MainEngine.tlog/link.read.1.tlog" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainEngine/x64/Debug/MainEngine.tlog/link.write.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/x64/Debug/MainEngine.tlog/link.write.1.tlog" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainEngine/x64/Debug/vc143.idb" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/x64/Debug/vc143.idb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainEngine/x64/Debug/vc143.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/x64/Debug/vc143.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/external/ImGui" beforeDir="false" afterPath="$PROJECT_DIR$/external/ImGui" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/external/ImGui/examples/example_sdl3_opengl3/example_sdl3_opengl3.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/external/ImGui/examples/example_sdl3_opengl3/example_sdl3_opengl3.vcxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/x64/Debug/MainEngine.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/MainEngine.pdb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,7 +38,7 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="cidr-memory-view://0" root0="FORCE_HIGHLIGHTING" />
+    <setting file="cidr-memory-view://1" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/external/ImGui/examples/example_sdl3_opengl3/main.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/external/SDL/docs/hello.c" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -120,7 +107,7 @@
       <workItem from="1770268457243" duration="2137000" />
       <workItem from="1770270609490" duration="1790000" />
       <workItem from="1770272446540" duration="686000" />
-      <workItem from="1770273142614" duration="2266000" />
+      <workItem from="1770273142614" duration="2347000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
