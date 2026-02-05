@@ -1,47 +1,112 @@
 ﻿#include "RendererSubsystem.h"
+
+#include <imgui_impl_opengl3.h>
+#include <imgui_impl_sdl3.h>
+
+#include "../Core/GameEngine.h"
+#include "SDL3/SDL_init.h"
 #include "SDL3/SDL_log.h"
+#include "SDL3/SDL_opengl.h"
 
 void CRendererSubsystem::Start()
 {
-    if (!SDL_CreateWindowAndRenderer("Hello World", 800, 600, SDL_WINDOW_FULLSCREEN, &window, &renderer)) {
-        SDL_Log("Couldn't create window and renderer: %s", SDL_GetError());
+    if (!SDL_Init(SDL_INIT_VIDEO | SDL_INIT_GAMEPAD))
+    {
+        SDL_Log("Error: SDL_Init(): %s", SDL_GetError());
+        return;
     }
+
+    // Set OpenGL attributes
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, 0);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
+    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+    SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
+    SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8); 
+
+    float scale = SDL_GetDisplayContentScale(SDL_GetPrimaryDisplay());
+    SDL_WindowFlags window_flags = SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_HIGH_PIXEL_DENSITY;
+
+    window = SDL_CreateWindow("Main Engine", (int)(1280 * scale), (int)(800 * scale), window_flags);
+
+    if (!window)
+    {
+        SDL_Log("Error: SDL_CreateWindow(): %s", SDL_GetError());
+        CGameEngine::Instance().Quit();
+        return;
+    }
+
+    glContext = SDL_GL_CreateContext(window);
+
+    if (!glContext)
+    {
+        SDL_Log("Error: SDL_GL_CreateContext(): %s", SDL_GetError());
+        CGameEngine::Instance().Quit();
+        return;
+    }
+
+    SDL_GL_MakeCurrent(window, glContext);
+    SDL_GL_SetSwapInterval(1);
+    SDL_ShowWindow(window);
+
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGuiIO& io = ImGui::GetIO();
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;
+
+    ImGui::StyleColorsDark();
+    
+    ImGui_ImplSDL3_InitForOpenGL(window, glContext);
+    ImGui_ImplOpenGL3_Init("#version 410");
 }
 
 void CRendererSubsystem::Shutdown()
 {
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
+    if (glContext)
+    {
+        SDL_GL_DestroyContext(glContext);
+        glContext = nullptr;
+    }
+    if (window)
+    {
+        SDL_DestroyWindow(window);
+        window = nullptr;
+    }
 }
 
 void CRendererSubsystem::Update(float deltaSeconds)
 {
-    if (!renderer) return;
+    Render();
+}
 
-    const char* message = "Hello World!";
-    const char* frameTimeMessage = FrameText.c_str();
+void CRendererSubsystem::Render() const
+{
     const char* fpsMessage = fpsText.c_str();
+    const char* frameMessage = frameText.c_str();
     
-    int w = 0, h = 0;
-    const float scale = 4.0f;
+    ImGui::Begin("Hello World");
+    ImGui::Text("%s", fpsMessage);
+    ImGui::Text("%s", frameMessage);
+    ImGui::End();
+}
 
-    SDL_GetRenderOutputSize(renderer, &w, &h);
-    SDL_SetRenderScale(renderer, scale, scale);
-    
-    float x = ((w / scale) - SDL_DEBUG_TEXT_FONT_CHARACTER_SIZE * SDL_strlen(message)) / 2;
-    float y = ((h / scale) - SDL_DEBUG_TEXT_FONT_CHARACTER_SIZE) / 2;
+void CRendererSubsystem::OnBeginFrame()
+{
+    glViewport(0, 0, 1280, 800);
+    glClearColor(ClearColor.r, ClearColor.g, ClearColor.b, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
 
-    float xFrameTime = 20;
-    float yFrameTime = 20;
+    ImGui_ImplOpenGL3_NewFrame();
+    ImGui_ImplSDL3_NewFrame();
+    ImGui::NewFrame();
+}
 
-    float xFPS = ((w / scale) - SDL_DEBUG_TEXT_FONT_CHARACTER_SIZE * SDL_strlen(fpsMessage)) - xFrameTime;
-    float yFPS = yFrameTime;
+void CRendererSubsystem::OnEndFrame()
+{
+    ImGui::Render();
+    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
-    SDL_SetRenderDrawColor(renderer, ClearColor.r, ClearColor.g, ClearColor.b, 255);
-    SDL_RenderClear(renderer);
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-    SDL_RenderDebugText(renderer, x, y, message);
-    SDL_RenderDebugText(renderer, xFrameTime, yFrameTime, frameTimeMessage);
-    SDL_RenderDebugText(renderer, xFPS, yFPS, fpsMessage);
-    SDL_RenderPresent(renderer);
+    SDL_GL_SwapWindow(window);
 }

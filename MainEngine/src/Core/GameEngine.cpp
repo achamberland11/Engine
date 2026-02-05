@@ -1,5 +1,8 @@
 ﻿#include "GameEngine.h"
 
+#include <imgui_impl_opengl3.h>
+#include <imgui_impl_sdl3.h>
+
 #include "SDL3/SDL_timer.h"
 
 void CGameEngine::Init()
@@ -11,6 +14,8 @@ void CGameEngine::Init()
 
 void CGameEngine::Loop()
 {
+    rendererSubsystem.OnBeginFrame();
+    
     static float lastTime = SDL_GetTicks();
     float currentTime = SDL_GetTicks();
     float deltaSeconds = (currentTime - lastTime) / 1000.0f;
@@ -29,10 +34,15 @@ void CGameEngine::Loop()
     rendererSubsystem.SetClearColor(bgColor);
     
     rendererSubsystem.Update(deltaSeconds);
+    rendererSubsystem.OnEndFrame();
 }
 
 void CGameEngine::Shutdown()
 {
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplSDL3_Shutdown();
+    ImGui::DestroyContext();
+
     inputSubsystem.Shutdown();
     gameSubsystem.Shutdown();
     rendererSubsystem.Shutdown();

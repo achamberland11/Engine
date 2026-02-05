@@ -1,11 +1,27 @@
 ﻿#include "InputSubsystem.h"
 
+#include <imgui_impl_sdl3.h>
+
+#include "../Core/GameEngine.h"
+
 void CInputSubsystem::Start() {}
 
 void CInputSubsystem::Shutdown() {}
 
 void CInputSubsystem::Update(float deltaSeconds)
 {
+    SDL_Event event;
+    while (SDL_PollEvent(&event))
+    {
+        if (event.type == SDL_EVENT_QUIT || event.type == SDL_EVENT_WINDOW_CLOSE_REQUESTED)
+            CGameEngine::Instance().Quit();
+
+        if (event.type == SDL_EVENT_KEY_DOWN)
+            pendingPressedKeys.push_back(event.key.key);
+        else if (event.type == SDL_EVENT_KEY_UP)
+            buttonStates[event.key.key] = EButtonState::UP;
+    }
+    
     for (auto& pair : buttonStates)
     {
         EButtonState& state = pair.second;
@@ -20,19 +36,6 @@ void CInputSubsystem::Update(float deltaSeconds)
     }
 
     pendingPressedKeys.clear();
-}
-
-SDL_AppResult CInputSubsystem::HandleEvent(SDL_Event* event)
-{
-    if (event->type == SDL_EVENT_QUIT)
-        return SDL_APP_SUCCESS;
-
-    if (event->type == SDL_EVENT_KEY_DOWN)
-        pendingPressedKeys.push_back(event->key.key);
-    else if (event->type == SDL_EVENT_KEY_UP)
-        buttonStates[event->key.key] = EButtonState::UP;
-    
-    return SDL_APP_CONTINUE;
 }
 
 EButtonState CInputSubsystem::GetButtonState(SDL_Keycode key) const

@@ -23,6 +23,8 @@ public:
     void Init();
     void Loop();
     void Shutdown();
+    void Quit() { bShouldQuit = true; }
+    bool ShouldQuit() const { return bShouldQuit; }
 
     CRendererSubsystem& GetRenderer() { return rendererSubsystem; }
     CInputSubsystem& GetInput() { return inputSubsystem; }
@@ -36,4 +38,6 @@ private:
     CInputSubsystem inputSubsystem;
     CGameSubsystem gameSubsystem;
     CCounter counter;
+
+    bool bShouldQuit = false;
 };

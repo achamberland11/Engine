@@ -9,9 +9,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8e791ab4-f64f-4f25-bb39-1c244c0b31b0" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.MainEngine/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MainEngine/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainEngine.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine.sln.DotSettings.user" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MainEngine/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/external/ImGui" beforeDir="false" afterPath="$PROJECT_DIR$/external/ImGui" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/external/ImGui/examples/example_sdl3_opengl3/example_sdl3_opengl3.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/external/ImGui/examples/example_sdl3_opengl3/example_sdl3_opengl3.vcxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainEngine/src/Core/GameEngine.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/src/Core/GameEngine.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainEngine/src/Core/GameEngine.h" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/src/Core/GameEngine.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainEngine/src/Structs/Color.h" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/src/Structs/Color.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainEngine/src/Subsystems/GameSubsystem.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/src/Subsystems/GameSubsystem.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainEngine/src/Subsystems/GameSubsystem.h" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/src/Subsystems/GameSubsystem.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainEngine/src/Subsystems/InputSubsystem.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/src/Subsystems/InputSubsystem.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainEngine/src/Subsystems/InputSubsystem.h" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/src/Subsystems/InputSubsystem.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainEngine/src/Subsystems/RendererSubsystem.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/src/Subsystems/RendererSubsystem.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainEngine/src/Subsystems/RendererSubsystem.h" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/src/Subsystems/RendererSubsystem.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainEngine/x64/Debug/MainEngine.ilk" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/x64/Debug/MainEngine.ilk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainEngine/x64/Debug/MainEngine.tlog/CL.command.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/x64/Debug/MainEngine.tlog/CL.command.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainEngine/x64/Debug/MainEngine.tlog/CL.read.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/x64/Debug/MainEngine.tlog/CL.read.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainEngine/x64/Debug/MainEngine.tlog/CL.write.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/x64/Debug/MainEngine.tlog/CL.write.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainEngine/x64/Debug/MainEngine.tlog/link.read.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/x64/Debug/MainEngine.tlog/link.read.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainEngine/x64/Debug/vc143.idb" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/x64/Debug/vc143.idb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainEngine/x64/Debug/vc143.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/x64/Debug/vc143.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x64/Debug/MainEngine.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/MainEngine.pdb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,7 +55,7 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="cidr-memory-view://1" root0="FORCE_HIGHLIGHTING" />
+    <setting file="cidr-memory-view://7" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/external/ImGui/examples/example_sdl3_opengl3/main.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/external/SDL/docs/hello.c" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -51,22 +68,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;C/C++ Project.MainEngine.executor&quot;: &quot;Debug&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.general&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "C/C++ Project.MainEngine.executor": "Debug",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.general",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="C/C++ Project.MainEngine">
     <configuration name="MainEngine" type="CppProject" factoryName="C++ Project">
       <configuration_1 setup="1">
@@ -107,7 +124,7 @@
       <workItem from="1770268457243" duration="2137000" />
       <workItem from="1770270609490" duration="1790000" />
       <workItem from="1770272446540" duration="686000" />
-      <workItem from="1770273142614" duration="2347000" />
+      <workItem from="1770273142614" duration="7568000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />

@@ -9,13 +9,13 @@ enum class EButtonState { UP, DOWN, JUST_PRESSED };
 class CInputSubsystem : public ISubsystem
 {
 public:
+    CInputSubsystem() = default;
     ~CInputSubsystem() = default;
 
     void Start() override;
     void Shutdown() override;
     void Update(float deltaSeconds) override;
 
-    SDL_AppResult HandleEvent(SDL_Event* event);
     EButtonState GetButtonState(SDL_Keycode key) const;
 
 private:

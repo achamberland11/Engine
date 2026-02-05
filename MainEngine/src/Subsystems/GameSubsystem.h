@@ -6,6 +6,7 @@
 class CGameSubsystem : public ISubsystem
 {
 public:
+    CGameSubsystem() = default;
     ~CGameSubsystem() = default;
 
     void Start() override;

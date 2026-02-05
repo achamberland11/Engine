@@ -3,5 +3,5 @@
 
 struct Color
 {
-    Uint8 r, g, b;
+    float r = 0.0f, g = 0.0f, b = 0.0f;
 };
