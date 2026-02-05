@@ -78,8 +78,9 @@
     </PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
         <LinkIncremental>true</LinkIncremental>
-        <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\Users\Antoine\Documents\Projets\C++\Engines\MainEngine\external\SDL\include;</IncludePath>
-        <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\Users\Antoine\Documents\Projets\C++\Engines\MainEngine\external\SDL\include;</ExternalIncludePath>
+        <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\Users\Antoine\Documents\Projets\C++\Engines\MainEngine\external\SDL\include;C:\Users\Antoine\Documents\Projets\C++\Engines\MainEngine\external\ImGui;C:\Users\Antoine\Documents\Projets\C++\Engines\MainEngine\external\ImGui\backends</IncludePath>
+        <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\Users\Antoine\Documents\Projets\C++\Engines\MainEngine\external\SDL\include;C:\Users\Antoine\Documents\Projets\C++\Engines\MainEngine\external\ImGui;C:\Users\Antoine\Documents\Projets\C++\Engines\MainEngine\external\ImGui\backends</ExternalIncludePath>
+        <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);C:\Users\Antoine\Documents\Projets\C++\Engines\MainEngine\libs</LibraryPath>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
         <LinkIncremental>false</LinkIncremental>
@@ -111,11 +112,12 @@
             <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
             <ConformanceMode>true</ConformanceMode>
             <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-            <AdditionalIncludeDirectories>C:\Users\Antoine\Documents\Projets\C++\Engines\MainEngine\external\SDL\include</AdditionalIncludeDirectories>
+            <AdditionalIncludeDirectories>C:\Users\Antoine\Documents\Projets\C++\Engines\MainEngine\external\SDL\include;C:\Users\Antoine\Documents\Projets\C++\Engines\MainEngine\external\ImGui;C:\Users\Antoine\Documents\Projets\C++\Engines\MainEngine\external\ImGui\backends</AdditionalIncludeDirectories>
         </ClCompile>
         <Link>
             <SubSystem>Console</SubSystem>
             <GenerateDebugInformation>true</GenerateDebugInformation>
+            <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);opengl32.lib</AdditionalDependencies>
         </Link>
     </ItemDefinitionGroup>
     <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -148,7 +150,7 @@
             <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
             <ConformanceMode>true</ConformanceMode>
             <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-            <AdditionalIncludeDirectories>C:\Users\Antoine\Documents\Projets\C++\Engines\MainEngine\external\SDL\include</AdditionalIncludeDirectories>
+            <AdditionalIncludeDirectories>C:\Users\Antoine\Documents\Projets\C++\Engines\MainEngine\external\SDL\include;C:\Users\Antoine\Documents\Projets\C++\Engines\MainEngine\external\ImGui;C:\Users\Antoine\Documents\Projets\C++\Engines\MainEngine\external\ImGui\backends</AdditionalIncludeDirectories>
         </ClCompile>
         <Link>
             <SubSystem>Console</SubSystem>
@@ -164,8 +166,24 @@
         <ClCompile Include="src\Subsystems\GameSubsystem.cpp" />
         <ClCompile Include="src\Subsystems\InputSubsystem.cpp" />
         <ClCompile Include="src\Subsystems\RendererSubsystem.cpp" />
+        <!-- Add ImGui core source files -->
+        <ClCompile Include="..\external\ImGui\imgui.cpp" />
+        <ClCompile Include="..\external\ImGui\imgui_demo.cpp" />
+        <ClCompile Include="..\external\ImGui\imgui_draw.cpp" />
+        <ClCompile Include="..\external\ImGui\imgui_tables.cpp" />
+        <ClCompile Include="..\external\ImGui\imgui_widgets.cpp" />
+        <!-- Add ImGui backend files if you're using them -->
+        <ClCompile Include="..\external\ImGui\backends\imgui_impl_sdl3.cpp" />
+        <ClCompile Include="..\external\ImGui\backends\imgui_impl_opengl3.cpp" />
     </ItemGroup>
     <ItemGroup>
+        <!-- Remove this project reference if you're including ImGui source directly -->
+        <!--
+        <ProjectReference Include="..\external\ImGui\examples\example_sdl3_opengl3\example_sdl3_opengl3.vcxproj">
+          <Project>{84aaa301-84fe-428b-9e3e-817bc8123c0c}</Project>
+          <Name>example_sdl3_opengl3</Name>
+        </ProjectReference>
+        -->
         <ProjectReference Include="..\external\SDL\VisualC\SDL\SDL.vcxproj">
             <Project>{81ce8daf-ebb2-4761-8e45-b71abcca8c68}</Project>
             <Name>SDL3</Name>
