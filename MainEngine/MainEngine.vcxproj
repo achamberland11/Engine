@@ -78,9 +78,9 @@
     </PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
         <LinkIncremental>true</LinkIncremental>
-        <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\Users\Antoine\Documents\Projets\C++\Engines\MainEngine\external\SDL\include;C:\Users\Antoine\Documents\Projets\C++\Engines\MainEngine\external\ImGui;C:\Users\Antoine\Documents\Projets\C++\Engines\MainEngine\external\ImGui\backends</IncludePath>
-        <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\Users\Antoine\Documents\Projets\C++\Engines\MainEngine\external\SDL\include;C:\Users\Antoine\Documents\Projets\C++\Engines\MainEngine\external\ImGui;C:\Users\Antoine\Documents\Projets\C++\Engines\MainEngine\external\ImGui\backends</ExternalIncludePath>
-        <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);C:\Users\Antoine\Documents\Projets\C++\Engines\MainEngine\libs</LibraryPath>
+        <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);Z:\Projets\C++\Engine\MainEngine\external\SDL\include;Z:\Projets\C++\Engine\MainEngine\external\ImGui;Z:\Projets\C++\Engine\MainEngine\external\ImGui\backends</IncludePath>
+        <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);Z:\Projets\C++\Engine\MainEngine\external\SDL\include;Z:\Projets\C++\Engine\MainEngine\external\ImGui;Z:\Projets\C++\Engine\MainEngine\external\ImGui\backends</ExternalIncludePath>
+        <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);Z:\Projets\C++\Engine\MainEngine\libs</LibraryPath>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
         <LinkIncremental>false</LinkIncremental>
@@ -112,7 +112,7 @@
             <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
             <ConformanceMode>true</ConformanceMode>
             <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-            <AdditionalIncludeDirectories>C:\Users\Antoine\Documents\Projets\C++\Engines\MainEngine\external\SDL\include;C:\Users\Antoine\Documents\Projets\C++\Engines\MainEngine\external\ImGui;C:\Users\Antoine\Documents\Projets\C++\Engines\MainEngine\external\ImGui\backends</AdditionalIncludeDirectories>
+            <AdditionalIncludeDirectories>Z:\Projets\C++\Engine\MainEngine\external\SDL\include;Z:\Projets\C++\Engine\MainEngine\external\ImGui;Z:\Projets\C++\Engine\MainEngine\external\ImGui\backends</AdditionalIncludeDirectories>
         </ClCompile>
         <Link>
             <SubSystem>Console</SubSystem>
@@ -150,7 +150,7 @@
             <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
             <ConformanceMode>true</ConformanceMode>
             <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-            <AdditionalIncludeDirectories>C:\Users\Antoine\Documents\Projets\C++\Engines\MainEngine\external\SDL\include;C:\Users\Antoine\Documents\Projets\C++\Engines\MainEngine\external\ImGui;C:\Users\Antoine\Documents\Projets\C++\Engines\MainEngine\external\ImGui\backends</AdditionalIncludeDirectories>
+            <AdditionalIncludeDirectories>Z:\Projets\C++\Engine\MainEngine\external\SDL\include;Z:\Projets\C++\Engine\MainEngine\external\ImGui;Z:\Projets\C++\Engine\MainEngine\external\ImGui\backends</AdditionalIncludeDirectories>
         </ClCompile>
         <Link>
             <SubSystem>Console</SubSystem>
