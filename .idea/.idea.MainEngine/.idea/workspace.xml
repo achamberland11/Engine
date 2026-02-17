@@ -36,9 +36,6 @@
     &quot;accountId&quot;: &quot;6a584555-7a23-47ff-b530-520cb1ef86d4&quot;
   }
 }</component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="cidr-memory-view://1" root0="FORCE_HIGHLIGHTING" />
-  </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
@@ -108,7 +105,7 @@
       <workItem from="1770744515366" duration="700000" />
       <workItem from="1770745614863" duration="140000" />
       <workItem from="1770745771203" duration="1489000" />
-      <workItem from="1770750010455" duration="958000" />
+      <workItem from="1770750010455" duration="1112000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />

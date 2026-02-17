@@ -36,3 +36,4 @@ riderModule.iml
 *.exe
 *.out
 *.app
+/.idea
