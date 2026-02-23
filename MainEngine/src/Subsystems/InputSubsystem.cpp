@@ -13,12 +13,14 @@ void CInputSubsystem::Update(float deltaSeconds)
     SDL_Event event;
     while (SDL_PollEvent(&event))
     {
+        ImGui_ImplSDL3_ProcessEvent(&event);
+        
         if (event.type == SDL_EVENT_QUIT || event.type == SDL_EVENT_WINDOW_CLOSE_REQUESTED)
             CGameEngine::Instance().Quit();
 
-        if (event.type == SDL_EVENT_KEY_DOWN)
+        if (event.type == SDL_EVENT_KEY_DOWN && !ImGui::GetIO().WantCaptureKeyboard)
             pendingPressedKeys.push_back(event.key.key);
-        else if (event.type == SDL_EVENT_KEY_UP)
+        else if (event.type == SDL_EVENT_KEY_UP && !ImGui::GetIO().WantCaptureKeyboard)
             buttonStates[event.key.key] = EButtonState::UP;
     }
     
