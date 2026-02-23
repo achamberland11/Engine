@@ -1,0 +1,26 @@
+#pragma once
+
+#include "../Core/Class.h"
+#include "../Macros/ObjectMacros.h"
+
+class GObject
+{
+public:
+    virtual ~GObject() {}
+    virtual const CClass* GetClass() const = 0;
+
+    bool IsA(const CClass& InClass) const
+    {
+        return GetClass()->IsChildOf(&InClass);
+    }
+};
+
+template <class T>
+T* Cast(GObject* InObject)
+{
+    if (InObject != nullptr && InObject->IsA(T::StaticClass()))
+    {
+        return static_cast<T*>(InObject);
+    }
+    return nullptr;
+}

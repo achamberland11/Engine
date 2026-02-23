@@ -9,8 +9,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8e791ab4-f64f-4f25-bb39-1c244c0b31b0" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/MainEngine/src/Core/Class.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MainEngine/src/Core/Class.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MainEngine/src/Game/GCharacter.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MainEngine/src/Game/GCharacter.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MainEngine/src/Game/GObject.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MainEngine/src/Game/GObject.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MainEngine/src/Macros/ObjectMacros.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.MainEngine/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MainEngine/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MainEngine/MainEngine.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/MainEngine.vcxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainEngine/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,6 +44,15 @@
     &quot;accountId&quot;: &quot;6a584555-7a23-47ff-b530-520cb1ef86d4&quot;
   }
 }</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/MainEngine/src/Core/Class.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/MainEngine/src/Core/Class.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/MainEngine/src/Game/GCharacter.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/MainEngine/src/Game/GCharacter.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/MainEngine/src/Game/GObject.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/MainEngine/src/Game/GObject.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/MainEngine/src/Macros/ObjectMacros.h" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
@@ -106,6 +123,7 @@
       <workItem from="1770745614863" duration="140000" />
       <workItem from="1770745771203" duration="1489000" />
       <workItem from="1770750010455" duration="1112000" />
+      <workItem from="1771807432636" duration="2367000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />

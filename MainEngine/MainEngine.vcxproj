@@ -161,8 +161,11 @@
     </ItemDefinitionGroup>
     <ItemGroup>
         <ClCompile Include="main.cpp"/>
+        <ClCompile Include="src\Core\Class.cpp" />
         <ClCompile Include="src\Core\Counter.cpp" />
         <ClCompile Include="src\Core\GameEngine.cpp" />
+        <ClCompile Include="src\Game\GCharacter.cpp" />
+        <ClCompile Include="src\Game\GObject.cpp" />
         <ClCompile Include="src\Subsystems\GameSubsystem.cpp" />
         <ClCompile Include="src\Subsystems\InputSubsystem.cpp" />
         <ClCompile Include="src\Subsystems\RendererSubsystem.cpp" />
@@ -190,8 +193,12 @@
         </ProjectReference>
     </ItemGroup>
     <ItemGroup>
+      <ClInclude Include="src\Core\Class.h" />
       <ClInclude Include="src\Core\Counter.h" />
       <ClInclude Include="src\Core\GameEngine.h" />
+      <ClInclude Include="src\Game\GCharacter.h" />
+      <ClInclude Include="src\Game\GObject.h" />
+      <ClInclude Include="src\Macros\ObjectMacros.h" />
       <ClInclude Include="src\Structs\Color.h" />
       <ClInclude Include="src\Subsystems\GameSubsystem.h" />
       <ClInclude Include="src\Subsystems\InputSubsystem.h" />
