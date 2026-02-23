@@ -9,23 +9,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8e791ab4-f64f-4f25-bb39-1c244c0b31b0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/MainEngine/src/Game/Component.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MainEngine/src/Game/Component.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MainEngine/src/Game/Entity.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MainEngine/src/Game/Entity.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MainEngine/src/Memory/PageAllocator.hpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MainEngine/src/Structs/MemoryPage.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MainEngine/src/Structs/Property.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.MainEngine/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MainEngine/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainEngine/MainEngine.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/MainEngine.vcxproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MainEngine/imgui.ini" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/imgui.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainEngine/src/Core/Class.h" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/src/Core/Class.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainEngine/src/Core/GameEngine.h" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/src/Core/GameEngine.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainEngine/src/Game/GCharacter.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainEngine/src/Game/GCharacter.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainEngine/src/Game/GObject.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/src/Game/Object.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainEngine/src/Game/GObject.h" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/src/Game/Object.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainEngine/src/Game/Component.h" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/src/Game/Component.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainEngine/src/Game/Entity.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/src/Game/Entity.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainEngine/src/Game/Entity.h" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/src/Game/Entity.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MainEngine/src/Macros/ObjectMacros.h" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/src/Macros/ObjectMacros.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainEngine/src/Subsystems/GameSubsystem.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/src/Subsystems/GameSubsystem.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainEngine/src/Subsystems/GameSubsystem.h" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/src/Subsystems/GameSubsystem.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MainEngine/src/Subsystems/RendererSubsystem.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/src/Subsystems/RendererSubsystem.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MainEngine/x64/Debug/MainEngine.ilk" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/x64/Debug/MainEngine.ilk" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MainEngine/x64/Debug/MainEngine.tlog/CL.command.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/x64/Debug/MainEngine.tlog/CL.command.1.tlog" afterDir="false" />
@@ -65,7 +56,7 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="cidr-memory-view://2" root0="FORCE_HIGHLIGHTING" />
+    <setting file="cidr-memory-view://10" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/MainEngine/src/Core/Class.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/MainEngine/src/Core/Class.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/MainEngine/src/Game/Component.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -152,7 +143,7 @@
       <workItem from="1770745614863" duration="140000" />
       <workItem from="1770745771203" duration="1489000" />
       <workItem from="1770750010455" duration="1112000" />
-      <workItem from="1771807432636" duration="13620000" />
+      <workItem from="1771807432636" duration="17086000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />

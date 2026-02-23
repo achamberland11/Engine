@@ -1,12 +1,12 @@
 #pragma once
 #include "Object.h"
 
-class CComponent : GObject
+class CComponent : public GObject
 {
 public:
     GENERATE_REFLECTION()
 
-    std::string Name = "Entity";
+    std::string Name = "Component";
     bool bEnabled = true;
 
     CComponent() = default;

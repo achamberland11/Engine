@@ -2,6 +2,8 @@ C:\Users\Antoine\Documents\Projets\C++\Engines\MainEngine\MainEngine\main.cpp;C:
 C:\Users\Antoine\Documents\Projets\C++\Engines\MainEngine\MainEngine\src\Core\Class.cpp;C:\Users\Antoine\Documents\Projets\C++\Engines\MainEngine\MainEngine\x64\Debug\Class.obj
 C:\Users\Antoine\Documents\Projets\C++\Engines\MainEngine\MainEngine\src\Core\Counter.cpp;C:\Users\Antoine\Documents\Projets\C++\Engines\MainEngine\MainEngine\x64\Debug\Counter.obj
 C:\Users\Antoine\Documents\Projets\C++\Engines\MainEngine\MainEngine\src\Core\GameEngine.cpp;C:\Users\Antoine\Documents\Projets\C++\Engines\MainEngine\MainEngine\x64\Debug\GameEngine.obj
+C:\Users\Antoine\Documents\Projets\C++\Engines\MainEngine\MainEngine\src\Game\Component.cpp;C:\Users\Antoine\Documents\Projets\C++\Engines\MainEngine\MainEngine\x64\Debug\Component.obj
+C:\Users\Antoine\Documents\Projets\C++\Engines\MainEngine\MainEngine\src\Game\Entity.cpp;C:\Users\Antoine\Documents\Projets\C++\Engines\MainEngine\MainEngine\x64\Debug\Entity.obj
 C:\Users\Antoine\Documents\Projets\C++\Engines\MainEngine\MainEngine\src\Game\Object.cpp;C:\Users\Antoine\Documents\Projets\C++\Engines\MainEngine\MainEngine\x64\Debug\Object.obj
 C:\Users\Antoine\Documents\Projets\C++\Engines\MainEngine\MainEngine\src\Subsystems\GameSubsystem.cpp;C:\Users\Antoine\Documents\Projets\C++\Engines\MainEngine\MainEngine\x64\Debug\GameSubsystem.obj
 C:\Users\Antoine\Documents\Projets\C++\Engines\MainEngine\MainEngine\src\Subsystems\InputSubsystem.cpp;C:\Users\Antoine\Documents\Projets\C++\Engines\MainEngine\MainEngine\x64\Debug\InputSubsystem.obj

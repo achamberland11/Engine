@@ -8,7 +8,7 @@ public:
     GENERATE_REFLECTION()
 
     CEntity() = default;
-    virtual ~CEntity() = default;
+    virtual ~CEntity();
 
     std::string Name = "Entity";
     bool bActive = true;
@@ -16,5 +16,5 @@ public:
 
     void AddComponent(CComponent* component);
     void RemoveComponent(CComponent* component);
-    // CComponent* GetComponent(const std::string& name);
+    std::vector<CComponent*> GetComponents();
 };

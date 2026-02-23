@@ -38,3 +38,18 @@ void CGameSubsystem::Update(float deltaSeconds)
     if (CGameEngine::Instance().GetInput().GetButtonState(SDLK_SPACE) == EButtonState::JUST_PRESSED)
         backgroundColor = { (float)(rand() % 256) / 255.0f, (float)(rand() % 256) / 255.0f, (float)(rand() % 256) / 255.0f };
 }
+
+CEntity* CGameSubsystem::CreateEntity(const std::string& name)
+{
+    CEntity* newEntity = CGameEngine::Instance().NewObject<CEntity>();
+    newEntity->Name = name;
+    Entities.push_back(newEntity);
+    return newEntity;
+}
+
+void CGameSubsystem::DestroyEntity(CEntity* entity)
+{
+    auto it = std::find(Entities.begin(), Entities.end(), entity);
+    if (it != Entities.end()) Entities.erase(it);
+    CGameEngine::Instance().FreeObject(entity);
+}

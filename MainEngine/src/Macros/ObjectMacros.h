@@ -1,4 +1,5 @@
 #pragma once
+#include <cstddef>
 
 #define GENERATE_REFLECTION() \
 static CClass sClass; \

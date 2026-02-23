@@ -1,4 +1,7 @@
 #include "Entity.h"
+#include <algorithm>
+
+#include "../Core/GameEngine.h"
 
 CClass CEntity::sClass = CClass{
     "Entity",
@@ -21,6 +24,12 @@ public:
 
 static CEntityPropertyRegistrar sEntityPropertyRegistrar;
 
+CEntity::~CEntity()
+{
+    for (auto component : Components) CGameEngine::Instance().FreeObject(component);
+    Components.clear();
+}
+
 void CEntity::AddComponent(CComponent* component)
 {
     Components.push_back(component);
@@ -32,8 +41,7 @@ void CEntity::RemoveComponent(CComponent* component)
     if (it != Components.end()) Components.erase(it);
 }
 
-/*
-CComponent* CEntity::GetComponent(const std::string& name)
+std::vector<CComponent*> CEntity::GetComponents()
 {
+    return Components;
 }
-*/

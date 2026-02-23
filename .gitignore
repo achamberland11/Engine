@@ -37,3 +37,4 @@ riderModule.iml
 *.out
 *.app
 /.idea
+/MainEngine/x64

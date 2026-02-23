@@ -23,7 +23,7 @@ void CRendererSubsystem::Start()
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
     SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
-    SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8); 
+    SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
 
     float scale = SDL_GetDisplayContentScale(SDL_GetPrimaryDisplay());
     SDL_WindowFlags window_flags = SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_HIGH_PIXEL_DENSITY;
@@ -57,7 +57,7 @@ void CRendererSubsystem::Start()
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;
 
     ImGui::StyleColorsDark();
-    
+
     ImGui_ImplSDL3_InitForOpenGL(window, glContext);
     ImGui_ImplOpenGL3_Init("#version 410");
 }
@@ -85,8 +85,8 @@ void CRendererSubsystem::Render() const
 {
     const char* fpsMessage = fpsText.c_str();
     const char* frameMessage = frameText.c_str();
-    
-    ImGui::Begin("Hello World");
+
+    ImGui::Begin("FPS Counter");
     ImGui::Text("%s", fpsMessage);
     ImGui::Text("%s", frameMessage);
     ImGui::End();
@@ -95,6 +95,105 @@ void CRendererSubsystem::Render() const
     ImGui::Text("Used pages: %d", CGameEngine::Instance().GetAllocator().GetUsedPages());
     ImGui::Text("Pages available: %d", CGameEngine::Instance().GetAllocator().GetAvailablePages());
     ImGui::Text("Total pages: %d", 1024 * 1024);
+    ImGui::End();
+
+    ImGui::Begin("Entity Component System");
+    static char entityName[128] = "NewEntity";
+    static int entityID = 0;
+    ImGui::InputText("Entity Name", entityName, IM_ARRAYSIZE(entityName));
+
+    if (ImGui::Button("Create Entity"))
+    {
+        bool bNameExists = false;
+        for (const CEntity* entity : CGameEngine::Instance().GetGame().GetEntities())
+        {
+            if (entity->Name == entityName)
+            {
+                bNameExists = true;
+                break;
+            }
+        }
+
+        if (!bNameExists)
+            CGameEngine::Instance().GetGame().CreateEntity(entityName);
+        else
+        {
+            if (entityID == 1)
+            {
+                snprintf(entityName, sizeof(entityName), "NewEntity1");
+            }
+            else
+            {
+                snprintf(entityName, sizeof(entityName), "NewEntity%d", entityID);
+            }
+            entityID++;
+            CGameEngine::Instance().GetGame().CreateEntity(entityName);
+        }
+    }
+
+    ImGui::Separator();
+    ImGui::Text("Entities:");
+
+    for (CEntity* entity : CGameEngine::Instance().GetGame().GetEntities())
+    {
+        if (ImGui::CollapsingHeader(entity->Name.c_str()))
+        {
+            if (ImGui::Button("Delete Entity"))
+            {
+                CGameEngine::Instance().GetGame().DestroyEntity(entity);
+                break;
+            }
+
+            const std::vector<CProperty>* properties = entity->GetProperties();
+            for (const CProperty& property : *properties)
+            {
+                if (property.Type == EPropertyType::String)
+                {
+                    std::string* stringPtr = reinterpret_cast<std::string*>(reinterpret_cast<char*>(entity) + property.
+                        Offset);
+                    char buffer[128];
+                    strcpy_s(buffer, stringPtr->c_str());
+                    if (ImGui::InputText(property.Name.c_str(), buffer, sizeof(buffer)))
+                        *stringPtr = buffer;
+                }
+                else if (property.Type == EPropertyType::Bool)
+                {
+                    bool* boolPtr = reinterpret_cast<bool*>(reinterpret_cast<char*>(entity) + property.Offset);
+                    ImGui::Checkbox(property.Name.c_str(), boolPtr);
+                }
+            }
+
+            if (ImGui::Button("Add Component"))
+            {
+                // ImGui::OpenPopup("Add Component");
+                // ImGui::SetNextWindowSize(ImVec2(200, 100), ImGuiCond_FirstUseEver);
+                CComponent* newComponent = CGameEngine::Instance().NewObject<CComponent>();
+                bool bComponentExists = false;
+                for (const CComponent* component : entity->GetComponents())
+                {
+                    if (component->Name == newComponent->Name)
+                    {
+                        bComponentExists = true;
+                        break;
+                    }
+                }
+                if (!bComponentExists) entity->AddComponent(newComponent);
+                else CGameEngine::Instance().FreeObject(newComponent);
+            }
+
+            ImGui::Text("Components:");
+            for (CComponent* component : entity->GetComponents())
+            {
+                ImGui::BulletText(component->Name.c_str());
+                if (ImGui::Button("Delete Component"))
+                {
+                    entity->RemoveComponent(component);
+                    CGameEngine::Instance().FreeObject(component);
+                }
+            }
+        }
+    }
+
     ImGui::End();
 }
 
