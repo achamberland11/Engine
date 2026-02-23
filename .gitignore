@@ -37,4 +37,6 @@ riderModule.iml
 *.out
 *.app
 /.idea
-/MainEngine/x64
+/Engine/.idea
+/Engine/x64
+/x64
