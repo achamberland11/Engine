@@ -90,6 +90,12 @@ void CRendererSubsystem::Render() const
     ImGui::Text("%s", fpsMessage);
     ImGui::Text("%s", frameMessage);
     ImGui::End();
+
+    ImGui::Begin("Memory Allocator");
+    ImGui::Text("Used pages: %d", CGameEngine::Instance().GetAllocator().GetUsedPages());
+    ImGui::Text("Pages available: %d", CGameEngine::Instance().GetAllocator().GetAvailablePages());
+    ImGui::Text("Total pages: %d", 1024 * 1024);
+    ImGui::End();
 }
 
 void CRendererSubsystem::OnBeginFrame()

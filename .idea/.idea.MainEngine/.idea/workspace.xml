@@ -9,17 +9,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8e791ab4-f64f-4f25-bb39-1c244c0b31b0" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/MainEngine/src/Game/Component.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MainEngine/src/Game/Component.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MainEngine/src/Game/Entity.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MainEngine/src/Game/Entity.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MainEngine/src/Memory/PageAllocator.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MainEngine/src/Structs/MemoryPage.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MainEngine/src/Structs/Property.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.MainEngine/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MainEngine/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainEngine.sln" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine.sln" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainEngine.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine.sln.DotSettings.user" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainEngine/src/Subsystems/InputSubsystem.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/src/Subsystems/InputSubsystem.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainEngine/x64/Debug/MainEngine.exe.recipe" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/x64/Debug/MainEngine.exe.recipe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainEngine/MainEngine.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/MainEngine.vcxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainEngine/imgui.ini" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/imgui.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainEngine/src/Core/Class.h" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/src/Core/Class.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainEngine/src/Core/GameEngine.h" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/src/Core/GameEngine.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainEngine/src/Game/GCharacter.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainEngine/src/Game/GCharacter.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainEngine/src/Game/GObject.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/src/Game/Object.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainEngine/src/Game/GObject.h" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/src/Game/Object.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainEngine/src/Macros/ObjectMacros.h" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/src/Macros/ObjectMacros.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainEngine/src/Subsystems/RendererSubsystem.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/src/Subsystems/RendererSubsystem.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MainEngine/x64/Debug/MainEngine.ilk" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/x64/Debug/MainEngine.ilk" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MainEngine/x64/Debug/MainEngine.tlog/CL.command.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/x64/Debug/MainEngine.tlog/CL.command.1.tlog" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MainEngine/x64/Debug/MainEngine.tlog/CL.read.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/x64/Debug/MainEngine.tlog/CL.read.1.tlog" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MainEngine/x64/Debug/MainEngine.tlog/CL.write.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/x64/Debug/MainEngine.tlog/CL.write.1.tlog" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MainEngine/x64/Debug/MainEngine.tlog/Cl.items.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/x64/Debug/MainEngine.tlog/Cl.items.tlog" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainEngine/x64/Debug/MainEngine.tlog/MainEngine.lastbuildstate" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/x64/Debug/MainEngine.tlog/MainEngine.lastbuildstate" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MainEngine/x64/Debug/MainEngine.tlog/link.command.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/x64/Debug/MainEngine.tlog/link.command.1.tlog" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MainEngine/x64/Debug/MainEngine.tlog/link.read.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/x64/Debug/MainEngine.tlog/link.read.1.tlog" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MainEngine/x64/Debug/MainEngine.tlog/link.secondary.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/MainEngine/x64/Debug/MainEngine.tlog/link.secondary.1.tlog" afterDir="false" />
@@ -53,40 +65,48 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="cidr-memory-view://0" root0="FORCE_HIGHLIGHTING" />
+    <setting file="cidr-memory-view://2" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/MainEngine/src/Core/Class.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/MainEngine/src/Core/Class.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/MainEngine/src/Game/GCharacter.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/MainEngine/src/Game/GCharacter.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/MainEngine/src/Game/GObject.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/MainEngine/src/Game/GObject.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/MainEngine/src/Game/Component.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/MainEngine/src/Game/Component.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/MainEngine/src/Game/Entity.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/MainEngine/src/Game/Entity.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/MainEngine/src/Game/Object.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/MainEngine/src/Game/Object.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/MainEngine/src/Macros/ObjectMacros.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/MainEngine/src/Memory/PageAllocator.hpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/MainEngine/src/Structs/MemoryPage.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/MainEngine/src/Structs/Property.h" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
 }</component>
   <component name="ProjectId" id="39Ek86eGKAYgOOBe7RaIMSb5Sbn" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;C/C++ Project.MainEngine.executor&quot;: &quot;Debug&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;settings.sync&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "C/C++ Project.MainEngine.executor": "Debug",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.keymap",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="C/C++ Project.MainEngine">
     <configuration name="MainEngine" type="CppProject" factoryName="C++ Project">
       <configuration_1 setup="1">
@@ -132,7 +152,7 @@
       <workItem from="1770745614863" duration="140000" />
       <workItem from="1770745771203" duration="1489000" />
       <workItem from="1770750010455" duration="1112000" />
-      <workItem from="1771807432636" duration="2725000" />
+      <workItem from="1771807432636" duration="13620000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />

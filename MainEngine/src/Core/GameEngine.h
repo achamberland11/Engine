@@ -2,12 +2,16 @@
 #include <mutex>
 
 #include "Counter.h"
+#include "../Memory/PageAllocator.hpp"
 #include "../Subsystems/GameSubsystem.h"
 #include "../Subsystems/InputSubsystem.h"
 #include "../Subsystems/RendererSubsystem.h"
 
 class CGameEngine
 {
+private:
+    CPageAllocator<128, 1024 * 1024> Allocator;
+    
 public:
     static CGameEngine& Instance()
     {
@@ -29,6 +33,11 @@ public:
     CRendererSubsystem& GetRenderer() { return rendererSubsystem; }
     CInputSubsystem& GetInput() { return inputSubsystem; }
     CGameSubsystem& GetGame() { return gameSubsystem; }
+
+    template <typename T> T* NewObject() { return Allocator.NewObject<T>(); }
+    template <typename T> void FreeObject(T* InObject) { Allocator.FreeObject(InObject); }
+
+    CPageAllocator<128, 1024 * 1024>& GetAllocator() { return Allocator; }
 
 private:
     CGameEngine() = default;

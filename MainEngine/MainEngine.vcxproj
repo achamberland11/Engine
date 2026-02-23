@@ -164,8 +164,9 @@
         <ClCompile Include="src\Core\Class.cpp" />
         <ClCompile Include="src\Core\Counter.cpp" />
         <ClCompile Include="src\Core\GameEngine.cpp" />
-        <ClCompile Include="src\Game\GCharacter.cpp" />
-        <ClCompile Include="src\Game\GObject.cpp" />
+        <ClCompile Include="src\Game\Component.cpp" />
+        <ClCompile Include="src\Game\Entity.cpp" />
+        <ClCompile Include="src\Game\Object.cpp" />
         <ClCompile Include="src\Subsystems\GameSubsystem.cpp" />
         <ClCompile Include="src\Subsystems\InputSubsystem.cpp" />
         <ClCompile Include="src\Subsystems\RendererSubsystem.cpp" />
@@ -196,14 +197,22 @@
       <ClInclude Include="src\Core\Class.h" />
       <ClInclude Include="src\Core\Counter.h" />
       <ClInclude Include="src\Core\GameEngine.h" />
-      <ClInclude Include="src\Game\GCharacter.h" />
-      <ClInclude Include="src\Game\GObject.h" />
+      <ClInclude Include="src\Game\Component.h" />
+      <ClInclude Include="src\Game\Entity.h" />
+      <ClInclude Include="src\Game\Object.h" />
       <ClInclude Include="src\Macros\ObjectMacros.h" />
+      <ClInclude Include="src\Memory\PageAllocator.hpp" />
       <ClInclude Include="src\Structs\Color.h" />
+      <ClInclude Include="src\Structs\MemoryPage.h" />
+      <ClInclude Include="src\Structs\Property.h" />
       <ClInclude Include="src\Subsystems\GameSubsystem.h" />
       <ClInclude Include="src\Subsystems\InputSubsystem.h" />
       <ClInclude Include="src\Subsystems\RendererSubsystem.h" />
       <ClInclude Include="src\Subsystems\Subsystem.h" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="src\Game\Components\" />
+      <Folder Include="src\Game\Entities\" />
     </ItemGroup>
     <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
     <ImportGroup Label="ExtensionTargets">
