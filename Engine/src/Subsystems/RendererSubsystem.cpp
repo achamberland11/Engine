@@ -102,6 +102,7 @@ void CRendererSubsystem::Render() const
     static int entityID = 0;
     ImGui::InputText("Entity Name", entityName, IM_ARRAYSIZE(entityName));
 
+    // @TODO Add push ID to entity creation with ImGUI
     if (ImGui::Button("Create Entity"))
     {
         bool bNameExists = false;
@@ -143,6 +144,8 @@ void CRendererSubsystem::Render() const
                 CGameEngine::Instance().GetGame().DestroyEntity(entity);
                 break;
             }
+            
+            ImGui::PushID(entity->Name.c_str());
 
             const std::vector<CProperty>* properties = entity->GetProperties();
             for (const CProperty& property : *properties)

@@ -8,6 +8,7 @@ public:
 
     std::string Name = "Component";
     bool bEnabled = true;
+    bool bCanBeDisabled = true;
 
     CComponent() = default;
     virtual ~CComponent() = default;

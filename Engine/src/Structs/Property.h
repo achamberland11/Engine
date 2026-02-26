@@ -10,6 +10,10 @@ enum class EPropertyType
     Float,
     String,
     Bool,
+    Vector2,
+    Vector3,
+    Quaternion,
+    Matrix4x4,
     Object
 };
 
