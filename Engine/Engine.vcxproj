@@ -274,10 +274,11 @@
       <ClInclude Include="src\Core\Class.h" />
       <ClInclude Include="src\Core\Counter.h" />
       <ClInclude Include="src\Core\GameEngine.h" />
+      <ClInclude Include="src\Factories\ComponentFactory.hpp" />
       <ClInclude Include="src\Game\Component.h" />
+      <ClInclude Include="src\Game\Components\TransformComponent.h" />
       <ClInclude Include="src\Game\Entity.h" />
       <ClInclude Include="src\Game\Object.h" />
-      <ClInclude Include="src\Game\TransformComponent.h" />
       <ClInclude Include="src\Macros\ObjectMacros.h" />
       <ClInclude Include="src\Memory\PageAllocator.hpp" />
       <ClInclude Include="src\Structs\Color.h" />

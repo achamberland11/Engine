@@ -6,10 +6,16 @@ class CComponent : public GObject
 public:
     GENERATE_REFLECTION()
 
+    CComponent() {}
+    virtual ~CComponent() = default;
+    
+    virtual void Start() = 0;
+    virtual void Update(float deltaSeconds) = 0;
+    
     std::string Name = "Component";
     bool bEnabled = true;
-    bool bCanBeDisabled = true;
-
-    CComponent() = default;
-    virtual ~CComponent() = default;
+    
+    static constexpr bool bCanDuplicate = true;
+    static constexpr bool bCanBeDisabled = true;
+    
 };

@@ -1,9 +1,11 @@
 ﻿#include "TransformComponent.h"
 
+#include <vector>
+
 // Reflection class info (display name + parent class)
 CClass CTransformComponent::sClass = CClass
 {
-    "Transform Component",
+    "Transform",
     &CComponent::StaticClass()
 };
 

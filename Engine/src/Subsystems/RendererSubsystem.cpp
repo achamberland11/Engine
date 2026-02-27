@@ -4,6 +4,8 @@
 #include <imgui_impl_sdl3.h>
 
 #include "../Core/GameEngine.h"
+#include "../Factories/ComponentFactory.hpp"
+#include "../Game/Components/TransformComponent.h"
 #include "SDL3/SDL_init.h"
 #include "SDL3/SDL_log.h"
 #include "SDL3/SDL_opengl.h"
@@ -134,18 +136,18 @@ void CRendererSubsystem::Render() const
 
     ImGui::Separator();
     ImGui::Text("Entities:");
+    
+    CEntity* entityToDelete = nullptr;
 
     for (CEntity* entity : CGameEngine::Instance().GetGame().GetEntities())
     {
+        ImGui::PushID(entity);
         if (ImGui::CollapsingHeader(entity->Name.c_str()))
         {
             if (ImGui::Button("Delete Entity"))
             {
-                CGameEngine::Instance().GetGame().DestroyEntity(entity);
-                break;
+                entityToDelete = entity;
             }
-            
-            ImGui::PushID(entity->Name.c_str());
 
             const std::vector<CProperty>* properties = entity->GetProperties();
             for (const CProperty& property : *properties)
@@ -165,36 +167,59 @@ void CRendererSubsystem::Render() const
                     ImGui::Checkbox(property.Name.c_str(), boolPtr);
                 }
             }
+            
+            static ComponentFactory compFactory;
 
             if (ImGui::Button("Add Component"))
             {
-                // ImGui::OpenPopup("Add Component");
-                // ImGui::SetNextWindowSize(ImVec2(200, 100), ImGuiCond_FirstUseEver);
-                CComponent* newComponent = CGameEngine::Instance().NewObject<CComponent>();
-                bool bComponentExists = false;
-                for (const CComponent* component : entity->GetComponents())
+                ImGui::OpenPopup("Add Component Popup");
+            }
+            
+            if (ImGui::BeginPopup("Add Component Popup"))
+            {
+                if (ImGui::Selectable("Transform"))
                 {
-                    if (component->Name == newComponent->Name)
-                    {
-                        bComponentExists = true;
-                        break;
-                    }
+                    compFactory.NewComponent<CTransformComponent>(entity);
+                    ImGui::CloseCurrentPopup();
                 }
-                if (!bComponentExists) entity->AddComponent(newComponent);
-                else CGameEngine::Instance().FreeObject(newComponent);
+                
+                ImGui::EndPopup();
             }
 
             ImGui::Text("Components:");
+            CComponent* componentToDelete = nullptr;
             for (CComponent* component : entity->GetComponents())
             {
-                ImGui::BulletText(component->Name.c_str());
+                ImGui::BulletText(component->GetClass()->GetName().c_str());
+                ImGui::PushID(component);
                 if (ImGui::Button("Delete Component"))
                 {
-                    entity->RemoveComponent(component);
-                    CGameEngine::Instance().FreeObject(component);
+                    componentToDelete = component;
                 }
+                
+                ImGui::PopID();
+                
+                if (componentToDelete)
+                    break;
+            }
+            
+            if (componentToDelete)
+            {
+                entity->RemoveComponent(componentToDelete);
+                CGameEngine::Instance().FreeObject(componentToDelete);
             }
         }
+        
+        ImGui::PopID();
+        
+        if (entityToDelete)
+            break;
+    }
+    
+    if (entityToDelete)
+    {
+        CGameEngine::Instance().GetGame().DestroyEntity(entityToDelete);
+        CGameEngine::Instance().FreeObject(entityToDelete);
     }
 
     ImGui::End();
