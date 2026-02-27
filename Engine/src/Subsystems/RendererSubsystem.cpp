@@ -186,15 +186,17 @@ void CRendererSubsystem::Render() const
                 ImGui::EndPopup();
             }
 
-            ImGui::Text("Components:");
+            // ImGui::Text("Components:");
             CComponent* componentToDelete = nullptr;
             for (CComponent* component : entity->GetComponents())
             {
-                ImGui::BulletText(component->GetClass()->GetName().c_str());
                 ImGui::PushID(component);
-                if (ImGui::Button("Delete Component"))
+                if (ImGui::CollapsingHeader(component->Name.c_str()))
                 {
-                    componentToDelete = component;
+                    if (ImGui::Button("Delete Component"))
+                    {
+                        componentToDelete = component;
+                    }
                 }
                 
                 ImGui::PopID();
