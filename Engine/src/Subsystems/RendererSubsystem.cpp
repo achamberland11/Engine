@@ -85,23 +85,53 @@ void CRendererSubsystem::Update(float deltaSeconds)
 
 void CRendererSubsystem::Render() const
 {
-    const char* fpsMessage = fpsText.c_str();
-    const char* frameMessage = frameText.c_str();
+    RenderFPSCounterWindow();
+    RenderMemoryAllocatorWindow();
+    RenderEntityWindow();
+}
 
+void CRendererSubsystem::RenderFPSCounterWindow() const
+{
     ImGui::Begin("FPS Counter");
-    ImGui::Text("%s", fpsMessage);
-    ImGui::Text("%s", frameMessage);
+    ImGui::Text("%s", fpsText.c_str());
+    ImGui::Text("%s", frameText.c_str());
     ImGui::End();
+}
 
+void CRendererSubsystem::RenderMemoryAllocatorWindow() const
+{
     ImGui::Begin("Memory Allocator");
     ImGui::Text("Used pages: %d", CGameEngine::Instance().GetAllocator().GetUsedPages());
     ImGui::Text("Pages available: %d", CGameEngine::Instance().GetAllocator().GetAvailablePages());
     ImGui::Text("Total pages: %d", 1024 * 1024);
     ImGui::End();
+}
 
+void CRendererSubsystem::RenderEntityWindow() const
+{
     ImGui::Begin("Entity Component System");
+
     static char entityName[128] = "NewEntity";
-    ImGui::InputText("Entity Name", entityName, IM_ARRAYSIZE(entityName));
+    RenderEntityCreation(entityName, sizeof(entityName));
+
+    ImGui::Separator();
+    ImGui::Text("Entities:");
+
+    CEntity* entityToDelete = nullptr;
+    RenderEntityList(entityToDelete);
+
+    if (entityToDelete)
+    {
+        CGameEngine::Instance().GetGame().DestroyEntity(entityToDelete);
+        CGameEngine::Instance().FreeObject(entityToDelete);
+    }
+
+    ImGui::End();
+}
+
+void CRendererSubsystem::RenderEntityCreation(char* entityName, size_t entityNameSize) const
+{
+    ImGui::InputText("Entity Name", entityName, entityNameSize);
 
     if (ImGui::Button("Create Entity"))
     {
@@ -110,16 +140,14 @@ void CRendererSubsystem::Render() const
 
         auto& entities = CGameEngine::Instance().GetGame().GetEntities();
 
-        MakeUniqueName(entityName, sizeof(entityName), baseName, entities);
+        MakeUniqueName(entityName, entityNameSize, baseName, entities);
         CGameEngine::Instance().GetGame().CreateEntity(entityName);
-        std::snprintf(entityName, sizeof(entityName), "NewEntity");
+        std::snprintf(entityName, entityNameSize, "NewEntity");
     }
+}
 
-    ImGui::Separator();
-    ImGui::Text("Entities:");
-
-    CEntity* entityToDelete = nullptr;
-
+void CRendererSubsystem::RenderEntityList(CEntity*& entityToDelete) const
+{
     for (CEntity* entity : CGameEngine::Instance().GetGame().GetEntities())
     {
         ImGui::PushID(entity);
@@ -130,100 +158,11 @@ void CRendererSubsystem::Render() const
                 entityToDelete = entity;
             }
 
-            const std::vector<CProperty>* properties = entity->GetProperties();
-            for (const CProperty& property : *properties)
-            {
-                if (property.Type == EPropertyType::String)
-                {
-                    std::string* stringPtr = reinterpret_cast<std::string*>(reinterpret_cast<char*>(entity) + property.
-                        Offset);
-                    char buffer[128];
-                    strcpy_s(buffer, stringPtr->c_str());
-                    if (ImGui::InputText(property.Name.c_str(), buffer, sizeof(buffer)))
-                        *stringPtr = buffer;
-                }
-                else if (property.Type == EPropertyType::Bool)
-                {
-                    bool* boolPtr = reinterpret_cast<bool*>(reinterpret_cast<char*>(entity) + property.Offset);
-                    ImGui::Checkbox(property.Name.c_str(), boolPtr);
-                }
-            }
+            RenderEntityProperties(entity);
+            RenderAddComponentPopup(entity);
 
-            static ComponentFactory compFactory;
-
-            if (ImGui::Button("Add Component"))
-            {
-                ImGui::OpenPopup("Add Component Popup");
-            }
-
-            if (ImGui::BeginPopup("Add Component Popup"))
-            {
-                if (ImGui::Selectable("Transform"))
-                {
-                    compFactory.NewComponent<CTransformComponent>(entity);
-                    ImGui::CloseCurrentPopup();
-                }
-
-                ImGui::EndPopup();
-            }
-
-            // ImGui::Text("Components:");
             CComponent* componentToDelete = nullptr;
-            for (CComponent* component : entity->GetComponents())
-            {
-                ImGui::PushID(component);
-                if (ImGui::CollapsingHeader(component->Name.c_str()))
-                {
-                    const std::vector<CProperty>* properties = entity->GetProperties();
-                    for (const CProperty& property : *properties)
-                    {
-                        printf("Property: %s\n", property.Name.c_str());
-                        if (property.Type == EPropertyType::String)
-                        {
-                            std::string* stringPtr = reinterpret_cast<std::string*>(reinterpret_cast<char*>(component) +
-                                property.
-                                Offset);
-                            char buffer[128];
-                            strcpy_s(buffer, stringPtr->c_str());
-                            if (ImGui::InputText(property.Name.c_str(), buffer, sizeof(buffer)))
-                                *stringPtr = buffer;
-                        }
-                        else if (property.Type == EPropertyType::Bool)
-                        {
-                            bool* boolPtr = reinterpret_cast<bool*>(reinterpret_cast<char*>(component) + property.
-                                Offset);
-                            ImGui::Checkbox(property.Name.c_str(), boolPtr);
-                        }
-                        else if (property.Type == EPropertyType::Float)
-                        {
-                            float* floatPtr = reinterpret_cast<float*>(reinterpret_cast<char*>(component) + property.
-                                Offset);
-                            ImGui::DragFloat(property.Name.c_str(), floatPtr, 0.01f);
-                        }
-                        else if (property.Type == EPropertyType::Int)
-                        {
-                            int* intPtr = reinterpret_cast<int*>(reinterpret_cast<char*>(component) + property.Offset);
-                            ImGui::DragInt(property.Name.c_str(), intPtr, 1.0f);
-                        }
-                        else if (property.Type == EPropertyType::Vector3)
-                        {
-                            printf("Vector3\n");
-                            Vector3* vec3Ptr = reinterpret_cast<Vector3*>(reinterpret_cast<char*>(component) + property.
-                                Offset);
-                            ImGui::DragFloat3(property.Name.c_str(), &vec3Ptr->x);
-                        }
-                    }
-                    if (ImGui::Button("Delete Component"))
-                    {
-                        componentToDelete = component;
-                    }
-                }
-
-                ImGui::PopID();
-
-                if (componentToDelete)
-                    break;
-            }
+            RenderComponentList(entity, componentToDelete);
 
             if (componentToDelete)
             {
@@ -237,14 +176,69 @@ void CRendererSubsystem::Render() const
         if (entityToDelete)
             break;
     }
+}
 
-    if (entityToDelete)
+void CRendererSubsystem::RenderEntityProperties(CEntity* entity) const
+{
+    const std::vector<CProperty>* properties = entity->GetProperties();
+    for (const CProperty& property : *properties)
     {
-        CGameEngine::Instance().GetGame().DestroyEntity(entityToDelete);
-        CGameEngine::Instance().FreeObject(entityToDelete);
+        if (property.Type == EPropertyType::String)
+        {
+            std::string* stringPtr = reinterpret_cast<std::string*>(reinterpret_cast<char*>(entity) + property.Offset);
+            char buffer[128];
+            strcpy_s(buffer, stringPtr->c_str());
+            if (ImGui::InputText(property.Name.c_str(), buffer, sizeof(buffer)))
+                *stringPtr = buffer;
+        }
+        else if (property.Type == EPropertyType::Bool)
+        {
+            bool* boolPtr = reinterpret_cast<bool*>(reinterpret_cast<char*>(entity) + property.Offset);
+            ImGui::Checkbox(property.Name.c_str(), boolPtr);
+        }
+    }
+}
+
+void CRendererSubsystem::RenderAddComponentPopup(CEntity* entity) const
+{
+    static ComponentFactory compFactory;
+
+    if (ImGui::Button("Add Component"))
+    {
+        ImGui::OpenPopup("Add Component Popup");
     }
 
-    ImGui::End();
+    if (ImGui::BeginPopup("Add Component Popup"))
+    {
+        if (ImGui::Selectable("Transform"))
+        {
+            compFactory.NewComponent<CTransformComponent>(entity);
+            ImGui::CloseCurrentPopup();
+        }
+
+        ImGui::EndPopup();
+    }
+}
+
+void CRendererSubsystem::RenderComponentList(CEntity* entity, CComponent*& componentToDelete) const
+{
+    for (CComponent* component : entity->GetComponents())
+    {
+        ImGui::PushID(component);
+        if (ImGui::CollapsingHeader(component->Name.c_str()))
+        {
+            ShowComponentProperties(component);
+            if (ImGui::Button("Delete Component"))
+            {
+                componentToDelete = component;
+            }
+        }
+
+        ImGui::PopID();
+
+        if (componentToDelete)
+            break;
+    }
 }
 
 void CRendererSubsystem::OnBeginFrame()
@@ -294,4 +288,8 @@ void CRendererSubsystem::MakeUniqueName(char* outName, size_t outNameSize, const
     }
 
     std::snprintf(outName, outNameSize, "%s", "X");
+}
+
+void CRendererSubsystem::ShowComponentProperties(CComponent* component) const
+{
 }
