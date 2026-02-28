@@ -10,9 +10,10 @@ public:
     static constexpr bool bCanDuplicate = false;
     static constexpr bool bCanBeDisabled = false;
     
-    // std::string Name = "Transform";
-    
-    CTransformComponent() {}
+    CTransformComponent()
+    {
+        Name = "Transform";
+    }
     
     void Start() override {}
     void Update(float deltaSeconds) override {}

@@ -101,42 +101,23 @@ void CRendererSubsystem::Render() const
 
     ImGui::Begin("Entity Component System");
     static char entityName[128] = "NewEntity";
-    static int entityID = 0;
     ImGui::InputText("Entity Name", entityName, IM_ARRAYSIZE(entityName));
 
-    // @TODO Add push ID to entity creation with ImGUI
     if (ImGui::Button("Create Entity"))
     {
-        bool bNameExists = false;
-        for (const CEntity* entity : CGameEngine::Instance().GetGame().GetEntities())
-        {
-            if (entity->Name == entityName)
-            {
-                bNameExists = true;
-                break;
-            }
-        }
+        char baseName[128];
+        strcpy_s(baseName, entityName);
 
-        if (!bNameExists)
-            CGameEngine::Instance().GetGame().CreateEntity(entityName);
-        else
-        {
-            if (entityID == 1)
-            {
-                snprintf(entityName, sizeof(entityName), "NewEntity1");
-            }
-            else
-            {
-                snprintf(entityName, sizeof(entityName), "NewEntity%d", entityID);
-            }
-            entityID++;
-            CGameEngine::Instance().GetGame().CreateEntity(entityName);
-        }
+        auto& entities = CGameEngine::Instance().GetGame().GetEntities();
+
+        MakeUniqueName(entityName, sizeof(entityName), baseName, entities);
+        CGameEngine::Instance().GetGame().CreateEntity(entityName);
+        std::snprintf(entityName, sizeof(entityName), "NewEntity");
     }
 
     ImGui::Separator();
     ImGui::Text("Entities:");
-    
+
     CEntity* entityToDelete = nullptr;
 
     for (CEntity* entity : CGameEngine::Instance().GetGame().GetEntities())
@@ -167,14 +148,14 @@ void CRendererSubsystem::Render() const
                     ImGui::Checkbox(property.Name.c_str(), boolPtr);
                 }
             }
-            
+
             static ComponentFactory compFactory;
 
             if (ImGui::Button("Add Component"))
             {
                 ImGui::OpenPopup("Add Component Popup");
             }
-            
+
             if (ImGui::BeginPopup("Add Component Popup"))
             {
                 if (ImGui::Selectable("Transform"))
@@ -182,7 +163,7 @@ void CRendererSubsystem::Render() const
                     compFactory.NewComponent<CTransformComponent>(entity);
                     ImGui::CloseCurrentPopup();
                 }
-                
+
                 ImGui::EndPopup();
             }
 
@@ -193,31 +174,70 @@ void CRendererSubsystem::Render() const
                 ImGui::PushID(component);
                 if (ImGui::CollapsingHeader(component->Name.c_str()))
                 {
+                    const std::vector<CProperty>* properties = entity->GetProperties();
+                    for (const CProperty& property : *properties)
+                    {
+                        printf("Property: %s\n", property.Name.c_str());
+                        if (property.Type == EPropertyType::String)
+                        {
+                            std::string* stringPtr = reinterpret_cast<std::string*>(reinterpret_cast<char*>(component) +
+                                property.
+                                Offset);
+                            char buffer[128];
+                            strcpy_s(buffer, stringPtr->c_str());
+                            if (ImGui::InputText(property.Name.c_str(), buffer, sizeof(buffer)))
+                                *stringPtr = buffer;
+                        }
+                        else if (property.Type == EPropertyType::Bool)
+                        {
+                            bool* boolPtr = reinterpret_cast<bool*>(reinterpret_cast<char*>(component) + property.
+                                Offset);
+                            ImGui::Checkbox(property.Name.c_str(), boolPtr);
+                        }
+                        else if (property.Type == EPropertyType::Float)
+                        {
+                            float* floatPtr = reinterpret_cast<float*>(reinterpret_cast<char*>(component) + property.
+                                Offset);
+                            ImGui::DragFloat(property.Name.c_str(), floatPtr, 0.01f);
+                        }
+                        else if (property.Type == EPropertyType::Int)
+                        {
+                            int* intPtr = reinterpret_cast<int*>(reinterpret_cast<char*>(component) + property.Offset);
+                            ImGui::DragInt(property.Name.c_str(), intPtr, 1.0f);
+                        }
+                        else if (property.Type == EPropertyType::Vector3)
+                        {
+                            printf("Vector3\n");
+                            Vector3* vec3Ptr = reinterpret_cast<Vector3*>(reinterpret_cast<char*>(component) + property.
+                                Offset);
+                            ImGui::DragFloat3(property.Name.c_str(), &vec3Ptr->x);
+                        }
+                    }
                     if (ImGui::Button("Delete Component"))
                     {
                         componentToDelete = component;
                     }
                 }
-                
+
                 ImGui::PopID();
-                
+
                 if (componentToDelete)
                     break;
             }
-            
+
             if (componentToDelete)
             {
                 entity->RemoveComponent(componentToDelete);
                 CGameEngine::Instance().FreeObject(componentToDelete);
             }
         }
-        
+
         ImGui::PopID();
-        
+
         if (entityToDelete)
             break;
     }
-    
+
     if (entityToDelete)
     {
         CGameEngine::Instance().GetGame().DestroyEntity(entityToDelete);
@@ -244,4 +264,34 @@ void CRendererSubsystem::OnEndFrame()
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
     SDL_GL_SwapWindow(window);
+}
+
+bool CRendererSubsystem::NameExists(const std::vector<CEntity*>& entities, const std::string& name)
+{
+    for (const CEntity* entity : entities)
+    {
+        if (entity->Name == name)
+            return true;
+    }
+    return false;
+}
+
+void CRendererSubsystem::MakeUniqueName(char* outName, size_t outNameSize, const char* baseName,
+                                        const std::vector<CEntity*>& entities)
+{
+    if (!NameExists(entities, baseName))
+    {
+        std::snprintf(outName, outNameSize, "%s", baseName);
+        return;
+    }
+
+    for (int i = 0; i < 10000000; ++i)
+    {
+        std::snprintf(outName, outNameSize, "%s_%d", baseName, i);
+
+        if (!NameExists(entities, outName))
+            return;
+    }
+
+    std::snprintf(outName, outNameSize, "%s", "X");
 }

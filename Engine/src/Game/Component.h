@@ -17,5 +17,4 @@ public:
     
     static constexpr bool bCanDuplicate = true;
     static constexpr bool bCanBeDisabled = true;
-    
 };

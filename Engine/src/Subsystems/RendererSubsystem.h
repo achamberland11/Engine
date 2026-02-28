@@ -4,6 +4,7 @@
 #include <string>
 
 #include "Subsystem.h"
+#include "../Game/Entity.h"
 #include "../Structs/Color.h"
 #include "SDL3/SDL_render.h"
 #include "SDL3/SDL_video.h"
@@ -28,6 +29,9 @@ public:
     void SetFrameTimeText(const std::string& text) { frameText = text; }
     void SetFPSText(const std::string& text) { fpsText = text; }
     void SetClearColor(Color color) { ClearColor = color; }
+    
+    static bool NameExists(const std::vector<CEntity*>& entities, const std::string& name);
+    static void MakeUniqueName(char* outName, size_t outNameSize, const char* baseName, const std::vector<CEntity*>& entities);
 
 private:
     SDL_Window* window = nullptr;
