@@ -1,8 +1,12 @@
 #pragma once
+#include <functional>
 #include <string>
 #include <vector>
 
+// #include "../Game/Entity.h"
 #include "../Structs/Property.h"
+
+class CEntity;
 
 class CClass
 {
@@ -10,6 +14,7 @@ public:
     std::string Name;
     const CClass* Parent;
     std::vector<CProperty> Properties;
+    std::function<void(CEntity*)> Factory;
 
     const std::string& GetName() const { return Name; }
     const CClass* GetParent() const { return Parent; }

@@ -11,3 +11,5 @@ const std::vector<CProperty>* GetProperties() const override { return &sProperti
 
 #define REGISTER_PROPERTY(ClassName, PropertyDisplayName, PropertyValue, PropertyType) \
     ClassName::ClassProperties().push_back(CProperty(#PropertyDisplayName, PropertyType, offsetof(ClassName, PropertyValue)))
+
+#define REGISTER_COMPONENT(CComponent) 

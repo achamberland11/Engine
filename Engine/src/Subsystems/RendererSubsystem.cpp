@@ -5,6 +5,7 @@
 
 #include "../Core/GameEngine.h"
 #include "../Factories/ComponentFactory.hpp"
+#include "../Game/Components/ComponentRegistry.h"
 #include "../Game/Components/TransformComponent.h"
 #include "SDL3/SDL_init.h"
 #include "SDL3/SDL_log.h"
@@ -210,10 +211,20 @@ void CRendererSubsystem::RenderAddComponentPopup(CEntity* entity) const
 
     if (ImGui::BeginPopup("Add Component Popup"))
     {
-        if (ImGui::Selectable("Transform"))
+        /*if (ImGui::Selectable("Transform"))
         {
             compFactory.NewComponent<CTransformComponent>(entity);
             ImGui::CloseCurrentPopup();
+        }*/
+
+        for (CClass* component : CComponentRegistry::Instance().GetAllComponents())
+        {
+            if (ImGui::Selectable(component->Name.c_str()))
+            {
+                if (component->Factory)
+                    component->Factory(entity);
+                ImGui::CloseCurrentPopup();
+            }
         }
 
         ImGui::EndPopup();
