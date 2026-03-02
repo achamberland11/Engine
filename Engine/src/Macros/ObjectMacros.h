@@ -16,3 +16,8 @@ CComponent::StaticClass().Factory = [](CEntity* entity) \
     compFactory.NewComponent<CComponent>(entity); \
 }; \
 CComponentRegistry::Instance().RegisterComponent(CComponent::StaticClass());
+
+#define GENERATE_COMPONENT(CanDuplicate, CanBeDisabled, CanBeDeleted) \
+static constexpr bool bCanDuplicate = CanDuplicate; \
+static constexpr bool bCanBeDisabled = CanBeDisabled; \
+static constexpr bool bCanBeDeleted = CanBeDeleted;

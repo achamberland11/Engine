@@ -7,6 +7,7 @@ class CColliderComponent : public CComponent
 {
 public:
     GENERATE_REFLECTION()
+    GENERATE_COMPONENT(true, true, true)
     
     CColliderComponent()
     {
@@ -15,8 +16,4 @@ public:
     
     void Start() override {}
     void Update(float deltaSeconds) override {}
-    
-    static constexpr bool bCanDuplicate = true;
-    static constexpr bool bCanBeDisabled = true;
-    static constexpr bool bCanBeDeleted = true;
 };
