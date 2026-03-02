@@ -154,12 +154,14 @@ void CRendererSubsystem::RenderEntityList(CEntity*& entityToDelete) const
         ImGui::PushID(entity);
         if (ImGui::CollapsingHeader(entity->Name.c_str()))
         {
+
+            RenderEntityProperties(entity);
+            
             if (ImGui::Button("Delete Entity"))
             {
                 entityToDelete = entity;
             }
-
-            RenderEntityProperties(entity);
+            
             RenderAddComponentPopup(entity);
 
             CComponent* componentToDelete = nullptr;
