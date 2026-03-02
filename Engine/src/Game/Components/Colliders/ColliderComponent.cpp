@@ -6,22 +6,20 @@
 
 CClass CColliderComponent::sClass = CClass
 {
-    "ColliderComponent",
+    "CColliderComponent",
+    "Collider",
     &CComponent::StaticClass()
 };
 
 // Property Registration
-std::vector<CProperty> CColliderComponent::sProperties;
+// std::vector<CProperty> CColliderComponent::sProperties;
 
 class CColliderComponentPropertyRegistrar
 {
 public:
     CColliderComponentPropertyRegistrar()
     {
-        REGISTER_PROPERTY(CColliderComponent, "Component Name", Name, EPropertyType::String);
-        REGISTER_PROPERTY(CColliderComponent, "Enabled", bEnabled, EPropertyType::Bool);
-        
-        CColliderComponent::StaticClass().Properties = CColliderComponent::ClassProperties();
+        CColliderComponent::StaticClass().bCanDuplicate = CColliderComponent::bCanDuplicate;
     }
 };
 
@@ -33,13 +31,7 @@ class CColliderComponentRegistrar
 public:
     CColliderComponentRegistrar()
     {
-        CColliderComponent::StaticClass().Factory = [](CEntity* entity)
-        {
-            static ComponentFactory compFactory;
-            compFactory.NewComponent<CColliderComponent>(entity);
-        };
-        
-        CComponentRegistry::Instance().RegisterComponent(CColliderComponent::StaticClass());
+        REGISTER_COMPONENT(CColliderComponent);
     }
 };
 

@@ -7,7 +7,7 @@ class CEntity : public GObject
 public:
     GENERATE_REFLECTION()
 
-    CEntity() = default;
+    CEntity();
     virtual ~CEntity();
 
     std::string Name = "Entity";

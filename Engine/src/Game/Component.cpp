@@ -1,22 +1,23 @@
 #include "Component.h"
 
 CClass CComponent::sClass = CClass{
+    "CComponent",
     "Component",
-   &GObject::StaticClass() 
+    &GObject::StaticClass() 
 };
 
-std::vector<CProperty> CComponent::sProperties;
+// std::vector<CProperty> CComponent::sProperties;
 
-class CEntityPropertyRegistrar
+class CComponentPropertyRegistrar
 {
 public:
-    CEntityPropertyRegistrar()
+    CComponentPropertyRegistrar()
     {
-        REGISTER_PROPERTY(CComponent, "Component Name", Name, EPropertyType::String);
+        REGISTER_PROPERTY(CComponent, "Name", Name, EPropertyType::String);
         REGISTER_PROPERTY(CComponent, "Enabled", bEnabled, EPropertyType::Bool);
 
-        CComponent::StaticClass().Properties = CComponent::ClassProperties();
+        CComponent::StaticClass().bCanDuplicate = CComponent::bCanDuplicate;
     }
 };
 
-static CEntityPropertyRegistrar sEntityPropertyRegistrar;
+static CComponentPropertyRegistrar sComponentPropertyRegistrar;

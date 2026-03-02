@@ -2,27 +2,34 @@
 #include <algorithm>
 
 #include "../Core/GameEngine.h"
+#include "Components/TransformComponent.h"
 
 CClass CEntity::sClass = CClass{
+    "CEntity",
     "Entity",
-   &GObject::StaticClass() 
+    &GObject::StaticClass() 
 };
 
-std::vector<CProperty> CEntity::sProperties;
+// std::vector<CProperty> CEntity::sProperties;
 
 class CEntityPropertyRegistrar
 {
 public:
     CEntityPropertyRegistrar()
     {
-        REGISTER_PROPERTY(CEntity, "Entity Name", Name, EPropertyType::String);
+        REGISTER_PROPERTY(CEntity, "Name", Name, EPropertyType::String);
         REGISTER_PROPERTY(CEntity, "Active", bActive, EPropertyType::Bool);
 
-        CEntity::StaticClass().Properties = CEntity::ClassProperties();
+        // CEntity::StaticClass().Properties = CEntity::ClassProperties();
     }
 };
 
 static CEntityPropertyRegistrar sEntityPropertyRegistrar;
+
+CEntity::CEntity()
+{
+    CTransformComponent::StaticClass().Factory(this);
+}
 
 CEntity::~CEntity()
 {

@@ -20,8 +20,8 @@ public:
     void Update(float deltaSeconds) override;
     void Render() const;
 
-    void OnBeginFrame();
-    void OnEndFrame();
+    void OnBeginFrame() const;
+    void OnEndFrame() const;
 
     SDL_Window* GetWindow() const { return window; }
     SDL_GLContext GetGLContext() const { return glContext; }

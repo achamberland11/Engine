@@ -181,9 +181,10 @@ void CRendererSubsystem::RenderEntityList(CEntity*& entityToDelete) const
 
 void CRendererSubsystem::RenderEntityProperties(CEntity* entity) const
 {
-    const std::vector<CProperty>* properties = entity->GetProperties();
+    const std::vector<CProperty>* properties = &entity->StaticClass().Properties;
     for (const CProperty& property : *properties)
     {
+        ImGui::PushID(property.Name.c_str());
         if (property.Type == EPropertyType::String)
         {
             std::string* stringPtr = reinterpret_cast<std::string*>(reinterpret_cast<char*>(entity) + property.Offset);
@@ -197,6 +198,7 @@ void CRendererSubsystem::RenderEntityProperties(CEntity* entity) const
             bool* boolPtr = reinterpret_cast<bool*>(reinterpret_cast<char*>(entity) + property.Offset);
             ImGui::Checkbox(property.Name.c_str(), boolPtr);
         }
+        ImGui::PopID();
     }
 }
 
@@ -211,20 +213,43 @@ void CRendererSubsystem::RenderAddComponentPopup(CEntity* entity) const
 
     if (ImGui::BeginPopup("Add Component Popup"))
     {
-        /*if (ImGui::Selectable("Transform"))
-        {
-            compFactory.NewComponent<CTransformComponent>(entity);
-            ImGui::CloseCurrentPopup();
-        }*/
-
         for (CClass* component : CComponentRegistry::Instance().GetAllComponents())
         {
-            if (ImGui::Selectable(component->Name.c_str()))
+            ImGui::PushID(component);
+            if (!component->bCanDuplicate)
             {
-                if (component->Factory)
-                    component->Factory(entity);
-                ImGui::CloseCurrentPopup();
+                bool bExists = false;
+                for (CComponent* comp : entity->GetComponents())
+                {
+                    if (comp->IsA(*component))
+                    {
+                        bExists = true;
+                        break;
+                    }
+                }
+                if (bExists)
+                {
+                    ImGui::PopID();
+                    continue;
+                }
+                
+                if (ImGui::Selectable(component->DisplayName.c_str()))
+                {
+                    if (component->Factory)
+                        component->Factory(entity);
+                    ImGui::CloseCurrentPopup();
+                }
             }
+            else
+            {
+                if (ImGui::Selectable(component->DisplayName.c_str()))
+                {
+                    if (component->Factory)
+                        component->Factory(entity);
+                    ImGui::CloseCurrentPopup();
+                }
+            }
+            ImGui::PopID();
         }
 
         ImGui::EndPopup();
@@ -239,9 +264,12 @@ void CRendererSubsystem::RenderComponentList(CEntity* entity, CComponent*& compo
         if (ImGui::CollapsingHeader(component->Name.c_str()))
         {
             ShowComponentProperties(component);
-            if (ImGui::Button("Delete Component"))
+            if (component->CanDuplicate())
             {
-                componentToDelete = component;
+                if (ImGui::Button("Delete Component"))
+                {
+                    componentToDelete = component;
+                }
             }
         }
 
@@ -252,7 +280,7 @@ void CRendererSubsystem::RenderComponentList(CEntity* entity, CComponent*& compo
     }
 }
 
-void CRendererSubsystem::OnBeginFrame()
+void CRendererSubsystem::OnBeginFrame() const
 {
     glViewport(0, 0, 1280, 800);
     glClearColor(ClearColor.r, ClearColor.g, ClearColor.b, 1.0f);
@@ -263,7 +291,7 @@ void CRendererSubsystem::OnBeginFrame()
     ImGui::NewFrame();
 }
 
-void CRendererSubsystem::OnEndFrame()
+void CRendererSubsystem::OnEndFrame() const
 {
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
