@@ -15,18 +15,18 @@ public:
     void Update(float deltaSeconds) override;
 
     float GetAverageFrameTime() const { return currentAverage; }
-    Color GetBackgroundColor() const { return backgroundColor; }
+    FColor GetBackgroundColor() const { return backgroundColor; }
 
-    CEntity* CreateEntity(const std::string& name);
-    void DestroyEntity(CEntity* entity);
-    const std::vector<CEntity*>& GetEntities() const { return Entities; }
+    GEntity* CreateEntity(const std::string& name);
+    void DestroyEntity(GEntity* entity);
+    const std::vector<GEntity*>& GetEntities() const { return Entities; }
 
 private:
     std::vector<float> frameDuration;
     float timeAccumulator = 0.0f;
     float currentAverage = 0.0f;
 
-    Color backgroundColor = { 0, 0, 0 };
+    FColor backgroundColor = { 0, 0, 0 };
 
-    std::vector<CEntity*> Entities;
+    std::vector<GEntity*> Entities;
 };

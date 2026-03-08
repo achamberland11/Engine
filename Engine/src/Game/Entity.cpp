@@ -4,7 +4,7 @@
 #include "../Core/GameEngine.h"
 #include "Components/TransformComponent.h"
 
-CClass CEntity::sClass = CClass{
+CClass GEntity::sClass = CClass{
     "CEntity",
     "Entity",
     &GObject::StaticClass() 
@@ -17,8 +17,8 @@ class CEntityPropertyRegistrar
 public:
     CEntityPropertyRegistrar()
     {
-        REGISTER_PROPERTY(CEntity, "Name", Name, EPropertyType::String);
-        REGISTER_PROPERTY(CEntity, "Active", bActive, EPropertyType::Bool);
+        REGISTER_PROPERTY(GEntity, "Name", Name, EPropertyType::String);
+        REGISTER_PROPERTY(GEntity, "Active", bActive, EPropertyType::Bool);
 
         // CEntity::StaticClass().Properties = CEntity::ClassProperties();
     }
@@ -26,29 +26,29 @@ public:
 
 static CEntityPropertyRegistrar sEntityPropertyRegistrar;
 
-CEntity::CEntity()
+GEntity::GEntity()
 {
-    CTransformComponent::StaticClass().Factory(this);
+    GTransformComponent::StaticClass().Factory(this);
 }
 
-CEntity::~CEntity()
+GEntity::~GEntity()
 {
     for (auto component : Components) CGameEngine::Instance().FreeObject(component);
     Components.clear();
 }
 
-void CEntity::AddComponent(CComponent* component)
+void GEntity::AddComponent(GComponent* component)
 {
     Components.push_back(component);
 }
 
-void CEntity::RemoveComponent(CComponent* component)
+void GEntity::RemoveComponent(GComponent* component)
 {
     auto it = std::find(Components.begin(), Components.end(), component);
     if (it != Components.end()) Components.erase(it);
 }
 
-std::vector<CComponent*> CEntity::GetComponents()
+std::vector<GComponent*> GEntity::GetComponents()
 {
     return Components;
 }

@@ -30,7 +30,7 @@ void CGameEngine::Loop()
     rendererSubsystem.SetFrameTimeText("Average Frame Time: " + std::to_string(avg) + "s");
     rendererSubsystem.SetFPSText("FPS: " + std::to_string(fps));
 
-    Color bgColor = gameSubsystem.GetBackgroundColor();
+    FColor bgColor = gameSubsystem.GetBackgroundColor();
     rendererSubsystem.SetClearColor(bgColor);
     
     rendererSubsystem.Update(deltaSeconds);

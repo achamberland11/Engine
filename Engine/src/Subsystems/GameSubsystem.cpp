@@ -39,15 +39,15 @@ void CGameSubsystem::Update(float deltaSeconds)
         backgroundColor = { (float)(rand() % 256) / 255.0f, (float)(rand() % 256) / 255.0f, (float)(rand() % 256) / 255.0f };
 }
 
-CEntity* CGameSubsystem::CreateEntity(const std::string& name)
+GEntity* CGameSubsystem::CreateEntity(const std::string& name)
 {
-    CEntity* newEntity = CGameEngine::Instance().NewObject<CEntity>();
+    GEntity* newEntity = CGameEngine::Instance().NewObject<GEntity>();
     newEntity->Name = name;
     Entities.push_back(newEntity);
     return newEntity;
 }
 
-void CGameSubsystem::DestroyEntity(CEntity* entity)
+void CGameSubsystem::DestroyEntity(GEntity* entity)
 {
     auto it = std::find(Entities.begin(), Entities.end(), entity);
     if (it != Entities.end()) Entities.erase(it);

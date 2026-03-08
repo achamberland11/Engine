@@ -17,12 +17,12 @@ enum class EPropertyType
     Object
 };
 
-struct CProperty
+struct FProperty
 {
     std::string Name;
     EPropertyType Type;
     int Offset;
 
-    CProperty(const std::string& name, EPropertyType type, int offset)
+    FProperty(const std::string& name, EPropertyType type, int offset)
         : Name(name), Type(type), Offset(offset) {}
 };

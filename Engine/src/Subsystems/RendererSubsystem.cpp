@@ -118,7 +118,7 @@ void CRendererSubsystem::RenderEntityWindow() const
     ImGui::Separator();
     ImGui::Text("Entities:");
 
-    CEntity* entityToDelete = nullptr;
+    GEntity* entityToDelete = nullptr;
     RenderEntityList(entityToDelete);
 
     if (entityToDelete)
@@ -147,9 +147,9 @@ void CRendererSubsystem::RenderEntityCreation(char* entityName, size_t entityNam
     }
 }
 
-void CRendererSubsystem::RenderEntityList(CEntity*& entityToDelete) const
+void CRendererSubsystem::RenderEntityList(GEntity*& entityToDelete) const
 {
-    for (CEntity* entity : CGameEngine::Instance().GetGame().GetEntities())
+    for (GEntity* entity : CGameEngine::Instance().GetGame().GetEntities())
     {
         ImGui::PushID(entity);
         if (ImGui::CollapsingHeader(entity->Name.c_str()))
@@ -164,7 +164,7 @@ void CRendererSubsystem::RenderEntityList(CEntity*& entityToDelete) const
             
             RenderAddComponentPopup(entity);
 
-            CComponent* componentToDelete = nullptr;
+            GComponent* componentToDelete = nullptr;
             RenderComponentList(entity, componentToDelete);
 
             if (componentToDelete)
@@ -181,10 +181,10 @@ void CRendererSubsystem::RenderEntityList(CEntity*& entityToDelete) const
     }
 }
 
-void CRendererSubsystem::RenderEntityProperties(CEntity* entity) const
+void CRendererSubsystem::RenderEntityProperties(GEntity* entity) const
 {
-    const std::vector<CProperty>* properties = &entity->StaticClass().Properties;
-    for (const CProperty& property : *properties)
+    const std::vector<FProperty>* properties = &entity->StaticClass().Properties;
+    for (const FProperty& property : *properties)
     {
         ImGui::PushID(property.Name.c_str());
         if (property.Type == EPropertyType::String)
@@ -204,7 +204,7 @@ void CRendererSubsystem::RenderEntityProperties(CEntity* entity) const
     }
 }
 
-void CRendererSubsystem::RenderAddComponentPopup(CEntity* entity) const
+void CRendererSubsystem::RenderAddComponentPopup(GEntity* entity) const
 {
     static ComponentFactory compFactory;
 
@@ -221,7 +221,7 @@ void CRendererSubsystem::RenderAddComponentPopup(CEntity* entity) const
             if (!component->bCanDuplicate)
             {
                 bool bExists = false;
-                for (CComponent* comp : entity->GetComponents())
+                for (GComponent* comp : entity->GetComponents())
                 {
                     if (comp->IsA(*component))
                     {
@@ -258,9 +258,9 @@ void CRendererSubsystem::RenderAddComponentPopup(CEntity* entity) const
     }
 }
 
-void CRendererSubsystem::RenderComponentList(CEntity* entity, CComponent*& componentToDelete) const
+void CRendererSubsystem::RenderComponentList(GEntity* entity, GComponent*& componentToDelete) const
 {
-    for (CComponent* component : entity->GetComponents())
+    for (GComponent* component : entity->GetComponents())
     {
         ImGui::PushID(component);
         if (ImGui::CollapsingHeader(component->Name.c_str()))
@@ -301,9 +301,9 @@ void CRendererSubsystem::OnEndFrame() const
     SDL_GL_SwapWindow(window);
 }
 
-bool CRendererSubsystem::NameExists(const std::vector<CEntity*>& entities, const std::string& name)
+bool CRendererSubsystem::NameExists(const std::vector<GEntity*>& entities, const std::string& name)
 {
-    for (const CEntity* entity : entities)
+    for (const GEntity* entity : entities)
     {
         if (entity->Name == name)
             return true;
@@ -312,7 +312,7 @@ bool CRendererSubsystem::NameExists(const std::vector<CEntity*>& entities, const
 }
 
 void CRendererSubsystem::MakeUniqueName(char* outName, size_t outNameSize, const char* baseName,
-                                        const std::vector<CEntity*>& entities)
+                                        const std::vector<GEntity*>& entities)
 {
     if (!NameExists(entities, baseName))
     {
@@ -331,6 +331,6 @@ void CRendererSubsystem::MakeUniqueName(char* outName, size_t outNameSize, const
     std::snprintf(outName, outNameSize, "%s", "X");
 }
 
-void CRendererSubsystem::ShowComponentProperties(CComponent* component) const
+void CRendererSubsystem::ShowComponentProperties(GComponent* component) const
 {
 }

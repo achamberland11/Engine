@@ -7,21 +7,21 @@
 class ComponentFactory
 {
 public:
-    template <typename T> void NewComponent(CEntity* parent);
+    template <typename T> void NewComponent(GEntity* parent);
     
 };
 
 template <typename T>
-void ComponentFactory::NewComponent(CEntity* parent)
+void ComponentFactory::NewComponent(GEntity* parent)
 {
     if (parent == nullptr) return;
     
     if (!T::bCanDuplicate)
     {
         bool bComponentExists = false;
-        for (CComponent* component : parent->GetComponents())
+        for (GComponent* component : parent->GetComponents())
         {
-            if (component->IsA(CComponent::StaticClass()))
+            if (component->IsA(GComponent::StaticClass()))
             {
                 bComponentExists = true;
                 break;
@@ -30,7 +30,7 @@ void ComponentFactory::NewComponent(CEntity* parent)
         
         if (bComponentExists) return;
     }
-    CComponent* newComponent = CGameEngine::Instance().NewObject<T>();
+    GComponent* newComponent = CGameEngine::Instance().NewObject<T>();
     newComponent->Start();
     parent->AddComponent(newComponent);
 }

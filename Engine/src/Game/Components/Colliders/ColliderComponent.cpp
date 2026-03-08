@@ -4,11 +4,11 @@
 #include "../../../Factories/ComponentFactory.hpp"
 
 
-CClass CColliderComponent::sClass = CClass
+CClass GColliderComponent::sClass = CClass
 {
     "CColliderComponent",
     "Collider",
-    &CComponent::StaticClass()
+    &GComponent::StaticClass()
 };
 
 // Property Registration
@@ -19,7 +19,7 @@ class CColliderComponentPropertyRegistrar
 public:
     CColliderComponentPropertyRegistrar()
     {
-        CColliderComponent::StaticClass().bCanDuplicate = CColliderComponent::bCanDuplicate;
+        GColliderComponent::StaticClass().bCanDuplicate = GColliderComponent::bCanDuplicate;
     }
 };
 
@@ -31,7 +31,7 @@ class CColliderComponentRegistrar
 public:
     CColliderComponentRegistrar()
     {
-        REGISTER_COMPONENT(CColliderComponent);
+        REGISTER_COMPONENT(GColliderComponent);
     }
 };
 

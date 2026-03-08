@@ -5,11 +5,11 @@
 #include "ComponentRegistry.h"
 #include "../../Factories/ComponentFactory.hpp"
 
-CClass CTransformComponent::sClass = CClass
+CClass GTransformComponent::sClass = CClass
 {
     "CTransformComponent",
     "Transform",
-    &CComponent::StaticClass()
+    &GComponent::StaticClass()
 };
 
 // Property Registration
@@ -20,11 +20,11 @@ class CTransformComponentPropertyRegistrar
 public:
     CTransformComponentPropertyRegistrar()
     {
-        REGISTER_PROPERTY(CTransformComponent, "Position", Position, EPropertyType::Vector3);
-        REGISTER_PROPERTY(CTransformComponent, "Rotation", Rotation, EPropertyType::Vector3);
-        REGISTER_PROPERTY(CTransformComponent, "Scale", Scale, EPropertyType::Vector3);
+        REGISTER_PROPERTY(GTransformComponent, "Position", Position, EPropertyType::Vector3);
+        REGISTER_PROPERTY(GTransformComponent, "Rotation", Rotation, EPropertyType::Vector3);
+        REGISTER_PROPERTY(GTransformComponent, "Scale", Scale, EPropertyType::Vector3);
 
-        CTransformComponent::StaticClass().bCanDuplicate = CTransformComponent::bCanDuplicate;
+        GTransformComponent::StaticClass().bCanDuplicate = GTransformComponent::bCanDuplicate;
     }
 };
 
@@ -37,7 +37,7 @@ class CTransformComponentRegistrar
 public:
     CTransformComponentRegistrar()
     {
-        REGISTER_COMPONENT(CTransformComponent);
+        REGISTER_COMPONENT(GTransformComponent);
     }
 };
 

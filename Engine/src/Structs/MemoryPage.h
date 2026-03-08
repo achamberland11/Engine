@@ -1,6 +1,6 @@
 #pragma once
 
-struct SMemoryPage
+struct FMemoryPage
 {
     void* Memory;
     bool bUsed;

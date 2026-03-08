@@ -2,19 +2,19 @@
 #include "Component.h"
 #include "Object.h"
 
-class CEntity : public GObject
+class GEntity : public GObject
 {
 public:
     GENERATE_REFLECTION()
 
-    CEntity();
-    virtual ~CEntity();
+    GEntity();
+    virtual ~GEntity();
 
     std::string Name = "Entity";
     bool bActive = true;
-    std::vector<CComponent*> Components;
+    std::vector<GComponent*> Components;
 
-    void AddComponent(CComponent* component);
-    void RemoveComponent(CComponent* component);
-    std::vector<CComponent*> GetComponents();
+    void AddComponent(GComponent* component);
+    void RemoveComponent(GComponent* component);
+    std::vector<GComponent*> GetComponents();
 };

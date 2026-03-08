@@ -8,7 +8,7 @@ CClass::CClass(std::string name, std::string displayName, const CClass* parent)
         const CClass* currentParent = Parent;
         while (currentParent != nullptr)
         {
-            for (const CProperty& property : currentParent->Properties)
+            for (const FProperty& property : currentParent->Properties)
             {
                 AddProperty(property);
             }

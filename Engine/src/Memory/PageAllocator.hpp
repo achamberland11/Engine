@@ -9,7 +9,7 @@ template <int NBytes, int NObjects>
 class CPageAllocator
 {
 private:
-    SMemoryPage Pages[NObjects];
+    FMemoryPage Pages[NObjects];
     std::stack<int> FreePages;
     int UsedPages;
 

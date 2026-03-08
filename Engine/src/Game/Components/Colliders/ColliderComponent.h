@@ -3,13 +3,13 @@
 #include "../../Component.h"
 
 
-class CColliderComponent : public CComponent
+class GColliderComponent : public GComponent
 {
 public:
     GENERATE_REFLECTION()
     GENERATE_COMPONENT(true, true, true)
     
-    CColliderComponent()
+    GColliderComponent()
     {
         Name = "Collider";
     }

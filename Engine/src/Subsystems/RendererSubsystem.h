@@ -28,7 +28,7 @@ public:
 
     void SetFrameTimeText(const std::string& text) { frameText = text; }
     void SetFPSText(const std::string& text) { fpsText = text; }
-    void SetClearColor(Color color) { ClearColor = color; }
+    void SetClearColor(FColor color) { ClearColor = color; }
     
 private:
     void RenderFPSCounterWindow() const;
@@ -36,14 +36,14 @@ private:
     void RenderEntityWindow() const;
     
     void RenderEntityCreation(char* entityName, size_t entityNameSize) const;
-    void RenderEntityList(CEntity*& entityToDelete) const;
-    void RenderEntityProperties(CEntity* entity) const;
-    void RenderAddComponentPopup(CEntity* entity) const;
-    void RenderComponentList(CEntity* entity, CComponent*& componentToDelete) const;
-    void ShowComponentProperties(CComponent* component) const;
+    void RenderEntityList(GEntity*& entityToDelete) const;
+    void RenderEntityProperties(GEntity* entity) const;
+    void RenderAddComponentPopup(GEntity* entity) const;
+    void RenderComponentList(GEntity* entity, GComponent*& componentToDelete) const;
+    void ShowComponentProperties(GComponent* component) const;
 
-    static bool NameExists(const std::vector<CEntity*>& entities, const std::string& name);
-    static void MakeUniqueName(char* outName, size_t outNameSize, const char* baseName, const std::vector<CEntity*>& entities);
+    static bool NameExists(const std::vector<GEntity*>& entities, const std::string& name);
+    static void MakeUniqueName(char* outName, size_t outNameSize, const char* baseName, const std::vector<GEntity*>& entities);
 
 
     SDL_Window* window = nullptr;
@@ -51,7 +51,7 @@ private:
 
     std::string frameText;
     std::string fpsText;
-    Color ClearColor;
+    FColor ClearColor;
 };
 
 #endif

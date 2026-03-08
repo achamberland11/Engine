@@ -1,8 +1,8 @@
 #pragma once
 #include <vector>
 
-class CComponent;
-class CEntity;
+class GComponent;
+class GEntity;
 
 class CComponentRegistry
 {

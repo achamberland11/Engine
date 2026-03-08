@@ -7,15 +7,15 @@ static CClass& StaticClass() { return sClass; } \
 const CClass* GetClass() const override { return &sClass; }
 
 #define REGISTER_PROPERTY(ClassName, PropertyDisplayName, PropertyValue, PropertyType) \
-    ClassName::StaticClass().AddProperty(CProperty(PropertyDisplayName, PropertyType, offsetof(ClassName, PropertyValue)));
+    ClassName::StaticClass().AddProperty(FProperty(PropertyDisplayName, PropertyType, offsetof(ClassName, PropertyValue)));
 
-#define REGISTER_COMPONENT(CComponent) \
-CComponent::StaticClass().Factory = [](CEntity* entity) \
+#define REGISTER_COMPONENT(GComponent) \
+GComponent::StaticClass().Factory = [](GEntity* entity) \
 { \
     static ComponentFactory compFactory; \
-    compFactory.NewComponent<CComponent>(entity); \
+    compFactory.NewComponent<GComponent>(entity); \
 }; \
-CComponentRegistry::Instance().RegisterComponent(CComponent::StaticClass());
+CComponentRegistry::Instance().RegisterComponent(GComponent::StaticClass());
 
 #define GENERATE_COMPONENT(CanDuplicate, CanBeDisabled, CanBeDeleted) \
 static constexpr bool bCanDuplicate = CanDuplicate; \

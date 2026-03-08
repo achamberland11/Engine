@@ -2,13 +2,13 @@
 #include "../Component.h"
 #include "../../Utils/Math.h"
 
-class CTransformComponent : public CComponent
+class GTransformComponent : public GComponent
 {
 public:
     GENERATE_REFLECTION()
     GENERATE_COMPONENT(false, false, false)
     
-    CTransformComponent()
+    GTransformComponent()
     {
         Name = "Transform";
     }

@@ -1,14 +1,14 @@
 #pragma once
 #include "Object.h"
 
-class CComponent : public GObject
+class GComponent : public GObject
 {
 public:
     GENERATE_REFLECTION()
     GENERATE_COMPONENT(true, true, true)
 
-    CComponent() {}
-    virtual ~CComponent() = default;
+    GComponent() {}
+    virtual ~GComponent() = default;
     
     virtual void Start() = 0;
     virtual void Update(float deltaSeconds) = 0;

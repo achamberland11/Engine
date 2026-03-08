@@ -1,6 +1,6 @@
 #include "Component.h"
 
-CClass CComponent::sClass = CClass{
+CClass GComponent::sClass = CClass{
     "CComponent",
     "Component",
     &GObject::StaticClass() 
@@ -13,10 +13,10 @@ class CComponentPropertyRegistrar
 public:
     CComponentPropertyRegistrar()
     {
-        REGISTER_PROPERTY(CComponent, "Name", Name, EPropertyType::String);
-        REGISTER_PROPERTY(CComponent, "Enabled", bEnabled, EPropertyType::Bool);
+        REGISTER_PROPERTY(GComponent, "Name", Name, EPropertyType::String);
+        REGISTER_PROPERTY(GComponent, "Enabled", bEnabled, EPropertyType::Bool);
 
-        CComponent::StaticClass().bCanDuplicate = CComponent::bCanDuplicate;
+        GComponent::StaticClass().bCanDuplicate = GComponent::bCanDuplicate;
     }
 };
 
