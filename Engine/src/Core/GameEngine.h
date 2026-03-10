@@ -9,9 +9,6 @@
 
 class CGameEngine
 {
-private:
-    CPageAllocator<128, 1024 * 1024> Allocator;
-    
 public:
     static CGameEngine& Instance()
     {
@@ -43,6 +40,8 @@ private:
     CGameEngine() = default;
     ~CGameEngine() = default;
 
+    CPageAllocator<128, 1024 * 1024> Allocator;
+    
     CRendererSubsystem rendererSubsystem;
     CInputSubsystem inputSubsystem;
     CGameSubsystem gameSubsystem;

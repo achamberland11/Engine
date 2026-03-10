@@ -34,6 +34,7 @@ public:
 template <int NBytes, int NObjects>
 CPageAllocator<NBytes, NObjects>::CPageAllocator() : UsedPages(0)
 {
+    //@TODO Allouer un gros bloc et le subdiviser
     // Implementation simple
     for (int i = 0; i < NObjects; i++)
     {
