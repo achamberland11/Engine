@@ -73,3 +73,32 @@ cd Engine
 
 - TODO: Specify license (e.g., MIT). External libraries in `external/` are subject to their own respective licenses (SDL3: Zlib, ImGui: MIT).
 
+# Review
+## TP1
+1. Chaque fois que vous allouez dynamiquement de la mémoire, assurez-vous qu’elle est également libérée. Chaque new ou 
+new[] doit avoir un delete ou delete[] correspondant. Sinon, vous provoquez une fuite de mémoire. Il est aussi recommandé 
+d’assigner nullptr au pointeur qui référençait l’objet alloué dynamiquement afin d’éviter tout accès accidentel après la 
+suppression.
+2. L’ordre d’initialisation des systèmes et leur arrêt doivent être inverses. Si vous initialisez le système A avant le 
+système B, cela suggère que le système B a besoin de A pour fonctionner. Cela signifie que, potentiellement, B peut aussi 
+avoir besoin que A fonctionne pour s’arrêter correctement. Pensez à la métaphore de la maison : on construit d’abord le 
+rez-de-chaussée, puis le premier étage, puis le toit. Pour la démonter en toute sécurité, on enlève d’abord le toit, 
+ensuite le premier étage, puis le rez-de-chaussée. Si vous retirez le rez-de-chaussée en premier, tout s’effondre (crash).
+3. J’ai vu plusieurs personnes implémenter des fonctionnalités qui n’appartiennent pas au système correspondant. Par 
+exemple, CInputSubsystem est censé traiter les entrées et permettre aux autres parties du code de vérifier l’état des 
+entrées. Il ne devrait pas stocker une valeur de couleur pour l’arrière-plan, ni gérer spécifiquement la touche Espace. 
+Dans notre exemple, la gestion de la couleur et la réaction à une touche précise relèvent de la logique de gameplay; 
+elles devraient donc être implémentées dans CGameSubsystem.
+4. Il n’est pas nécessaire que CInputSubsystem soit conservateur et n’initialise que les états des boutons au fur et à 
+mesure. En général, on utilise un enum contenant toutes les touches existantes du clavier et un tableau de la taille de 
+cet enum. Cela n’augmente pas beaucoup le coût mémoire du système, mais c’est bien plus performant, car au lieu de faire 
+une recherche dans une map, on accède directement à un élément du tableau par index pour récupérer l’état d’une touche. 
+De plus, de cette façon, il n’est pas nécessaire de réallouer de la mémoire chaque fois qu’on ajoute un nouveau bouton 
+au système.
+5. Il est important d’avoir un style de code et de s’y tenir. Définissez une manière précise de nommer les variables 
+locales, statiques, globales, les macros, les types et les méthodes. N’importe quel style de code convient tant qu’il 
+est cohérent. N’hésitez pas à consulter des styles de codage C++ populaires si vous ne souhaitez pas créer le vôtre.
+
+## TP4
+Changer l'allocateur de mémoire pour que celui-ci soit alligné. Allouer un gros bloc de mémoire et le diviser en plusieurs 
+blocs plus petits (pages) à la place d'allouer chaque page indépendamment.

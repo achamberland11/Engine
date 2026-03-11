@@ -27,9 +27,9 @@ public:
     void Quit() { bShouldQuit = true; }
     bool ShouldQuit() const { return bShouldQuit; }
 
-    CRendererSubsystem& GetRenderer() { return rendererSubsystem; }
-    CInputSubsystem& GetInput() { return inputSubsystem; }
-    CGameSubsystem& GetGame() { return gameSubsystem; }
+    CRendererSubsystem& GetRenderer() { return RendererSubsystem; }
+    CInputSubsystem& GetInput() { return InputSubsystem; }
+    CGameSubsystem& GetGame() { return GameSubsystem; }
 
     template <typename T> T* NewObject() { return Allocator.NewObject<T>(); }
     template <typename T> void FreeObject(T* InObject) { Allocator.FreeObject(InObject); }
@@ -42,10 +42,10 @@ private:
 
     CPageAllocator<128, 1024 * 1024> Allocator;
     
-    CRendererSubsystem rendererSubsystem;
-    CInputSubsystem inputSubsystem;
-    CGameSubsystem gameSubsystem;
-    CCounter counter;
+    CRendererSubsystem RendererSubsystem;
+    CInputSubsystem InputSubsystem;
+    CGameSubsystem GameSubsystem;
+    CCounter Counter;
 
     bool bShouldQuit = false;
 };

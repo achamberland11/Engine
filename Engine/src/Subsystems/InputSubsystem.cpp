@@ -19,29 +19,29 @@ void CInputSubsystem::Update(float deltaSeconds)
             CGameEngine::Instance().Quit();
 
         if (event.type == SDL_EVENT_KEY_DOWN && !ImGui::GetIO().WantCaptureKeyboard)
-            pendingPressedKeys.push_back(event.key.key);
+            PendingPressedKeys.push_back(event.key.key);
         else if (event.type == SDL_EVENT_KEY_UP && !ImGui::GetIO().WantCaptureKeyboard)
-            buttonStates[event.key.key] = EButtonState::UP;
+            ButtonStates[event.key.key] = EButtonState::UP;
     }
     
-    for (auto& pair : buttonStates)
+    for (auto& pair : ButtonStates)
     {
         EButtonState& state = pair.second;
         if (state == EButtonState::JUST_PRESSED)
             state = EButtonState::DOWN;
     }
 
-    for (SDL_Keycode key : pendingPressedKeys)
+    for (SDL_Keycode key : PendingPressedKeys)
     {
-        if (buttonStates[key] == EButtonState::UP)
-            buttonStates[key] = EButtonState::JUST_PRESSED;
+        if (ButtonStates[key] == EButtonState::UP)
+            ButtonStates[key] = EButtonState::JUST_PRESSED;
     }
 
-    pendingPressedKeys.clear();
+    PendingPressedKeys.clear();
 }
 
 EButtonState CInputSubsystem::GetButtonState(SDL_Keycode key) const
 {
-    auto it = buttonStates.find(key);
-    return it != buttonStates.end() ? it->second : EButtonState::UP;
+    auto it = ButtonStates.find(key);
+    return it != ButtonStates.end() ? it->second : EButtonState::UP;
 }

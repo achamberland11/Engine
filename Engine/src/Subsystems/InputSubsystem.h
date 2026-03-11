@@ -19,6 +19,6 @@ public:
     EButtonState GetButtonState(SDL_Keycode key) const;
 
 private:
-    std::unordered_map<SDL_Keycode, EButtonState> buttonStates;
-    std::vector<SDL_Keycode> pendingPressedKeys;
+    std::unordered_map<SDL_Keycode, EButtonState> ButtonStates;
+    std::vector<SDL_Keycode> PendingPressedKeys;
 };

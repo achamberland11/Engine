@@ -7,36 +7,36 @@
 
 void CGameSubsystem::Start()
 {
-    frameDuration.reserve(100);
+    FrameDuration.reserve(100);
 }
 
 void CGameSubsystem::Shutdown() {}
 
 void CGameSubsystem::Update(float deltaSeconds)
 {
-    if (frameDuration.size() >= 100)
+    if (FrameDuration.size() >= 100)
     {
-        frameDuration.erase(frameDuration.begin());
+        FrameDuration.erase(FrameDuration.begin());
     }
-    frameDuration.push_back(deltaSeconds);
+    FrameDuration.push_back(deltaSeconds);
 
-    timeAccumulator += deltaSeconds;
+    TimeAccumulator += deltaSeconds;
 
-    if (timeAccumulator >= 0.5f)
+    if (TimeAccumulator >= 0.5f)
     {
-        if (!frameDuration.empty())
+        if (!FrameDuration.empty())
         {
-            float sum = std::accumulate(frameDuration.begin(), frameDuration.end(), 0.0f);
-            currentAverage = sum / frameDuration.size();
+            float sum = std::accumulate(FrameDuration.begin(), FrameDuration.end(), 0.0f);
+            CurrentAverage = sum / FrameDuration.size();
         }
-        timeAccumulator = 0.0f;
+        TimeAccumulator = 0.0f;
     }
 
     if (CGameEngine::Instance().GetInput().GetButtonState(SDLK_ESCAPE) == EButtonState::JUST_PRESSED)
         CGameEngine::Instance().Quit();
 
     if (CGameEngine::Instance().GetInput().GetButtonState(SDLK_SPACE) == EButtonState::JUST_PRESSED)
-        backgroundColor = { (float)(rand() % 256) / 255.0f, (float)(rand() % 256) / 255.0f, (float)(rand() % 256) / 255.0f };
+        BackgroundColor = { (float)(rand() % 256) / 255.0f, (float)(rand() % 256) / 255.0f, (float)(rand() % 256) / 255.0f };
 }
 
 GEntity* CGameSubsystem::CreateEntity(const std::string& name)

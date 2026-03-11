@@ -7,34 +7,34 @@
 
 void CGameEngine::Init()
 {
-    rendererSubsystem.Start();
-    inputSubsystem.Start();
-    gameSubsystem.Start();
+    RendererSubsystem.Start();
+    InputSubsystem.Start();
+    GameSubsystem.Start();
 }
 
 void CGameEngine::Loop()
 {
-    rendererSubsystem.OnBeginFrame();
+    RendererSubsystem.OnBeginFrame();
     
     static float lastTime = SDL_GetTicks();
     float currentTime = SDL_GetTicks();
     float deltaSeconds = (currentTime - lastTime) / 1000.0f;
     lastTime = currentTime;
 
-    inputSubsystem.Update(deltaSeconds);
-    gameSubsystem.Update(deltaSeconds);
-    counter.Update(deltaSeconds);
+    InputSubsystem.Update(deltaSeconds);
+    GameSubsystem.Update(deltaSeconds);
+    Counter.Update(deltaSeconds);
 
-    float avg = gameSubsystem.GetAverageFrameTime();
-    int fps = counter.GetFPS();
-    rendererSubsystem.SetFrameTimeText("Average Frame Time: " + std::to_string(avg) + "s");
-    rendererSubsystem.SetFPSText("FPS: " + std::to_string(fps));
+    float avg = GameSubsystem.GetAverageFrameTime();
+    int fps = Counter.GetFPS();
+    RendererSubsystem.SetFrameTimeText("Average Frame Time: " + std::to_string(avg) + "s");
+    RendererSubsystem.SetFPSText("FPS: " + std::to_string(fps));
 
-    FColor bgColor = gameSubsystem.GetBackgroundColor();
-    rendererSubsystem.SetClearColor(bgColor);
+    FColor bgColor = GameSubsystem.GetBackgroundColor();
+    RendererSubsystem.SetClearColor(bgColor);
     
-    rendererSubsystem.Update(deltaSeconds);
-    rendererSubsystem.OnEndFrame();
+    RendererSubsystem.Update(deltaSeconds);
+    RendererSubsystem.OnEndFrame();
 }
 
 void CGameEngine::Shutdown()
@@ -43,7 +43,7 @@ void CGameEngine::Shutdown()
     ImGui_ImplSDL3_Shutdown();
     ImGui::DestroyContext();
 
-    inputSubsystem.Shutdown();
-    gameSubsystem.Shutdown();
-    rendererSubsystem.Shutdown();
+    GameSubsystem.Shutdown();
+    InputSubsystem.Shutdown();
+    RendererSubsystem.Shutdown();
 }

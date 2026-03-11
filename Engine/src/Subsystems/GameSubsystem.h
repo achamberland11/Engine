@@ -14,19 +14,19 @@ public:
     void Shutdown() override;
     void Update(float deltaSeconds) override;
 
-    float GetAverageFrameTime() const { return currentAverage; }
-    FColor GetBackgroundColor() const { return backgroundColor; }
+    float GetAverageFrameTime() const { return CurrentAverage; }
+    FColor GetBackgroundColor() const { return BackgroundColor; }
 
     GEntity* CreateEntity(const std::string& name);
     void DestroyEntity(GEntity* entity);
     const std::vector<GEntity*>& GetEntities() const { return Entities; }
 
 private:
-    std::vector<float> frameDuration;
-    float timeAccumulator = 0.0f;
-    float currentAverage = 0.0f;
+    std::vector<float> FrameDuration;
+    float TimeAccumulator = 0.0f;
+    float CurrentAverage = 0.0f;
 
-    FColor backgroundColor = { 0, 0, 0 };
+    FColor BackgroundColor = { 0, 0, 0 };
 
     std::vector<GEntity*> Entities;
 };
