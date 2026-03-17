@@ -1,5 +1,7 @@
 ﻿#pragma once
-#include <unordered_map>
+
+#include <vector>
+#include <array>
 
 #include "Subsystem.h"
 #include "SDL3/SDL_init.h"
@@ -16,9 +18,9 @@ public:
     void Shutdown() override;
     void Update(float deltaSeconds) override;
 
-    EButtonState GetButtonState(SDL_Keycode key) const;
+    EButtonState GetButtonState(SDL_Scancode key) const;
 
 private:
-    std::unordered_map<SDL_Keycode, EButtonState> ButtonStates;
-    std::vector<SDL_Keycode> PendingPressedKeys;
+    std::array<EButtonState, SDL_SCANCODE_COUNT> ButtonStates;
+    std::vector<SDL_Scancode> PendingPressedKeys;
 };

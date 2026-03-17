@@ -32,10 +32,10 @@ void CGameSubsystem::Update(float deltaSeconds)
         TimeAccumulator = 0.0f;
     }
 
-    if (CGameEngine::Instance().GetInput().GetButtonState(SDLK_ESCAPE) == EButtonState::JUST_PRESSED)
+    if (CGameEngine::Instance().GetInput().GetButtonState(SDL_SCANCODE_ESCAPE) == EButtonState::JUST_PRESSED)
         CGameEngine::Instance().Quit();
 
-    if (CGameEngine::Instance().GetInput().GetButtonState(SDLK_SPACE) == EButtonState::JUST_PRESSED)
+    if (CGameEngine::Instance().GetInput().GetButtonState(SDL_SCANCODE_SPACE) == EButtonState::JUST_PRESSED)
         BackgroundColor = { (float)(rand() % 256) / 255.0f, (float)(rand() % 256) / 255.0f, (float)(rand() % 256) / 255.0f };
 }
 
