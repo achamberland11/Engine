@@ -24,19 +24,21 @@ void CInputSubsystem::Update(float deltaSeconds)
         if (event.type == SDL_EVENT_KEY_DOWN && !ImGui::GetIO().WantCaptureKeyboard)
             PendingPressedKeys.push_back(event.key.scancode);
         else if (event.type == SDL_EVENT_KEY_UP && !ImGui::GetIO().WantCaptureKeyboard)
-            ButtonStates[event.key.scancode] = EButtonState::UP;
+            ButtonStates[event.key.scancode] = EButtonState::RELEASED;
     }
     
     for (auto& state : ButtonStates)
     {
-        if (state == EButtonState::JUST_PRESSED)
+        if (state == EButtonState::PRESSED)
             state = EButtonState::DOWN;
+        else if (state == EButtonState::RELEASED)
+            state = EButtonState::UP;
     }
 
     for (SDL_Scancode key : PendingPressedKeys)
     {
         if (ButtonStates[key] == EButtonState::UP)
-            ButtonStates[key] = EButtonState::JUST_PRESSED;
+            ButtonStates[key] = EButtonState::PRESSED;
     }
 
     PendingPressedKeys.clear();

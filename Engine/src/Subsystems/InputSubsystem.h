@@ -6,7 +6,13 @@
 #include "Subsystem.h"
 #include "SDL3/SDL_init.h"
 
-enum class EButtonState { UP, DOWN, JUST_PRESSED };
+enum class EButtonState
+{
+    UP, 
+    DOWN, 
+    PRESSED,
+    RELEASED
+};
 
 class CInputSubsystem : public ISubsystem
 {
