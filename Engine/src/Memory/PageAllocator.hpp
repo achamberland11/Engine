@@ -3,12 +3,16 @@
 #include <stack>
 #include <new>
 #include <assert.h>
+#include <cstdlib>
+#include <cstddef>
+#include <cassert>
 #include "../Structs/MemoryPage.h"
 
 template <int NBytes, int NObjects>
 class CPageAllocator
 {
 private:
+    void* MemoryPool = nullptr;
     FMemoryPage Pages[NObjects];
     std::stack<int> FreePages;
     int UsedPages;
@@ -34,27 +38,21 @@ public:
 template <int NBytes, int NObjects>
 CPageAllocator<NBytes, NObjects>::CPageAllocator() : UsedPages(0)
 {
-    //@TODO Allouer un gros bloc et le subdiviser
-    // Implementation simple
+    MemoryPool = malloc(NBytes * NObjects);
+    assert(MemoryPool != nullptr);
+
+#if defined(_MSVC_LANG)
+    static_assert(_MSVC_LANG >= 201703L, "Project is not compiling in C++17 or newer");
+#endif
+
+    std::byte* memory = reinterpret_cast<std::byte*>(MemoryPool);
+
     for (int i = 0; i < NObjects; i++)
     {
-        Pages[i].Memory = malloc(NBytes);
+        Pages[i].Memory = memory + (NBytes * i);
         Pages[i].bUsed = false;
         FreePages.push(i);
     }
-
-    // Implementation safe avec alignement de memoire
-    /*for (int i = 0; i < NObjects; i++)
-    {
-        constexpr size_t maxAlignment = 64;
-        Pages[i].Memory = _aligned_malloc(NBytes, maxAlignment);
-
-        if (Pages[i].Memory == nullptr)
-            Pages[i].Memory = malloc(NBytes);
-
-        Pages[i].bUsed = false;
-        FreePages.push(i);
-    }*/
 }
 
 template <int NBytes, int NObjects>
@@ -64,12 +62,13 @@ CPageAllocator<NBytes, NObjects>::~CPageAllocator()
     assert(UsedPages == 0 && "PageAllocator destroyed with active allocations");
 #endif
 
+    free(MemoryPool);
+    MemoryPool = nullptr;
+
     for (int i = 0; i < NObjects; i++)
     {
-        if (Pages[i].Memory == nullptr) break;
-
-        free(Pages[i].Memory);
         Pages[i].Memory = nullptr;
+        Pages[i].bUsed = false;
     }
 }
 
@@ -91,12 +90,6 @@ T* CPageAllocator<NBytes, NObjects>::NewObject()
 
     Pages[pageIndex].bUsed = true;
     UsedPages++;
-
-/*#ifdef _DEBUG
-    void* memory = Pages[pageIndex].Memory;
-    if (reinterpret_cast<uintptr_t>(memory) % alignof(T) != 0)
-        assert(false && "Memory page not aligned");
-#endif*/
 
     T* nObject = new(Pages[pageIndex].Memory) T();
     return nObject;
