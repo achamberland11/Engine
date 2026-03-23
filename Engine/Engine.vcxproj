@@ -249,6 +249,7 @@
         </ClCompile>
         <ClCompile Include="src\Game\Entity.cpp" />
         <ClCompile Include="src\Game\Object.cpp" />
+        <ClCompile Include="src\Subsystems\EditorSubsystem.cpp" />
         <ClCompile Include="src\Subsystems\GameSubsystem.cpp" />
         <ClCompile Include="src\Subsystems\InputSubsystem.cpp" />
         <ClCompile Include="src\Subsystems\RendererSubsystem.cpp" />
@@ -261,6 +262,10 @@
         <!-- Add ImGui backend files if you're using them -->
         <ClCompile Include="..\external\ImGui\backends\imgui_impl_sdl3.cpp" />
         <ClCompile Include="..\external\ImGui\backends\imgui_impl_opengl3.cpp" />
+        <ClCompile Include="src\Windows\DebugWindow.cpp" />
+        <ClCompile Include="src\Windows\HierarchyWindow.cpp" />
+        <ClCompile Include="src\Windows\InspectorWindow.cpp" />
+        <ClCompile Include="src\Windows\WindowManager.cpp" />
     </ItemGroup>
     <ItemGroup>
         <!-- Remove this project reference if you're including ImGui source directly -->
@@ -291,11 +296,17 @@
       <ClInclude Include="src\Structs\Color.h" />
       <ClInclude Include="src\Structs\MemoryPage.h" />
       <ClInclude Include="src\Structs\Property.h" />
+      <ClInclude Include="src\Subsystems\EditorSubsystem.h" />
       <ClInclude Include="src\Subsystems\GameSubsystem.h" />
       <ClInclude Include="src\Subsystems\InputSubsystem.h" />
       <ClInclude Include="src\Subsystems\RendererSubsystem.h" />
       <ClInclude Include="src\Subsystems\Subsystem.h" />
       <ClInclude Include="src\Utils\Math.h" />
+      <ClInclude Include="src\Windows\DebugWindow.h" />
+      <ClInclude Include="src\Windows\HierarchyWindow.h" />
+      <ClInclude Include="src\Windows\InspectorWindow.h" />
+      <ClInclude Include="src\Windows\Window.h" />
+      <ClInclude Include="src\Windows\WindowManager.h" />
     </ItemGroup>
     <ItemGroup>
       <Folder Include="src\Game\Entities\" />

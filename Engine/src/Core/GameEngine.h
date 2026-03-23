@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include <mutex>
 
 #include "Counter.h"
@@ -6,6 +6,7 @@
 #include "../Subsystems/GameSubsystem.h"
 #include "../Subsystems/InputSubsystem.h"
 #include "../Subsystems/RendererSubsystem.h"
+#include "../Subsystems/EditorSubsystem.h"
 
 class CGameEngine
 {
@@ -30,6 +31,7 @@ public:
     CRendererSubsystem& GetRenderer() { return RendererSubsystem; }
     CInputSubsystem& GetInput() { return InputSubsystem; }
     CGameSubsystem& GetGame() { return GameSubsystem; }
+    CEditorSubsystem& GetEditor() { return EditorSubsystem; }
 
     template <typename T> T* NewObject() { return Allocator.NewObject<T>(); }
     template <typename T> void FreeObject(T* InObject) { Allocator.FreeObject(InObject); }
@@ -45,6 +47,7 @@ private:
     CRendererSubsystem RendererSubsystem;
     CInputSubsystem InputSubsystem;
     CGameSubsystem GameSubsystem;
+    CEditorSubsystem EditorSubsystem;
     CCounter Counter;
 
     bool bShouldQuit = false;

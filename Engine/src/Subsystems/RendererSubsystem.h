@@ -26,31 +26,12 @@ public:
     SDL_Window* GetWindow() const { return window; }
     SDL_GLContext GetGLContext() const { return glContext; }
 
-    void SetFrameTimeText(const std::string& text) { frameText = text; }
-    void SetFPSText(const std::string& text) { fpsText = text; }
     void SetClearColor(FColor color) { ClearColor = color; }
     
 private:
-    void RenderFPSCounterWindow() const;
-    void RenderMemoryAllocatorWindow() const;
-    void RenderEntityWindow() const;
-    
-    void RenderEntityCreation(char* entityName, size_t entityNameSize) const;
-    void RenderEntityList(GEntity*& entityToDelete) const;
-    void RenderEntityProperties(GEntity* entity) const;
-    void RenderAddComponentPopup(GEntity* entity) const;
-    void RenderComponentList(GEntity* entity, GComponent*& componentToDelete) const;
-    void ShowComponentProperties(GComponent* component) const;
-
-    static bool NameExists(const std::vector<GEntity*>& entities, const std::string& name);
-    static void MakeUniqueName(char* outName, size_t outNameSize, const char* baseName, const std::vector<GEntity*>& entities);
-
-
     SDL_Window* window = nullptr;
     SDL_GLContext glContext;
 
-    std::string frameText;
-    std::string fpsText;
     FColor ClearColor;
 };
 

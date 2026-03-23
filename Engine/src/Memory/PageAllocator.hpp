@@ -31,8 +31,16 @@ public:
     template <typename T>
     void FreeObject(T* InObject);
 
-    int GetUsedPages() const;
-    int GetAvailablePages() const;
+    // Page getter
+    int GetUsedPages() const { return UsedPages; }
+    int GetReservedPages() const { return NObjects - UsedPages; }
+
+    // Size getter
+    int GetSize() const { return NBytes * NObjects; }
+    int GetUsedSize() const { return UsedPages * NBytes; }
+    int GetReservedSize() const { return GetSize() - GetUsedSize(); }
+    int GetPagesCount() const { return NObjects; }
+    int GetPageSize() const { return NBytes; }
 };
 
 template <int NBytes, int NObjects>
@@ -120,16 +128,4 @@ void CPageAllocator<NBytes, NObjects>::FreeObject(T* InObject)
     Pages[pageIndex].bUsed = false;
     FreePages.push(pageIndex);
     UsedPages--;
-}
-
-template <int NBytes, int NObjects>
-int CPageAllocator<NBytes, NObjects>::GetUsedPages() const
-{
-    return UsedPages;
-}
-
-template <int NBytes, int NObjects>
-int CPageAllocator<NBytes, NObjects>::GetAvailablePages() const
-{
-    return NObjects - UsedPages;
 }

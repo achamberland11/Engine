@@ -1,12 +1,15 @@
 ﻿#include "RendererSubsystem.h"
 
+#include <imgui.h>
+#include <imgui_internal.h>
 #include <imgui_impl_opengl3.h>
 #include <imgui_impl_sdl3.h>
 
 #include "../Core/GameEngine.h"
-#include "../Factories/ComponentFactory.hpp"
-#include "../Game/Components/ComponentRegistry.h"
-#include "../Game/Components/TransformComponent.h"
+#include "../Windows/WindowManager.h"
+#include "../Windows/DebugWindow.h"
+#include "../Windows/HierarchyWindow.h"
+#include "../Windows/InspectorWindow.h"
 #include "SDL3/SDL_init.h"
 #include "SDL3/SDL_log.h"
 #include "SDL3/SDL_opengl.h"
@@ -20,13 +23,15 @@ void CRendererSubsystem::Start()
     }
 
     // Set OpenGL attributes
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, 0);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
-    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-    SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
-    SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
+    {
+        SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, 0);
+        SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+        SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
+        SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
+        SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+        SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
+        SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
+    }
 
     float scale = SDL_GetDisplayContentScale(SDL_GetPrimaryDisplay());
     SDL_WindowFlags window_flags = SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_HIGH_PIXEL_DENSITY;
@@ -53,6 +58,7 @@ void CRendererSubsystem::Start()
     SDL_GL_SetSwapInterval(1);
     SDL_ShowWindow(window);
 
+    // TODO: 7. ImGui docking setup - in RendererSubsystem
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO();
@@ -86,200 +92,8 @@ void CRendererSubsystem::Update(float deltaSeconds)
 
 void CRendererSubsystem::Render() const
 {
-    RenderFPSCounterWindow();
-    RenderMemoryAllocatorWindow();
-    RenderEntityWindow();
-}
-
-void CRendererSubsystem::RenderFPSCounterWindow() const
-{
-    ImGui::Begin("FPS Counter");
-    ImGui::Text("%s", fpsText.c_str());
-    ImGui::Text("%s", frameText.c_str());
-    ImGui::End();
-}
-
-void CRendererSubsystem::RenderMemoryAllocatorWindow() const
-{
-    ImGui::Begin("Memory Allocator");
-    ImGui::Text("Used pages: %d", CGameEngine::Instance().GetAllocator().GetUsedPages());
-    ImGui::Text("Pages available: %d", CGameEngine::Instance().GetAllocator().GetAvailablePages());
-    ImGui::Text("Total pages: %d", 1024 * 1024);
-    ImGui::End();
-}
-
-void CRendererSubsystem::RenderEntityWindow() const
-{
-    ImGui::Begin("Entity Component System");
-
-    static char entityName[128] = "NewEntity";
-    RenderEntityCreation(entityName, sizeof(entityName));
-
-    ImGui::Separator();
-    ImGui::Text("Entities:");
-
-    GEntity* entityToDelete = nullptr;
-    RenderEntityList(entityToDelete);
-
-    if (entityToDelete)
-    {
-        CGameEngine::Instance().GetGame().DestroyEntity(entityToDelete);
-        CGameEngine::Instance().FreeObject(entityToDelete);
-    }
-
-    ImGui::End();
-}
-
-void CRendererSubsystem::RenderEntityCreation(char* entityName, size_t entityNameSize) const
-{
-    ImGui::InputText("Entity Name", entityName, entityNameSize);
-
-    if (ImGui::Button("Create Entity"))
-    {
-        char baseName[128];
-        strcpy_s(baseName, entityName);
-
-        auto& entities = CGameEngine::Instance().GetGame().GetEntities();
-
-        MakeUniqueName(entityName, entityNameSize, baseName, entities);
-        CGameEngine::Instance().GetGame().CreateEntity(entityName);
-        std::snprintf(entityName, entityNameSize, "NewEntity");
-    }
-}
-
-void CRendererSubsystem::RenderEntityList(GEntity*& entityToDelete) const
-{
-    for (GEntity* entity : CGameEngine::Instance().GetGame().GetEntities())
-    {
-        ImGui::PushID(entity);
-        if (ImGui::CollapsingHeader(entity->Name.c_str()))
-        {
-
-            RenderEntityProperties(entity);
-            
-            if (ImGui::Button("Delete Entity"))
-            {
-                entityToDelete = entity;
-            }
-            
-            RenderAddComponentPopup(entity);
-
-            GComponent* componentToDelete = nullptr;
-            RenderComponentList(entity, componentToDelete);
-
-            if (componentToDelete)
-            {
-                entity->RemoveComponent(componentToDelete);
-                CGameEngine::Instance().FreeObject(componentToDelete);
-            }
-        }
-
-        ImGui::PopID();
-
-        if (entityToDelete)
-            break;
-    }
-}
-
-void CRendererSubsystem::RenderEntityProperties(GEntity* entity) const
-{
-    const std::vector<FProperty>* properties = &entity->StaticClass().Properties;
-    for (const FProperty& property : *properties)
-    {
-        ImGui::PushID(property.Name.c_str());
-        if (property.Type == EPropertyType::String)
-        {
-            std::string* stringPtr = reinterpret_cast<std::string*>(reinterpret_cast<char*>(entity) + property.Offset);
-            char buffer[128];
-            strcpy_s(buffer, stringPtr->c_str());
-            if (ImGui::InputText(property.Name.c_str(), buffer, sizeof(buffer)))
-                *stringPtr = buffer;
-        }
-        else if (property.Type == EPropertyType::Bool)
-        {
-            bool* boolPtr = reinterpret_cast<bool*>(reinterpret_cast<char*>(entity) + property.Offset);
-            ImGui::Checkbox(property.Name.c_str(), boolPtr);
-        }
-        ImGui::PopID();
-    }
-}
-
-void CRendererSubsystem::RenderAddComponentPopup(GEntity* entity) const
-{
-    static ComponentFactory compFactory;
-
-    if (ImGui::Button("Add Component"))
-    {
-        ImGui::OpenPopup("Add Component Popup");
-    }
-
-    if (ImGui::BeginPopup("Add Component Popup"))
-    {
-        for (CClass* component : CComponentRegistry::Instance().GetAllComponents())
-        {
-            ImGui::PushID(component);
-            if (!component->bCanDuplicate)
-            {
-                bool bExists = false;
-                for (GComponent* comp : entity->GetComponents())
-                {
-                    if (comp->IsA(*component))
-                    {
-                        bExists = true;
-                        break;
-                    }
-                }
-                if (bExists)
-                {
-                    ImGui::PopID();
-                    continue;
-                }
-                
-                if (ImGui::Selectable(component->DisplayName.c_str()))
-                {
-                    if (component->Factory)
-                        component->Factory(entity);
-                    ImGui::CloseCurrentPopup();
-                }
-            }
-            else
-            {
-                if (ImGui::Selectable(component->DisplayName.c_str()))
-                {
-                    if (component->Factory)
-                        component->Factory(entity);
-                    ImGui::CloseCurrentPopup();
-                }
-            }
-            ImGui::PopID();
-        }
-
-        ImGui::EndPopup();
-    }
-}
-
-void CRendererSubsystem::RenderComponentList(GEntity* entity, GComponent*& componentToDelete) const
-{
-    for (GComponent* component : entity->GetComponents())
-    {
-        ImGui::PushID(component);
-        if (ImGui::CollapsingHeader(component->Name.c_str()))
-        {
-            ShowComponentProperties(component);
-            if (component->CanDuplicate())
-            {
-                if (ImGui::Button("Delete Component"))
-                {
-                    componentToDelete = component;
-                }
-            }
-        }
-
-        ImGui::PopID();
-
-        if (componentToDelete)
-            break;
-    }
+    // TODO: 6. Refactor RendererSubsystem - move the embedded UI out, integrate with new system
+    CGameEngine::Instance().GetEditor().Render();
 }
 
 void CRendererSubsystem::OnBeginFrame() const
@@ -291,6 +105,25 @@ void CRendererSubsystem::OnBeginFrame() const
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplSDL3_NewFrame();
     ImGui::NewFrame();
+
+    /*ImGuiWindowFlags windowFlags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
+    ImGuiViewport* viewport = ImGui::GetMainViewport();
+    ImGui::SetNextWindowPos(viewport->WorkPos);
+    ImGui::SetNextWindowSize(viewport->WorkSize);
+    ImGui::SetNextWindowViewport(viewport->ID);
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+    windowFlags |= ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize |
+        ImGuiWindowFlags_NoMove;
+    windowFlags |= ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
+
+    ImGui::Begin("DockSpace", nullptr, windowFlags);
+    ImGui::PopStyleVar(3);
+
+    ImGuiID dockspaceID = ImGui::GetID("MainDockSpace");
+    ImGui::DockSpace(dockspaceID, ImVec2(0.0f, 0.0f), ImGuiDockNodeFlags_PassthruCentralNode);
+    ImGui::End();*/
 }
 
 void CRendererSubsystem::OnEndFrame() const
@@ -299,38 +132,4 @@ void CRendererSubsystem::OnEndFrame() const
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
     SDL_GL_SwapWindow(window);
-}
-
-bool CRendererSubsystem::NameExists(const std::vector<GEntity*>& entities, const std::string& name)
-{
-    for (const GEntity* entity : entities)
-    {
-        if (entity->Name == name)
-            return true;
-    }
-    return false;
-}
-
-void CRendererSubsystem::MakeUniqueName(char* outName, size_t outNameSize, const char* baseName,
-                                        const std::vector<GEntity*>& entities)
-{
-    if (!NameExists(entities, baseName))
-    {
-        std::snprintf(outName, outNameSize, "%s", baseName);
-        return;
-    }
-
-    for (int i = 0; i < 10000000; ++i)
-    {
-        std::snprintf(outName, outNameSize, "%s_%d", baseName, i);
-
-        if (!NameExists(entities, outName))
-            return;
-    }
-
-    std::snprintf(outName, outNameSize, "%s", "X");
-}
-
-void CRendererSubsystem::ShowComponentProperties(GComponent* component) const
-{
 }
