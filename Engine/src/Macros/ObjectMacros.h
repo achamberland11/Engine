@@ -6,8 +6,14 @@ static CClass sClass; \
 static CClass& StaticClass() { return sClass; } \
 const CClass* GetClass() const override { return &sClass; }
 
+// Default bRendered = true
 #define REGISTER_PROPERTY(ClassName, PropertyDisplayName, PropertyValue, PropertyType) \
     ClassName::StaticClass().AddProperty(FProperty(PropertyDisplayName, PropertyType, offsetof(ClassName, PropertyValue)));
+
+// Explicit bRendered
+#define REGISTER_PROPERTY_EX(ClassName, PropertyDisplayName, PropertyValue, PropertyType, bRendered) \
+    ClassName::StaticClass().AddProperty(FProperty(PropertyDisplayName, PropertyType, offsetof(ClassName, PropertyValue), bRendered));
+
 
 #define REGISTER_COMPONENT(GComponent) \
 GComponent::StaticClass().Factory = [](GEntity* entity) \

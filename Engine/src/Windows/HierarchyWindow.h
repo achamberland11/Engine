@@ -17,7 +17,9 @@ public:
 private:
     void RenderEntityNode(GEntity* entity);
     void RenderCreateEntityPopup();
+    bool NameExists(const std::vector<GEntity*>& entities, const std::string& name);
+    void MakeUniqueName(char* outName, size_t outNameSize, const char* baseName, const std::vector<GEntity*>& entities);
     
     bool bShowCreatePopup = false;
-    char NewEntityName[64] = "New Entity";
+    char NewEntityName[64] = "Entity";
 };

@@ -1,14 +1,13 @@
 #include "InspectorWindow.h"
 #include <imgui.h>
 #include <cctype>
+#include <iostream>
+#include <ostream>
+
 #include "../Subsystems/EditorSubsystem.h"
 #include "../Core/GameEngine.h"
 #include "../Game/Components/ComponentRegistry.h"
 
-// TODO: 5. Implement CInspectorWindow - full implementation
-// - Display components and properties
-// - Handle property editing
-// - Component addition/deletion
 void CInspectorWindow::Render()
 {
     GEntity* selectedEntity = CGameEngine::Instance().GetEditor().GetSelectedEntity();
@@ -50,10 +49,28 @@ void CInspectorWindow::RenderComponentList(GEntity* entity)
         bool isOpen = ImGui::TreeNodeEx(component->GetClass()->DisplayName.c_str(),
                                         ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanAvailWidth);
 
-        ImGui::SameLine(ImGui::GetWindowWidth() - 30);
-        if (ImGui::Button("X", ImVec2(20, 20)))
+
+        if (component->GetClass()->bCanDelete || component->GetClass()->bCanDuplicate)
         {
-            ComponentToDelete = component;
+            if (ImGui::BeginPopupContextItem())
+            {
+                if (component->GetClass()->bCanDelete)
+                {
+                    if (ImGui::MenuItem("Delete") && component->GetClass()->bCanDelete)
+                    {
+                        ComponentToDelete = component;
+                    }
+                }
+
+                if (component->GetClass()->bCanDuplicate)
+                {
+                    if (ImGui::MenuItem("Duplicate"))
+                    {
+                        component->GetClass()->Factory(entity);
+                    }
+                }
+                ImGui::EndPopup();
+            }
         }
 
         if (isOpen)
@@ -95,6 +112,19 @@ void CInspectorWindow::RenderAddComponentPopup(GEntity* entity)
         const auto& components = CComponentRegistry::Instance().GetAllComponents();
         for (CClass* compClass : components)
         {
+            if (!compClass->bCanDuplicate)
+            {
+                bool bExists = false;
+                for (GComponent* component : entity->GetComponents())
+                {
+                    if (component->GetClass() == compClass)
+                    {
+                        bExists = true;
+                        break;
+                    }
+                }
+                if (bExists) continue;
+            }
             if (ComponentSearchBuffer[0] != '\0' &&
                 !FuzzyMatch(ComponentSearchBuffer, compClass->DisplayName.c_str()))
             {
@@ -132,31 +162,11 @@ void CInspectorWindow::RenderComponent(GComponent* component)
 void CInspectorWindow::RenderProperty(GComponent* component, const FProperty& prop)
 {
     void* ptr = reinterpret_cast<char*>(component) + prop.Offset;
-
-    switch (prop.Type)
+    if (!component->GetClass()->bCanDisable && prop.Name == "Enabled")
     {
-    case EPropertyType::Int:
-        ImGui::DragInt(prop.Name.c_str(), static_cast<int*>(ptr), 1.0f);
-        break;
-    case EPropertyType::Float:
-        ImGui::DragFloat(prop.Name.c_str(), static_cast<float*>(ptr), 0.1f);
-        break;
-    case EPropertyType::Bool:
-        ImGui::Checkbox(prop.Name.c_str(), static_cast<bool*>(ptr));
-        break;
-    /*case EPropertyType::String:
-        ImGui::InputText(prop.Name.c_str(), static_cast<std::string*>(ptr));
-        break;*/
-    case EPropertyType::Vector2:
-        ImGui::DragFloat2(prop.Name.c_str(), static_cast<float*>(ptr), 0.1f);
-        break;
-    case EPropertyType::Vector3:
-        ImGui::DragFloat3(prop.Name.c_str(), static_cast<float*>(ptr), 0.1f);
-        break;
-    default:
-        ImGui::Text("%s: (unsupported)", prop.Name.c_str());
-        break;
+        return;
     }
+    prop.RenderProperty(ptr);
 }
 
 bool CInspectorWindow::FuzzyMatch(const char* pattern, const char* text)

@@ -5,17 +5,16 @@
 #include <memory>
 #include <string>
 
-// TODO: 2. WindowManager - manages windows, docking, serialization
+// TODO: WindowManager - manages windows, docking, serialization
 class CWindowManager
 {
 public:
     CWindowManager() = default;
     ~CWindowManager() = default;
     
-    // TODO: 3. Window hierarchy - extend IWindow (integrate new methods)
     void RenderWindows();
     
-    // TODO: 8. Layout persistence - using ImGui native methods
+    // TODO: Layout persistence - using ImGui native methods
     void SaveLayout();
     void LoadLayout();
     

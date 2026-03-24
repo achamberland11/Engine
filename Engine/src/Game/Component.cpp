@@ -13,10 +13,12 @@ class CComponentPropertyRegistrar
 public:
     CComponentPropertyRegistrar()
     {
-        REGISTER_PROPERTY(GComponent, "Name", Name, EPropertyType::String);
+        REGISTER_PROPERTY_EX(GComponent, "Name", Name, EPropertyType::String, false);
         REGISTER_PROPERTY(GComponent, "Enabled", bEnabled, EPropertyType::Bool);
 
         GComponent::StaticClass().bCanDuplicate = GComponent::bCanDuplicate;
+        GComponent::StaticClass().bCanDelete = GComponent::bCanBeDeleted;
+        GComponent::StaticClass().bCanDisable = GComponent::bCanBeDisabled;
     }
 };
 

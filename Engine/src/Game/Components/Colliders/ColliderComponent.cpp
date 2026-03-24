@@ -20,6 +20,8 @@ public:
     CColliderComponentPropertyRegistrar()
     {
         GColliderComponent::StaticClass().bCanDuplicate = GColliderComponent::bCanDuplicate;
+        GColliderComponent::StaticClass().bCanDelete = GColliderComponent::bCanBeDeleted;
+        GColliderComponent::StaticClass().bCanDisable = GColliderComponent::bCanBeDisabled;
     }
 };
 

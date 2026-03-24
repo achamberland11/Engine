@@ -3,9 +3,7 @@
 #include <cstring>
 #include <imgui.h>
 
-// @TODO: 3. Window hierarchy - extend IWindow
-// - Add base virtual methods for all windows
-// - Define window flags and behavior
+// TODO: Window hierarchy - extend IWindow
 class IWindow
 {
 public:

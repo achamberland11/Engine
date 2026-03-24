@@ -13,11 +13,6 @@ public:
     virtual void Start() = 0;
     virtual void Update(float deltaSeconds) = 0;
     
-    virtual bool CanDuplicate() const { return bCanDuplicate; }
-    virtual bool CanBeDisabled() const { return bCanBeDisabled; }
-    virtual bool CanBeDeleted() const { return bCanBeDeleted; }
-    
-    
     std::string Name = "Component";
     bool bEnabled = true;
 };

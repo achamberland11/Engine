@@ -58,7 +58,7 @@ void CRendererSubsystem::Start()
     SDL_GL_SetSwapInterval(1);
     SDL_ShowWindow(window);
 
-    // TODO: 7. ImGui docking setup - in RendererSubsystem
+    // TODO: ImGui docking setup - in RendererSubsystem
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO();
@@ -92,7 +92,7 @@ void CRendererSubsystem::Update(float deltaSeconds)
 
 void CRendererSubsystem::Render() const
 {
-    // TODO: 6. Refactor RendererSubsystem - move the embedded UI out, integrate with new system
+    // TODO: Refactor RendererSubsystem - move the embedded UI out, integrate with new system
     CGameEngine::Instance().GetEditor().Render();
 }
 

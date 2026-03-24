@@ -51,4 +51,5 @@ void CGameSubsystem::DestroyEntity(GEntity* entity)
 {
     auto it = std::find(Entities.begin(), Entities.end(), entity);
     if (it != Entities.end()) Entities.erase(it);
+    CGameEngine::Instance().FreeObject(entity);
 }

@@ -13,9 +13,6 @@ public:
     CEditorSubsystem() = default;
     ~CEditorSubsystem() = default;
     
-    // TODO: 1. EditorSubsystem - new subsystem for editor concerns
-    // - Initialize subsystems
-    // - Manage editor state
     void Start() override;
     void Shutdown() override;
     void Update(float deltaSeconds) override;

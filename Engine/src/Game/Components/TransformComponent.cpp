@@ -25,6 +25,8 @@ public:
         REGISTER_PROPERTY(GTransformComponent, "Scale", Scale, EPropertyType::Vector3);
 
         GTransformComponent::StaticClass().bCanDuplicate = GTransformComponent::bCanDuplicate;
+        GTransformComponent::StaticClass().bCanDelete = GTransformComponent::bCanBeDeleted;
+        GTransformComponent::StaticClass().bCanDisable = GTransformComponent::bCanBeDisabled;
     }
 };
 
