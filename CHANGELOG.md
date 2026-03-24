@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Macro Enhancement**: Added `REGISTER_PROPERTY_EX` macro for explicit `bRendered` control
 - **Unique Entity Names**: Automatic unique name generation when creating entities with duplicate names
 - **Component Context Menu**: Right-click popup menu for component delete/duplicate actions
+- **Workspace Window**: Added workspace window
 
 ### Changed
 - **Component Capabilities**: Moved `CanDuplicate`, `CanBeDisabled`, `CanBeDeleted` from virtual methods to `CClass` flags
