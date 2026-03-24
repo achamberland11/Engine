@@ -263,9 +263,11 @@
         <ClCompile Include="..\external\ImGui\backends\imgui_impl_sdl3.cpp" />
         <ClCompile Include="..\external\ImGui\backends\imgui_impl_opengl3.cpp" />
         <ClCompile Include="src\Windows\DebugWindow.cpp" />
+        <ClCompile Include="src\Windows\ConsoleWindow.cpp" />
         <ClCompile Include="src\Windows\HierarchyWindow.cpp" />
         <ClCompile Include="src\Windows\InspectorWindow.cpp" />
         <ClCompile Include="src\Windows\WindowManager.cpp" />
+        <ClCompile Include="src\Windows\WorkspaceWindow.cpp" />
     </ItemGroup>
     <ItemGroup>
         <!-- Remove this project reference if you're including ImGui source directly -->
@@ -302,11 +304,14 @@
       <ClInclude Include="src\Subsystems\RendererSubsystem.h" />
       <ClInclude Include="src\Subsystems\Subsystem.h" />
       <ClInclude Include="src\Utils\Math.h" />
+      <ClInclude Include="src\Windows\ConsoleWindow.cpp" />
+      <ClInclude Include="src\Windows\ConsoleWindow.h" />
       <ClInclude Include="src\Windows\DebugWindow.h" />
       <ClInclude Include="src\Windows\HierarchyWindow.h" />
       <ClInclude Include="src\Windows\InspectorWindow.h" />
       <ClInclude Include="src\Windows\Window.h" />
       <ClInclude Include="src\Windows\WindowManager.h" />
+      <ClInclude Include="src\Windows\WorkspaceWindow.h" />
     </ItemGroup>
     <ItemGroup>
       <Folder Include="src\Game\Entities\" />

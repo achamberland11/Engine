@@ -64,6 +64,7 @@ void CRendererSubsystem::Start()
     ImGuiIO& io = ImGui::GetIO();
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;
+    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 
     ImGui::StyleColorsDark();
 
@@ -106,7 +107,7 @@ void CRendererSubsystem::OnBeginFrame() const
     ImGui_ImplSDL3_NewFrame();
     ImGui::NewFrame();
 
-    /*ImGuiWindowFlags windowFlags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
+    ImGuiWindowFlags windowFlags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
     ImGuiViewport* viewport = ImGui::GetMainViewport();
     ImGui::SetNextWindowPos(viewport->WorkPos);
     ImGui::SetNextWindowSize(viewport->WorkSize);
@@ -123,7 +124,7 @@ void CRendererSubsystem::OnBeginFrame() const
 
     ImGuiID dockspaceID = ImGui::GetID("MainDockSpace");
     ImGui::DockSpace(dockspaceID, ImVec2(0.0f, 0.0f), ImGuiDockNodeFlags_PassthruCentralNode);
-    ImGui::End();*/
+    ImGui::End();
 }
 
 void CRendererSubsystem::OnEndFrame() const

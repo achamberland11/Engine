@@ -6,6 +6,8 @@
 #include "../Windows/DebugWindow.h"
 #include "../Windows/HierarchyWindow.h"
 #include "../Windows/InspectorWindow.h"
+#include "../Windows/WorkspaceWindow.h"
+#include "../Windows/ConsoleWindow.h"
 
 class CEditorSubsystem : public ISubsystem
 {
