@@ -1,13 +1,10 @@
-#pragma once
-#include "Window.h"
-#include "../Game/Entity.h"
-#include "../Game/Component.h"
+﻿#pragma once
+#include "../Windows/Window.h"
 
 class CConsoleWindow : public IWindow
 {
 public:
-    CConsoleWindow() = default;
-    ~CConsoleWindow() = default;
+    CConsoleWindow() { Title = "Console"; }
 
     const char* GetWindowName() const override { return "Console##ConsoleWindow"; }
 
