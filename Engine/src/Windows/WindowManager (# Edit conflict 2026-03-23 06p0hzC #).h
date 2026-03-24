@@ -37,7 +37,7 @@ template <typename T>
 void CWindowManager::RegisterWindow()
 {
     static_assert(std::is_base_of<IWindow, T>::value, "T must be a subclass of IWindow");
-    // static_assert(std::is_default_constructible<T>::value, "T must be default constructible");
+    static_assert(std::is_default_constructible<T>::value, "T must be default constructible");
     auto window = std::make_unique<T>();
     Windows.push_back(std::move(window));
 }

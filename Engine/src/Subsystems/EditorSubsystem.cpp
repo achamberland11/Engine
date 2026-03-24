@@ -5,8 +5,8 @@ void CEditorSubsystem::Start()
 {
     WindowManager = new CWindowManager();
     WindowManager->RegisterWindow<CDebugWindow>();
-    WindowManager->RegisterWindow<CHierarchyWindow>();
     WindowManager->RegisterWindow<CInspectorWindow>();
+    WindowManager->RegisterWindow<CHierarchyWindow>();
 }
 
 void CEditorSubsystem::Shutdown()

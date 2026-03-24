@@ -12,17 +12,24 @@
 void CInspectorWindow::Render()
 {
     GEntity* selectedEntity = CGameEngine::Instance().GetEditor().GetSelectedEntity();
-    
-    if (!selectedEntity)
+
+    if (ImGui::Begin("Inspector##InspectorWindow", nullptr, GetFlags()))
     {
-        ImGui::Text("No entity selected");
-        return;
+        if (!selectedEntity)
+        {
+            ImGui::Text("No entity selected");
+            ImGui::End();
+            return;
+        }
+
+        ImGui::Separator();
+        RenderEntityProperties(selectedEntity);
+        ImGui::Separator();
+        RenderComponentList(selectedEntity);
+        RenderAddComponentPopup(selectedEntity);
     }
 
-    RenderEntityProperties(selectedEntity);
-    ImGui::Separator();
-    RenderComponentList(selectedEntity);
-    RenderAddComponentPopup(selectedEntity);
+    ImGui::End();
 }
 
 void CInspectorWindow::RenderEntityProperties(GEntity* entity)
@@ -34,27 +41,27 @@ void CInspectorWindow::RenderEntityProperties(GEntity* entity)
 void CInspectorWindow::RenderComponentList(GEntity* entity)
 {
     ImGui::Text("Components");
-    
+
     for (GComponent* component : entity->Components)
     {
         ImGui::PushID(component);
-        
+
         ImGui::AlignTextToFramePadding();
-        bool isOpen = ImGui::TreeNodeEx(component->GetClass()->DisplayName.c_str(), 
-            ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanAvailWidth);
-        
+        bool isOpen = ImGui::TreeNodeEx(component->GetClass()->DisplayName.c_str(),
+                                        ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanAvailWidth);
+
         ImGui::SameLine(ImGui::GetWindowWidth() - 30);
         if (ImGui::Button("X", ImVec2(20, 20)))
         {
             ComponentToDelete = component;
         }
-        
+
         if (isOpen)
         {
             RenderComponent(component);
             ImGui::TreePop();
         }
-        
+
         ImGui::PopID();
     }
 
@@ -88,7 +95,7 @@ void CInspectorWindow::RenderAddComponentPopup(GEntity* entity)
         const auto& components = CComponentRegistry::Instance().GetAllComponents();
         for (CClass* compClass : components)
         {
-            if (ComponentSearchBuffer[0] != '\0' && 
+            if (ComponentSearchBuffer[0] != '\0' &&
                 !FuzzyMatch(ComponentSearchBuffer, compClass->DisplayName.c_str()))
             {
                 continue;
@@ -125,7 +132,7 @@ void CInspectorWindow::RenderComponent(GComponent* component)
 void CInspectorWindow::RenderProperty(GComponent* component, const FProperty& prop)
 {
     void* ptr = reinterpret_cast<char*>(component) + prop.Offset;
-    
+
     switch (prop.Type)
     {
     case EPropertyType::Int:
@@ -156,7 +163,7 @@ bool CInspectorWindow::FuzzyMatch(const char* pattern, const char* text)
 {
     const char* patternPtr = pattern;
     const char* textPtr = text;
-    
+
     while (*patternPtr && *textPtr)
     {
         if (tolower(*patternPtr) == tolower(*textPtr))
@@ -165,6 +172,6 @@ bool CInspectorWindow::FuzzyMatch(const char* pattern, const char* text)
         }
         textPtr++;
     }
-    
+
     return *patternPtr == '\0';
 }

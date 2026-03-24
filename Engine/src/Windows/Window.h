@@ -18,7 +18,6 @@ public:
     void SetVisible(bool visible) { bVisible = visible; }
     virtual const char* GetWindowName() const = 0;
     virtual ImGuiWindowFlags GetFlags() const { return 0; }
-    virtual bool ShouldBeDocked() const { return true; }
     
 protected:
     const char* Title = "Window";

@@ -11,40 +11,45 @@
 // - Creation/Deletion
 void CHierarchyWindow::Render()
 {
-    if (ImGui::Button("+ Create Entity"))
+    if (ImGui::Begin("Hierarchy##HierarchyWindow", nullptr, GetFlags()))
     {
-        bShowCreatePopup = true;
-    }
-    ImGui::Separator();
-
-    const auto& entities = CGameEngine::Instance().GetGame().GetEntities();
-    for (GEntity* entity : entities)
-    {
-        if (entity->Parent == nullptr)
+        if (ImGui::Button("+ Create Entity"))
         {
-            RenderEntityNode(entity);
+            bShowCreatePopup = true;
         }
-    }
+        ImGui::Separator();
 
-    RenderCreateEntityPopup();
+        const auto& entities = CGameEngine::Instance().GetGame().GetEntities();
+        for (GEntity* entity : entities)
+        {
+            if (entity->Parent == nullptr)
+            {
+                RenderEntityNode(entity);
+            }
+        }
+
+        RenderCreateEntityPopup();
+    }
+    
+    ImGui::End();
 }
 
 void CHierarchyWindow::RenderEntityNode(GEntity* entity)
 {
     ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth;
-    
+
     if (CGameEngine::Instance().GetEditor().GetSelectedEntity() == entity)
     {
         flags |= ImGuiTreeNodeFlags_Selected;
     }
-    
+
     if (entity->Children.empty())
     {
         flags |= ImGuiTreeNodeFlags_Leaf;
     }
 
     bool isOpen = ImGui::TreeNodeEx(entity->Name.c_str(), flags);
-    
+
     if (ImGui::IsItemClicked() && !ImGui::IsItemToggledOpen())
     {
         CGameEngine::Instance().GetEditor().SetSelectedEntity(entity);
@@ -87,7 +92,7 @@ void CHierarchyWindow::RenderCreateEntityPopup()
     if (ImGui::BeginPopupModal("Create Entity", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
     {
         ImGui::InputText("Name", NewEntityName, sizeof(NewEntityName));
-        
+
         if (ImGui::Button("Create"))
         {
             CGameEngine::Instance().GetGame().CreateEntity(NewEntityName);

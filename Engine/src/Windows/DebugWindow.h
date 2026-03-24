@@ -9,11 +9,10 @@ public:
     const char* GetWindowName() const override { return "Debug##DebugWindow"; }
     ImGuiWindowFlags GetFlags() const override
     {
-        return /*ImGuiWindowFlags_NoDocking |*/ ImGuiWindowFlags_NoMove |
+        return ImGuiWindowFlags_NoMove |
                ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoBackground |
                ImGuiWindowFlags_NoTitleBar;
     }
-    bool ShouldBeDocked() const override { return false; }
 
     void SetFPS(float fps) { FPS = fps; }
     void SetFrameTime(float time) { FrameTime = time; }
