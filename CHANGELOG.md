@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.2] - 2026-03-25
+
+### Added
+- **Doxygen Documentation**: Added comprehensive Doxygen-generated documentation in `docs/` folder
+
+### Changed
+- **Window Class Naming**: Renamed editor window classes from `C*` prefix to `E*` prefix (e.g., `CDebugWindow` → `EDebugWindow`)
+- **Vector Types**: Moved vector/math types from `Math.h` to new `Vectors.h` file with `F` prefix (e.g., `Vector3` → `FVector3`)
+- **Color Struct**: Merged `FColor` from `Color.h` into `Vectors.h`
+- **TransformComponent**: Updated to use `FVector3` instead of `Vector3`
+- **Include Cleanup**: Fixed vcxproj to remove erroneous `.cpp` include and add `Vectors.h`
+
+### Removed
+- **Color.h**: Deleted (merged into Vectors.h)
+- **Legacy Vector Types**: Removed `Vector2`, `Vector3`, `Quaternion`, `Matrix4x4` from Math.h
+
 ## [0.1.1] - 2026-03-24
 
 ### Added
