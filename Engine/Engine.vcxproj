@@ -295,7 +295,7 @@
       <ClInclude Include="src\Game\Object.h" />
       <ClInclude Include="src\Macros\ObjectMacros.h" />
       <ClInclude Include="src\Memory\PageAllocator.hpp" />
-      <ClInclude Include="src\Structs\Color.h" />
+      <ClInclude Include="src\Structs\Vectors.h" />
       <ClInclude Include="src\Structs\MemoryPage.h" />
       <ClInclude Include="src\Structs\Property.h" />
       <ClInclude Include="src\Subsystems\EditorSubsystem.h" />

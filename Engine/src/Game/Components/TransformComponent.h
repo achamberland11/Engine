@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "../Component.h"
+#include "../../Structs/Vectors.h"
 #include "../../Utils/Math.h"
 
 class GTransformComponent : public GComponent
@@ -16,7 +17,7 @@ public:
     void Start() override {}
     void Update(float deltaSeconds) override {}
     
-    Vector3 Position = {0,0,0};
-    Vector3 Rotation = {0,0,0};
-    Vector3 Scale = {1,1,1};
+    FVector3 Position = {0,0,0};
+    FVector3 Rotation = {0,0,0};
+    FVector3 Scale = {1,1,1};
 };

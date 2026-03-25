@@ -2,7 +2,7 @@
 #include <vector>
 #include "Subsystem.h"
 #include "../Game/Entity.h"
-#include "../Structs/Color.h"
+#include "../Structs/Vectors.h"
 
 class CGameSubsystem : public ISubsystem
 {
