@@ -3,11 +3,11 @@
 #include "../Game/Entity.h"
 #include "../Game/Component.h"
 
-class CInspectorWindow : public IWindow
+class EInspectorWindow : public IWindow
 {
 public:
-    CInspectorWindow() = default;
-    ~CInspectorWindow() = default;
+    EInspectorWindow() = default;
+    ~EInspectorWindow() = default;
 
     const char* GetWindowName() const override { return "Inspector##InspectorWindow"; }
 

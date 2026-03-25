@@ -1,6 +1,6 @@
 ﻿#include "ConsoleWindow.h"
 
-void CConsoleWindow::Render()
+void EConsoleWindow::Render()
 {
     if (ImGui::Begin(GetWindowName(), nullptr, GetFlags()))
     {

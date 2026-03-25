@@ -1,10 +1,10 @@
 ﻿#pragma once
 #include "../Windows/Window.h"
 
-class CConsoleWindow : public IWindow
+class EConsoleWindow : public IWindow
 {
 public:
-    CConsoleWindow() { Title = "Console"; }
+    EConsoleWindow() { Title = "Console"; }
 
     const char* GetWindowName() const override { return "Console##ConsoleWindow"; }
 

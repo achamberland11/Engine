@@ -1,0 +1,9 @@
+<map id="GComponent" name="GComponent">
+<area shape="rect" id="Node000001" title=" " alt="" coords="150,219,305,405"/>
+<area shape="rect" id="Node000003" href="$class_g_collider_component.html" title=" " alt="" coords="5,475,215,603"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="174,416,145,476,141,473,171,420"/>
+<area shape="rect" id="Node000004" href="$class_g_transform_component.html" title=" " alt="" coords="240,453,450,624"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="284,416,304,454,299,453,282,421"/>
+<area shape="rect" id="Node000002" href="$class_g_object.html" title=" " alt="" coords="129,5,326,171"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="228,183,230,219,225,218,227,188"/>
+</map>

@@ -1,11 +1,11 @@
 #pragma once
 #include "Window.h"
 
-class CWorkspaceWindow : public IWindow
+class EWorkspaceWindow : public IWindow
 {
 public:
-    CWorkspaceWindow() = default;
-    ~CWorkspaceWindow() = default;
+    EWorkspaceWindow() = default;
+    ~EWorkspaceWindow() = default;
 
     const char* GetWindowName() const override { return "Workspace##WorkspaceWindow"; }
 

@@ -93,7 +93,6 @@ void CRendererSubsystem::Update(float deltaSeconds)
 
 void CRendererSubsystem::Render() const
 {
-    // TODO: Refactor RendererSubsystem - move the embedded UI out, integrate with new system
     CGameEngine::Instance().GetEditor().Render();
 }
 

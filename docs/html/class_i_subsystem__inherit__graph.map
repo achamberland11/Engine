@@ -1,0 +1,11 @@
+<map id="ISubsystem" name="ISubsystem">
+<area shape="rect" id="Node000001" title=" " alt="" coords="382,5,554,171"/>
+<area shape="rect" id="Node000002" href="$class_c_editor_subsystem.html" title=" " alt="" coords="5,248,221,584"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="367,132,300,171,266,194,235,221,208,250,204,247,231,217,263,190,297,166,371,128"/>
+<area shape="rect" id="Node000003" href="$class_c_game_subsystem.html" title=" " alt="" coords="246,221,456,611"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="435,183,422,223,418,221,432,187"/>
+<area shape="rect" id="Node000004" href="$class_c_input_subsystem.html" title=" " alt="" coords="480,296,690,536"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="504,182,545,297,540,296,501,187"/>
+<area shape="rect" id="Node000005" href="$class_c_renderer_subsystem.html" title=" " alt="" coords="715,219,925,613"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="567,127,639,166,673,190,704,217,718,232,713,231,701,221,670,194,636,171,568,132"/>
+</map>

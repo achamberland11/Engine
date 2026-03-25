@@ -2,13 +2,11 @@
 #include "Window.h"
 #include "../Game/Entity.h"
 
-class CEditorSubsystem;
-
-class CHierarchyWindow : public IWindow
+class EHierarchyWindow : public IWindow
 {
 public:
-    CHierarchyWindow() = default;
-    ~CHierarchyWindow() = default;
+    EHierarchyWindow() = default;
+    ~EHierarchyWindow() = default;
 
     const char* GetWindowName() const override { return "Hierarchy##HierarchyWindow"; }
 

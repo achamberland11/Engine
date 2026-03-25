@@ -1,10 +1,10 @@
 #pragma once
 #include "../Windows/Window.h"
 
-class CDebugWindow : public IWindow
+class EDebugWindow : public IWindow
 {
 public:
-    CDebugWindow() { Title = "Debug"; }
+    EDebugWindow() { Title = "Debug"; }
 
     const char* GetWindowName() const override { return "Debug##DebugWindow"; }
 

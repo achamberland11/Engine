@@ -1,7 +1,7 @@
 #include "DebugWindow.h"
 #include <imgui.h>
 
-void CDebugWindow::Render()
+void EDebugWindow::Render()
 {
     ImGui::SetNextWindowBgAlpha(0.5f);
     ImGui::SetNextWindowPos(ImVec2(10, 50), ImGuiCond_Always);

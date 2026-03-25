@@ -15,7 +15,7 @@ void CGameEngine::Init()
     int allocatorSize = GetAllocator().GetSize();
     int allocatorPageSize = GetAllocator().GetPageSize();
     int allocatorPages = GetAllocator().GetPagesCount();
-    EditorSubsystem.GetWindowManager().GetWindow<CDebugWindow>()->SetMemoryStats(allocatorSize, allocatorPageSize, allocatorPages);
+    EditorSubsystem.GetWindowManager().GetWindow<EDebugWindow>()->SetMemoryStats(allocatorSize, allocatorPageSize, allocatorPages);
 }
 
 void CGameEngine::Loop()
@@ -42,9 +42,9 @@ void CGameEngine::Loop()
     int allocatorUsed = GetAllocator().GetUsedSize();
     int allocatorReserved = GetAllocator().GetReservedSize();
 
-    EditorSubsystem.GetWindowManager().GetWindow<CDebugWindow>()->SetFPS(fps);
-    EditorSubsystem.GetWindowManager().GetWindow<CDebugWindow>()->SetFrameTime(avg);
-    EditorSubsystem.GetWindowManager().GetWindow<CDebugWindow>()->SetMemoryUsage(allocatorUsed, allocatorReserved, usedPages, reservedPages);
+    EditorSubsystem.GetWindowManager().GetWindow<EDebugWindow>()->SetFPS(fps);
+    EditorSubsystem.GetWindowManager().GetWindow<EDebugWindow>()->SetFrameTime(avg);
+    EditorSubsystem.GetWindowManager().GetWindow<EDebugWindow>()->SetMemoryUsage(allocatorUsed, allocatorReserved, usedPages, reservedPages);
 
     RendererSubsystem.Update(deltaSeconds);
     RendererSubsystem.OnEndFrame();

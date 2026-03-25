@@ -8,7 +8,7 @@
 // - Parenting support
 // - Drag and drop
 // - Creation/Deletion
-void CHierarchyWindow::Render()
+void EHierarchyWindow::Render()
 {
     if (ImGui::Begin("Hierarchy##HierarchyWindow", nullptr, GetFlags()))
     {
@@ -33,7 +33,7 @@ void CHierarchyWindow::Render()
     ImGui::End();
 }
 
-void CHierarchyWindow::RenderEntityNode(GEntity* entity)
+void EHierarchyWindow::RenderEntityNode(GEntity* entity)
 {
     ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth;
 
@@ -80,7 +80,7 @@ void CHierarchyWindow::RenderEntityNode(GEntity* entity)
     }
 }
 
-void CHierarchyWindow::RenderCreateEntityPopup()
+void EHierarchyWindow::RenderCreateEntityPopup()
 {
     if (bShowCreatePopup)
     {
@@ -115,7 +115,7 @@ void CHierarchyWindow::RenderCreateEntityPopup()
     }
 }
 
-bool CHierarchyWindow::NameExists(const std::vector<GEntity*>& entities, const std::string& name)
+bool EHierarchyWindow::NameExists(const std::vector<GEntity*>& entities, const std::string& name)
 {
     for (const GEntity* entity : entities)
     {
@@ -125,7 +125,7 @@ bool CHierarchyWindow::NameExists(const std::vector<GEntity*>& entities, const s
     return false;
 }
 
-void CHierarchyWindow::MakeUniqueName(char* outName, size_t outNameSize, const char* baseName,
+void EHierarchyWindow::MakeUniqueName(char* outName, size_t outNameSize, const char* baseName,
                                       const std::vector<GEntity*>& entities)
 {
     if (!NameExists(entities, baseName))

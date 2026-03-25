@@ -8,7 +8,7 @@
 #include "../Core/GameEngine.h"
 #include "../Game/Components/ComponentRegistry.h"
 
-void CInspectorWindow::Render()
+void EInspectorWindow::Render()
 {
     GEntity* selectedEntity = CGameEngine::Instance().GetEditor().GetSelectedEntity();
 
@@ -31,13 +31,13 @@ void CInspectorWindow::Render()
     ImGui::End();
 }
 
-void CInspectorWindow::RenderEntityProperties(GEntity* entity)
+void EInspectorWindow::RenderEntityProperties(GEntity* entity)
 {
     ImGui::Text("Entity: %s", entity->Name.c_str());
     ImGui::Checkbox("Active", &entity->bActive);
 }
 
-void CInspectorWindow::RenderComponentList(GEntity* entity)
+void EInspectorWindow::RenderComponentList(GEntity* entity)
 {
     ImGui::Text("Components");
 
@@ -96,7 +96,7 @@ void CInspectorWindow::RenderComponentList(GEntity* entity)
     }
 }
 
-void CInspectorWindow::RenderAddComponentPopup(GEntity* entity)
+void EInspectorWindow::RenderAddComponentPopup(GEntity* entity)
 {
     if (bShowAddComponentPopup)
     {
@@ -150,7 +150,7 @@ void CInspectorWindow::RenderAddComponentPopup(GEntity* entity)
     }
 }
 
-void CInspectorWindow::RenderComponent(GComponent* component)
+void EInspectorWindow::RenderComponent(GComponent* component)
 {
     const auto& properties = component->GetClass()->Properties;
     for (const FProperty& prop : properties)
@@ -159,7 +159,7 @@ void CInspectorWindow::RenderComponent(GComponent* component)
     }
 }
 
-void CInspectorWindow::RenderProperty(GComponent* component, const FProperty& prop)
+void EInspectorWindow::RenderProperty(GComponent* component, const FProperty& prop)
 {
     void* ptr = reinterpret_cast<char*>(component) + prop.Offset;
     if (!component->GetClass()->bCanDisable && prop.Name == "Enabled")
@@ -169,7 +169,7 @@ void CInspectorWindow::RenderProperty(GComponent* component, const FProperty& pr
     prop.RenderProperty(ptr);
 }
 
-bool CInspectorWindow::FuzzyMatch(const char* pattern, const char* text)
+bool EInspectorWindow::FuzzyMatch(const char* pattern, const char* text)
 {
     const char* patternPtr = pattern;
     const char* textPtr = text;

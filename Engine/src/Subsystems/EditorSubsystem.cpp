@@ -3,11 +3,11 @@
 void CEditorSubsystem::Start()
 {
     WindowManager = new CWindowManager();
-    WindowManager->RegisterWindow<CWorkspaceWindow>();
-    WindowManager->RegisterWindow<CDebugWindow>();
-    WindowManager->RegisterWindow<CConsoleWindow>();
-    WindowManager->RegisterWindow<CInspectorWindow>();
-    WindowManager->RegisterWindow<CHierarchyWindow>();
+    WindowManager->RegisterWindow<EWorkspaceWindow>();
+    WindowManager->RegisterWindow<EDebugWindow>();
+    WindowManager->RegisterWindow<EConsoleWindow>();
+    WindowManager->RegisterWindow<EInspectorWindow>();
+    WindowManager->RegisterWindow<EHierarchyWindow>();
 }
 
 void CEditorSubsystem::Shutdown()
