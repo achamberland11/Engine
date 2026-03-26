@@ -5,7 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.1.2] - 2026-03-25
+## [0.1.3] - 26-03-2026
+
+### Added
+- **Scene Management**: New `CScene` class for managing entities and scene lifecycle
+- **Editor Modes**: Added `EEditorMode` enum with Editor, Play, and Pause modes
+- **Keyboard Shortcuts**: F5 enters play mode, ESC quits application
+- **JSON Utilities**: Added `Json.cpp` and `Json.h` for JSON handling
+- **Entity Factory Methods**: `CGameEngine::CreateEntity()` and `DestroyEntity()`
+- **Input Helper Methods**: `GetKeyDown()`, `GetKeyUp()`, `GetKeyPressed()`, `GetKeyReleased()` static methods
+
+### Changed
+- **Engine Loop Order**: EditorSubsystem now updates before GameSubsystem
+- **Input Processing**: Button state transitions now processed before event polling
+
+### Known Issues 
+- **Pause Mode Bug**: Issue where editor immediately pause when entering play mode
+
+## [0.1.2] - 25-03-2026
 
 ### Added
 - **Doxygen Documentation**: Added comprehensive Doxygen-generated documentation in `docs/` folder
@@ -21,7 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Color.h**: Deleted (merged into Vectors.h)
 - **Legacy Vector Types**: Removed `Vector2`, `Vector3`, `Quaternion`, `Matrix4x4` from Math.h
 
-## [0.1.1] - 2026-03-24
+## [0.1.1] - 24-03-2026
 
 ### Added
 - **Property System**: Added `bRendered` flag to `FProperty` struct to control property visibility in editor
@@ -45,7 +62,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 - **Virtual Methods**: Removed `CanDuplicate()`, `CanBeDisabled()`, `CanBeDeleted()` virtual methods from `GComponent`
 
-## [0.1.0] - 2026-03-23
+## [0.1.0] - 23-03-2026
 
 ### Added
 - Initial release
