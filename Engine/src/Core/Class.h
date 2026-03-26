@@ -20,8 +20,9 @@ public:
     std::vector<FProperty> Properties;
     std::function<void(GEntity*)> Factory;
     bool bCanDuplicate = true;
-    bool bCanDelete = true;
-    bool bCanDisable = true;
+    bool bCanBeDeleted = true;
+    bool bCanBeDisabled = true;
+    bool bUpdateInEditor = false;
 
     const std::string& GetName() const { return ClassName; }
     const CClass* GetParent() const { return Parent; }

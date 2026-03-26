@@ -7,7 +7,7 @@ class GTransformComponent : public GComponent
 {
 public:
     GENERATE_REFLECTION()
-    GENERATE_COMPONENT(false, false, false)
+    GENERATE_COMPONENT(false, false, false, true)
     
     friend class CTransformComponentPropertyRegistrar;
     

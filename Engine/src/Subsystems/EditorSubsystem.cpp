@@ -1,5 +1,8 @@
 #include "EditorSubsystem.h"
 
+#include "InputSubsystem.h"
+#include "../Core/GameEngine.h"
+
 void CEditorSubsystem::Start()
 {
     WindowManager = new CWindowManager();
@@ -17,9 +20,39 @@ void CEditorSubsystem::Shutdown()
 
 void CEditorSubsystem::Update(float deltaSeconds)
 {
+    if (EditorMode != Editor)
+        return;
+
+    /*for (GEntity* entity : CGameEngine::Instance().GetEntities())
+    {
+        if (entity->GetClass()->bUpdateInEditor)
+            entity->Update(deltaSeconds);
+    }*/
+        
+    if (CInputSubsystem::GetKeyPressed(SDL_SCANCODE_F5))
+    {
+        EnterPlayMode();
+    }
 }
 
 void CEditorSubsystem::Render() const
 {
     WindowManager->RenderWindows();
+}
+
+void CEditorSubsystem::EnterPlayMode()
+{
+    SetEditorMode(Play);
+    // TODO save entities state to cache
+}
+
+void CEditorSubsystem::EnterPauseMode()
+{
+    SetEditorMode(Pause);
+}
+
+void CEditorSubsystem::ExitPlayMode()
+{
+    SetEditorMode(Editor);
+    // TODO load cached entities state
 }

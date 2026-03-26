@@ -51,13 +51,13 @@ void EInspectorWindow::RenderComponentList(GEntity* entity)
                                         ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanAvailWidth);
 
 
-        if (component->GetClass()->bCanDelete || component->GetClass()->bCanDuplicate)
+        if (component->GetClass()->bCanBeDeleted || component->GetClass()->bCanDuplicate)
         {
             if (ImGui::BeginPopupContextItem())
             {
-                if (component->GetClass()->bCanDelete)
+                if (component->GetClass()->bCanBeDeleted)
                 {
-                    if (ImGui::MenuItem("Delete") && component->GetClass()->bCanDelete)
+                    if (ImGui::MenuItem("Delete") && component->GetClass()->bCanBeDeleted)
                     {
                         ComponentToDelete = component;
                     }
@@ -163,7 +163,7 @@ void EInspectorWindow::RenderComponent(GComponent* component)
 void EInspectorWindow::RenderProperty(GComponent* component, const FProperty& prop)
 {
     void* ptr = reinterpret_cast<char*>(component) + prop.Offset;
-    if (!component->GetClass()->bCanDisable && prop.Name == "Enabled")
+    if (!component->GetClass()->bCanBeDisabled && prop.Name == "Enabled")
     {
         return;
     }

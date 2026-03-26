@@ -23,7 +23,8 @@ GComponent::StaticClass().Factory = [](GEntity* entity) \
 }; \
 CComponentRegistry::Instance().RegisterComponent(GComponent::StaticClass());
 
-#define GENERATE_COMPONENT(CanDuplicate, CanBeDisabled, CanBeDeleted) \
+#define GENERATE_COMPONENT(CanDuplicate, CanBeDisabled, CanBeDeleted, CanUpdateInEditor) \
 static constexpr bool bCanDuplicate = CanDuplicate; \
 static constexpr bool bCanBeDisabled = CanBeDisabled; \
-static constexpr bool bCanBeDeleted = CanBeDeleted;
+static constexpr bool bCanBeDeleted = CanBeDeleted; \
+static constexpr bool bUpdateInEditor = CanUpdateInEditor;

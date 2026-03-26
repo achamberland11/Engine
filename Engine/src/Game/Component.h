@@ -5,7 +5,7 @@ class GComponent : public GObject
 {
 public:
     GENERATE_REFLECTION()
-    GENERATE_COMPONENT(true, true, true)
+    GENERATE_COMPONENT(true, true, true, false)
     
     friend class CComponentPropertyRegistrar;
 
@@ -13,7 +13,7 @@ public:
     virtual ~GComponent() = default;
     
     virtual void Start() = 0;
-    virtual void Update(float deltaSeconds) = 0;
+    virtual void Update(float deltaSeconds) {}
     
     const char* GetName() const { return Name.c_str(); }
     void SetName(const std::string& name) { Name = name; }

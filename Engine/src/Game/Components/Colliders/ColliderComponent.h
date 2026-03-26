@@ -7,7 +7,7 @@ class GColliderComponent : public GComponent
 {
 public:
     GENERATE_REFLECTION()
-    GENERATE_COMPONENT(true, true, true)
+    GENERATE_COMPONENT(true, true, true, true)
     
     GColliderComponent()
     {

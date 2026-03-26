@@ -14,6 +14,7 @@ void CGameSubsystem::Shutdown() {}
 
 void CGameSubsystem::Update(float deltaSeconds)
 {
+    // TODO: Move this in another subsystem or in the CCounter
     if (FrameDuration.size() >= 100)
     {
         FrameDuration.erase(FrameDuration.begin());
@@ -32,11 +33,17 @@ void CGameSubsystem::Update(float deltaSeconds)
         TimeAccumulator = 0.0f;
     }
 
-    if (CInputSubsystem::GetKeyPressed(SDL_SCANCODE_ESCAPE))
-        CGameEngine::Instance().Quit();
+    //if (CInputSubsystem::GetKeyPressed(SDL_SCANCODE_ESCAPE))
+    //    CGameEngine::Instance().Quit();
 
-    if (CInputSubsystem::GetKeyPressed(SDL_SCANCODE_SPACE))
-        BackgroundColor = { (float)(rand() % 256) / 255.0f, (float)(rand() % 256) / 255.0f, (float)(rand() % 256) / 255.0f };
+    //if (CInputSubsystem::GetKeyPressed(SDL_SCANCODE_SPACE))
+    //   BackgroundColor = { (float)(rand() % 256) / 255.0f, (float)(rand() % 256) / 255.0f, (float)(rand() % 256) / 255.0f };
+
+    if (CGameEngine::Instance().GetEditor().GetEditorMode() == Play)
+    {
+        if (CInputSubsystem::GetKeyPressed(SDL_SCANCODE_ESCAPE))
+            CGameEngine::Instance().GetEditor().ExitPlayMode();
+    }
 
 }
 

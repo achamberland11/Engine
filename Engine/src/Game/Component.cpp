@@ -8,7 +8,7 @@ CClass GComponent::sClass = CClass{
 
 void GComponent::SetEnabled(bool enabled)
 {
-    if (GetClass()->bCanDisable)
+    if (GetClass()->bCanBeDisabled)
     {
         bEnabled = enabled;
     }
@@ -30,8 +30,9 @@ public:
         REGISTER_PROPERTY(GComponent, "Enabled", bEnabled, EPropertyType::Bool);
 
         GComponent::StaticClass().bCanDuplicate = GComponent::bCanDuplicate;
-        GComponent::StaticClass().bCanDelete = GComponent::bCanBeDeleted;
-        GComponent::StaticClass().bCanDisable = GComponent::bCanBeDisabled;
+        GComponent::StaticClass().bCanBeDeleted = GComponent::bCanBeDeleted;
+        GComponent::StaticClass().bCanBeDisabled = GComponent::bCanBeDisabled;
+        GComponent::StaticClass().bUpdateInEditor = GComponent::bUpdateInEditor;
     }
 };
 

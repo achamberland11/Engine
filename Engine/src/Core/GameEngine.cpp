@@ -9,8 +9,8 @@ void CGameEngine::Init()
 {
     RendererSubsystem.Start();
     InputSubsystem.Start();
-    GameSubsystem.Start();
     EditorSubsystem.Start();
+    GameSubsystem.Start();
     
     int allocatorSize = GetAllocator().GetSize();
     int allocatorPageSize = GetAllocator().GetPageSize();
@@ -28,8 +28,8 @@ void CGameEngine::Loop()
     lastTime = currentTime;
 
     InputSubsystem.Update(deltaSeconds);
-    GameSubsystem.Update(deltaSeconds);
     EditorSubsystem.Update(deltaSeconds);
+    GameSubsystem.Update(deltaSeconds);
     Counter.Update(deltaSeconds);
 
     FColor bgColor = GameSubsystem.GetBackgroundColor();
@@ -56,8 +56,8 @@ void CGameEngine::Shutdown()
     ImGui_ImplSDL3_Shutdown();
     ImGui::DestroyContext();
 
-    EditorSubsystem.Shutdown();
     GameSubsystem.Shutdown();
+    EditorSubsystem.Shutdown();
     InputSubsystem.Shutdown();
     RendererSubsystem.Shutdown();
 }

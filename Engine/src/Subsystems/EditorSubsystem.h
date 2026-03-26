@@ -9,6 +9,13 @@
 #include "../Windows/WorkspaceWindow.h"
 #include "../Windows/ConsoleWindow.h"
 
+enum EEditorMode
+{
+    Editor,
+    Play,
+    Pause
+};
+
 class CEditorSubsystem : public ISubsystem
 {
 public:
@@ -24,8 +31,16 @@ public:
     void SetSelectedEntity(GEntity* entity) { SelectedEntity = entity; }
     
     CWindowManager& GetWindowManager() { return *WindowManager; }
+
+    EEditorMode GetEditorMode() const { return EditorMode; }
+    void EnterPlayMode();
+    void EnterPauseMode();
+    void ExitPlayMode();
    
 private:
+    void SetEditorMode(EEditorMode mode) { EditorMode = mode; }
+    
     GEntity* SelectedEntity;
     CWindowManager* WindowManager;
+    EEditorMode EditorMode = Editor;
 };
