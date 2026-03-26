@@ -47,13 +47,5 @@ void CGameSubsystem::Update(float deltaSeconds)
     if (*EditorMode == Editor )
         return;
     
-    if (CInputSubsystem::GetKeyPressed(SDL_SCANCODE_ESCAPE))
-        CGameEngine::Instance().GetEditor().ExitPlayMode();
-
-    if (CInputSubsystem::GetKeyPressed(SDL_SCANCODE_F5) && *EditorMode == Pause)
-        CGameEngine::Instance().GetEditor().EnterPlayMode();
-    
-    if (CInputSubsystem::GetKeyPressed(SDL_SCANCODE_F5) && *EditorMode == Play)
-        CGameEngine::Instance().GetEditor().EnterPauseMode();
 
 }

@@ -32,12 +32,7 @@ void CEditorSubsystem::Update(float deltaSeconds)
         if (entity->GetClass()->bUpdateInEditor)
             entity->Update(deltaSeconds);
     }*/
-        
-    if (CInputSubsystem::GetKeyPressed(SDL_SCANCODE_F5))
-        EnterPlayMode();
 
-    if (CInputSubsystem::GetKeyPressed(SDL_SCANCODE_ESCAPE))
-        CGameEngine::Instance().Quit();
 }
 
 void CEditorSubsystem::Render() const
