@@ -21,7 +21,7 @@ void EHierarchyWindow::Render()
         const auto& entities = CGameEngine::Instance().GetGame().GetEntities();
         for (GEntity* entity : entities)
         {
-            if (entity->Parent == nullptr)
+            if (entity->GetParent() == nullptr)
             {
                 RenderEntityNode(entity);
             }
@@ -42,12 +42,12 @@ void EHierarchyWindow::RenderEntityNode(GEntity* entity)
         flags |= ImGuiTreeNodeFlags_Selected;
     }
 
-    if (entity->Children.empty())
+    if (entity->GetChildren().empty())
     {
         flags |= ImGuiTreeNodeFlags_Leaf;
     }
 
-    bool isOpen = ImGui::TreeNodeEx(entity->Name.c_str(), flags);
+    bool isOpen = ImGui::TreeNodeEx(entity->GetName().c_str(), flags);
 
     if (ImGui::IsItemClicked() && !ImGui::IsItemToggledOpen())
     {
@@ -72,7 +72,7 @@ void EHierarchyWindow::RenderEntityNode(GEntity* entity)
 
     if (isOpen)
     {
-        for (GEntity* child : entity->Children)
+        for (GEntity* child : entity->GetChildren())
         {
             RenderEntityNode(child);
         }
@@ -119,7 +119,7 @@ bool EHierarchyWindow::NameExists(const std::vector<GEntity*>& entities, const s
 {
     for (const GEntity* entity : entities)
     {
-        if (entity->Name == name)
+        if (entity->GetName() == name)
             return true;
     }
     return false;

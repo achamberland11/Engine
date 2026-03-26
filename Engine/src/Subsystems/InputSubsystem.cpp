@@ -13,6 +13,21 @@ void CInputSubsystem::Shutdown() {}
 
 void CInputSubsystem::Update(float deltaSeconds)
 {
+    for (auto& state : ButtonStates)
+    {
+        switch (state)
+        {
+            case EButtonState::PRESSED:
+                state = EButtonState::DOWN;
+                break;
+            case EButtonState::RELEASED:
+                state = EButtonState::UP;
+                break;
+            default:
+                break;
+        }
+    }
+
     SDL_Event event;
     while (SDL_PollEvent(&event))
     {
@@ -27,14 +42,6 @@ void CInputSubsystem::Update(float deltaSeconds)
             ButtonStates[event.key.scancode] = EButtonState::RELEASED;
     }
     
-    for (auto& state : ButtonStates)
-    {
-        if (state == EButtonState::PRESSED)
-            state = EButtonState::DOWN;
-        else if (state == EButtonState::RELEASED)
-            state = EButtonState::UP;
-    }
-
     for (SDL_Scancode key : PendingPressedKeys)
     {
         if (ButtonStates[key] == EButtonState::UP)
@@ -47,4 +54,24 @@ void CInputSubsystem::Update(float deltaSeconds)
 EButtonState CInputSubsystem::GetButtonState(SDL_Scancode key) const
 {
     return ButtonStates[key];
+}
+
+bool CInputSubsystem::GetKeyDown(SDL_Scancode key)
+{
+    return CGameEngine::Instance().GetInput().GetButtonState(key) == EButtonState::DOWN;
+}
+
+bool CInputSubsystem::GetKeyUp(SDL_Scancode key)
+{
+    return CGameEngine::Instance().GetInput().GetButtonState(key) == EButtonState::UP;
+}
+
+bool CInputSubsystem::GetKeyPressed(SDL_Scancode key)
+{
+    return CGameEngine::Instance().GetInput().GetButtonState(key) == EButtonState::PRESSED;
+}
+
+bool CInputSubsystem::GetKeyReleased(SDL_Scancode key)
+{
+    return CGameEngine::Instance().GetInput().GetButtonState(key) == EButtonState::RELEASED;
 }

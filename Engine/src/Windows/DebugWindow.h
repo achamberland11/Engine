@@ -10,7 +10,8 @@ public:
 
     ImGuiWindowFlags GetFlags() const override
     {
-        return ImGuiWindowFlags_AlwaysAutoResize |
+        ImGuiWindowFlags parentFlags = IWindow::GetFlags();
+        return parentFlags | ImGuiWindowFlags_AlwaysAutoResize |
             ImGuiWindowFlags_NoBackground |
             ImGuiWindowFlags_NoTitleBar;
     }
@@ -24,14 +25,14 @@ public:
         MemoryReserved = reservedMemory;
         PageUsed = usedPages;
         PageReserved = reservedPages;
-    };
+    }
 
     void SetMemoryStats(int memorySize, int pageSize, int nbrPages)
     {
         MemorySize = memorySize;
         PageSize = pageSize;
         NbrPages = nbrPages;
-    };
+    }
     void Render() override;
 
 private:

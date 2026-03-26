@@ -9,6 +9,8 @@ public:
     GENERATE_REFLECTION()
     GENERATE_COMPONENT(false, false, false)
     
+    friend class CTransformComponentPropertyRegistrar;
+    
     GTransformComponent()
     {
         Name = "Transform";

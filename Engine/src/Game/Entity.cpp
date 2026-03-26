@@ -92,8 +92,3 @@ void GEntity::RemoveComponent(GComponent* component)
     auto it = std::find(Components.begin(), Components.end(), component);
     if (it != Components.end()) Components.erase(it);
 }
-
-std::vector<GComponent*> GEntity::GetComponents()
-{
-    return Components;
-}

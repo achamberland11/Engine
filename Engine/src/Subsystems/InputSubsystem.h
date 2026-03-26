@@ -25,6 +25,10 @@ public:
     void Update(float deltaSeconds) override;
 
     EButtonState GetButtonState(SDL_Scancode key) const;
+    static bool GetKeyDown(SDL_Scancode key);
+    static bool GetKeyUp(SDL_Scancode key);
+    static bool GetKeyPressed(SDL_Scancode key);
+    static bool GetKeyReleased(SDL_Scancode key);
 
 private:
     std::array<EButtonState, SDL_SCANCODE_COUNT> ButtonStates;

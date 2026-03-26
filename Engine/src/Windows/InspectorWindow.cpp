@@ -33,15 +33,16 @@ void EInspectorWindow::Render()
 
 void EInspectorWindow::RenderEntityProperties(GEntity* entity)
 {
-    ImGui::Text("Entity: %s", entity->Name.c_str());
-    ImGui::Checkbox("Active", &entity->bActive);
+    ImGui::Text("Entity: %s", entity->GetName().c_str());
+    ImGui::Checkbox("Active", entity->Active());
 }
 
 void EInspectorWindow::RenderComponentList(GEntity* entity)
 {
     ImGui::Text("Components");
 
-    for (GComponent* component : entity->Components)
+    std::vector<GComponent*> components = entity->GetComponents();
+    for (GComponent* component : components)
     {
         ImGui::PushID(component);
 

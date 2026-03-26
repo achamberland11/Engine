@@ -32,17 +32,18 @@ void CGameSubsystem::Update(float deltaSeconds)
         TimeAccumulator = 0.0f;
     }
 
-    if (CGameEngine::Instance().GetInput().GetButtonState(SDL_SCANCODE_ESCAPE) == EButtonState::PRESSED)
+    if (CInputSubsystem::GetKeyPressed(SDL_SCANCODE_ESCAPE))
         CGameEngine::Instance().Quit();
 
-    if (CGameEngine::Instance().GetInput().GetButtonState(SDL_SCANCODE_SPACE) == EButtonState::PRESSED)
+    if (CInputSubsystem::GetKeyPressed(SDL_SCANCODE_SPACE))
         BackgroundColor = { (float)(rand() % 256) / 255.0f, (float)(rand() % 256) / 255.0f, (float)(rand() % 256) / 255.0f };
+
 }
 
 GEntity* CGameSubsystem::CreateEntity(const std::string& name)
 {
     GEntity* newEntity = CGameEngine::Instance().NewObject<GEntity>();
-    newEntity->Name = name;
+    newEntity->SetName(name);
     Entities.push_back(newEntity);
     return newEntity;
 }
