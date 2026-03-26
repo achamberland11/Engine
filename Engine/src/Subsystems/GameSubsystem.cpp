@@ -50,24 +50,10 @@ void CGameSubsystem::Update(float deltaSeconds)
     if (CInputSubsystem::GetKeyPressed(SDL_SCANCODE_ESCAPE))
         CGameEngine::Instance().GetEditor().ExitPlayMode();
 
+    if (CInputSubsystem::GetKeyPressed(SDL_SCANCODE_F5) && *EditorMode == Pause)
+        CGameEngine::Instance().GetEditor().EnterPlayMode();
+    
     if (CInputSubsystem::GetKeyPressed(SDL_SCANCODE_F5) && *EditorMode == Play)
         CGameEngine::Instance().GetEditor().EnterPauseMode();
-    else if (CInputSubsystem::GetKeyPressed(SDL_SCANCODE_F5) && *EditorMode == Pause)
-        CGameEngine::Instance().GetEditor().EnterPlayMode();
 
-}
-
-GEntity* CGameSubsystem::CreateEntity(const std::string& name)
-{
-    GEntity* newEntity = CGameEngine::Instance().NewObject<GEntity>();
-    newEntity->SetName(name);
-    Entities.push_back(newEntity);
-    return newEntity;
-}
-
-void CGameSubsystem::DestroyEntity(GEntity* entity)
-{
-    auto it = std::find(Entities.begin(), Entities.end(), entity);
-    if (it != Entities.end()) Entities.erase(it);
-    CGameEngine::Instance().FreeObject(entity);
 }

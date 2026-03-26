@@ -19,9 +19,6 @@ public:
     float GetAverageFrameTime() const { return CurrentAverage; }
     FColor GetBackgroundColor() const { return BackgroundColor; }
 
-    GEntity* CreateEntity(const std::string& name);
-    void DestroyEntity(GEntity* entity);
-    const std::vector<GEntity*>& GetEntities() const { return Entities; }
 
 private:
     std::vector<float> FrameDuration;

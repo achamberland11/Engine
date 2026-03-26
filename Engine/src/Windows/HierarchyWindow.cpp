@@ -18,7 +18,7 @@ void EHierarchyWindow::Render()
         }
         ImGui::Separator();
 
-        const auto& entities = CGameEngine::Instance().GetGame().GetEntities();
+        const auto& entities = CGameEngine::Instance().GetEntities();
         for (GEntity* entity : entities)
         {
             if (entity->GetParent() == nullptr)
@@ -58,7 +58,7 @@ void EHierarchyWindow::RenderEntityNode(GEntity* entity)
     {
         if (ImGui::MenuItem("Delete"))
         {
-            CGameEngine::Instance().GetGame().DestroyEntity(entity);
+            CGameEngine::Instance().DestroyEntity(entity);
             if (CGameEngine::Instance().GetEditor().GetSelectedEntity() == entity)
             {
                 CGameEngine::Instance().GetEditor().SetSelectedEntity(nullptr);
@@ -97,11 +97,11 @@ void EHierarchyWindow::RenderCreateEntityPopup()
             char baseName[64];
             strcpy_s(baseName, NewEntityName);
 
-            auto& entities = CGameEngine::Instance().GetGame().GetEntities();
+            auto& entities = CGameEngine::Instance().GetEntities();
 
             MakeUniqueName(NewEntityName, sizeof(NewEntityName), baseName, entities);
 
-            CGameEngine::Instance().GetGame().CreateEntity(NewEntityName);
+            CGameEngine::Instance().CreateEntity(NewEntityName);
             strcpy_s(NewEntityName, sizeof(NewEntityName), "Entity");
             ImGui::CloseCurrentPopup();
         }

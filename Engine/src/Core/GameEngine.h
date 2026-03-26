@@ -2,6 +2,7 @@
 #include <mutex>
 
 #include "Counter.h"
+#include "Scene.h"
 #include "../Memory/PageAllocator.hpp"
 #include "../Subsystems/GameSubsystem.h"
 #include "../Subsystems/InputSubsystem.h"
@@ -40,6 +41,12 @@ public:
 
     CPageAllocator<128, 1024 * 1024>& GetAllocator() { return Allocator; }
 
+    GEntity* CreateEntity(const std::string& name) const;
+    void DestroyEntity(GEntity* entity) const;
+    const CScene* GetCurrentScene() const { return CurrentScene; }
+    const std::vector<GEntity*>& GetEntities() const { return CurrentScene->GetEntities(); }
+    
+
 private:
     CGameEngine() = default;
     ~CGameEngine() = default;
@@ -53,6 +60,7 @@ private:
     CCounter Counter;
     
     EEditorMode* EditorMode = nullptr;
+    CScene* CurrentScene = nullptr;
 
     bool bShouldQuit = false;
 };

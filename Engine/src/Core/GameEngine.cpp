@@ -7,6 +7,9 @@
 
 void CGameEngine::Init()
 {
+    CurrentScene = new CScene();
+    // TODO: Load scene from file
+    
     RendererSubsystem.Start();
     InputSubsystem.Start();
     EditorSubsystem.Start();
@@ -64,4 +67,18 @@ void CGameEngine::Shutdown()
     EditorSubsystem.Shutdown();
     InputSubsystem.Shutdown();
     RendererSubsystem.Shutdown();
+}
+
+GEntity* CGameEngine::CreateEntity(const std::string& name) const
+{
+    GEntity* newEntity = CGameEngine::Instance().NewObject<GEntity>();
+    newEntity->SetName(name);
+    CurrentScene->AddEntity(newEntity);
+    return newEntity;
+}
+
+void CGameEngine::DestroyEntity(GEntity* entity) const
+{
+    CurrentScene->RemoveEntity(entity);
+    CGameEngine::Instance().FreeObject(entity);
 }

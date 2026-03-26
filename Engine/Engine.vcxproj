@@ -168,6 +168,7 @@
         <ClCompile Include="src\Core\Class.cpp" />
         <ClCompile Include="src\Core\Counter.cpp" />
         <ClCompile Include="src\Core\GameEngine.cpp" />
+        <ClCompile Include="src\Core\Scene.cpp" />
         <ClCompile Include="src\Game\Component.cpp" />
         <ClCompile Include="src\Game\Components\Colliders\ColliderComponent.cpp" />
         <ClCompile Include="src\Game\Components\TransformComponent.cpp">
@@ -287,6 +288,7 @@
       <ClInclude Include="src\Core\Class.h" />
       <ClInclude Include="src\Core\Counter.h" />
       <ClInclude Include="src\Core\GameEngine.h" />
+      <ClInclude Include="src\Core\Scene.h" />
       <ClInclude Include="src\Factories\ComponentFactory.hpp" />
       <ClInclude Include="src\Game\Component.h" />
       <ClInclude Include="src\Game\Components\Colliders\ColliderComponent.h" />
