@@ -7,6 +7,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Engine", "Engine\Engine.vcx
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SDL", "external\SDL\VisualC\SDL\SDL.vcxproj", "{81CE8DAF-EBB2-4761-8E45-B71ABCCA8C68}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Game", "Game\Game.vcxproj", "{7A530C94-B119-4D66-959B-E012C4BDC83A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{12B7B45B-4F09-4FA6-AFB0-379D9BA04FD4} = {12B7B45B-4F09-4FA6-AFB0-379D9BA04FD4}
+		{81CE8DAF-EBB2-4761-8E45-B71ABCCA8C68} = {81CE8DAF-EBB2-4761-8E45-B71ABCCA8C68}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -31,5 +37,13 @@ Global
 		{81CE8DAF-EBB2-4761-8E45-B71ABCCA8C68}.Release|Win32.Build.0 = Release|Win32
 		{81CE8DAF-EBB2-4761-8E45-B71ABCCA8C68}.Release|x64.ActiveCfg = Release|x64
 		{81CE8DAF-EBB2-4761-8E45-B71ABCCA8C68}.Release|x64.Build.0 = Release|x64
+		{7A530C94-B119-4D66-959B-E012C4BDC83A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7A530C94-B119-4D66-959B-E012C4BDC83A}.Debug|Win32.Build.0 = Debug|Win32
+		{7A530C94-B119-4D66-959B-E012C4BDC83A}.Debug|x64.ActiveCfg = Debug|x64
+		{7A530C94-B119-4D66-959B-E012C4BDC83A}.Debug|x64.Build.0 = Debug|x64
+		{7A530C94-B119-4D66-959B-E012C4BDC83A}.Release|Win32.ActiveCfg = Release|Win32
+		{7A530C94-B119-4D66-959B-E012C4BDC83A}.Release|Win32.Build.0 = Release|Win32
+		{7A530C94-B119-4D66-959B-E012C4BDC83A}.Release|x64.ActiveCfg = Release|x64
+		{7A530C94-B119-4D66-959B-E012C4BDC83A}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 EndGlobal

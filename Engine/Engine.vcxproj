@@ -113,7 +113,7 @@
             <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
             <ConformanceMode>true</ConformanceMode>
             <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-            <AdditionalIncludeDirectories>$(ProjectDir)\..\external\SDL\include;$(ProjectDir)\..\external\ImGui;Z:\Projets\C++\Engine\MainEngine\external\ImGui\backends</AdditionalIncludeDirectories>
+            <AdditionalIncludeDirectories>$(ProjectDir)\..\external\SDL\include;$(ProjectDir)\..\external\ImGui;</AdditionalIncludeDirectories>
             <LanguageStandard>stdcpp20</LanguageStandard>
         </ClCompile>
         <Link>

@@ -28,8 +28,8 @@ void CGameEngine::Loop()
 {
     RendererSubsystem.OnBeginFrame();
 
-    static float lastTime = SDL_GetTicks();
-    float currentTime = SDL_GetTicks();
+    static float lastTime = static_cast<float>(SDL_GetTicks());
+    float currentTime = static_cast<float>(SDL_GetTicks());
     float deltaSeconds = (currentTime - lastTime) / 1000.0f;
     lastTime = currentTime;
 
@@ -66,10 +66,10 @@ void CGameEngine::Loop()
     FColor bgColor = GameSubsystem.GetBackgroundColor();
     RendererSubsystem.SetClearColor(bgColor);
 
-    float avg = GameSubsystem.GetAverageFrameTime();
-    int fps = Counter.GetFPS();
-    int usedPages = GetAllocator().GetUsedPages();
-    int reservedPages = GetAllocator().GetReservedPages();
+    const float avg = GameSubsystem.GetAverageFrameTime();
+    const float fps = Counter.GetFPS();
+    const int usedPages = GetAllocator().GetUsedPages();
+    const int reservedPages = GetAllocator().GetReservedPages();
     int allocatorUsed = GetAllocator().GetUsedSize();
     int allocatorReserved = GetAllocator().GetReservedSize();
 
