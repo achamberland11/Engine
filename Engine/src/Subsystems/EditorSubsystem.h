@@ -16,6 +16,17 @@ enum EEditorMode
     Pause
 };
 
+inline const char* GetEditorModeName(EEditorMode mode)
+{
+    switch (mode)
+    {
+        case Editor: return "Editor";
+        case Play: return "Play";
+        case Pause: return "Pause";
+        default: return "Unknown";
+    }
+}
+
 class CEditorSubsystem : public ISubsystem
 {
 public:
@@ -32,15 +43,19 @@ public:
     
     CWindowManager& GetWindowManager() { return *WindowManager; }
 
-    EEditorMode GetEditorMode() const { return EditorMode; }
+    EEditorMode* GetEditorMode() const { return EditorMode; }
     void EnterPlayMode();
     void EnterPauseMode();
     void ExitPlayMode();
    
 private:
-    void SetEditorMode(EEditorMode mode) { EditorMode = mode; }
+    void SetEditorMode(EEditorMode mode)
+    {
+        *EditorMode = mode;
+        SDL_Log("Editor mode: %s", GetEditorModeName(*EditorMode));
+    }
     
     GEntity* SelectedEntity;
     CWindowManager* WindowManager;
-    EEditorMode EditorMode = Editor;
+    EEditorMode* EditorMode = nullptr;
 };

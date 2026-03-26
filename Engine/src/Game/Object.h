@@ -17,8 +17,8 @@ public:
         return GetClass()->IsChildOf(&InClass);
     }
     
-    virtual void Start();
-    virtual void Update(float deltaSeconds);
+    //virtual void Start() = 0;
+    //virtual void Update(float deltaSeconds) = 0;
 };
 
 template <class T>

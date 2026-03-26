@@ -11,16 +11,20 @@ void CEditorSubsystem::Start()
     WindowManager->RegisterWindow<EConsoleWindow>();
     WindowManager->RegisterWindow<EInspectorWindow>();
     WindowManager->RegisterWindow<EHierarchyWindow>();
+
+    EditorMode = new EEditorMode();
+    *EditorMode = Editor;
 }
 
 void CEditorSubsystem::Shutdown()
 {
     delete WindowManager;
+    delete EditorMode;
 }
 
 void CEditorSubsystem::Update(float deltaSeconds)
 {
-    if (EditorMode != Editor)
+    if (*EditorMode != Editor)
         return;
 
     /*for (GEntity* entity : CGameEngine::Instance().GetEntities())
@@ -30,9 +34,10 @@ void CEditorSubsystem::Update(float deltaSeconds)
     }*/
         
     if (CInputSubsystem::GetKeyPressed(SDL_SCANCODE_F5))
-    {
         EnterPlayMode();
-    }
+
+    if (CInputSubsystem::GetKeyPressed(SDL_SCANCODE_ESCAPE))
+        CGameEngine::Instance().Quit();
 }
 
 void CEditorSubsystem::Render() const

@@ -13,7 +13,7 @@ public:
     virtual ~GComponent() = default;
     
     virtual void Start() = 0;
-    virtual void Update(float deltaSeconds) {}
+    virtual void Update(float deltaSeconds) = 0;
     
     const char* GetName() const { return Name.c_str(); }
     void SetName(const std::string& name) { Name = name; }

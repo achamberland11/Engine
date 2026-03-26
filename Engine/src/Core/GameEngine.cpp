@@ -12,6 +12,8 @@ void CGameEngine::Init()
     EditorSubsystem.Start();
     GameSubsystem.Start();
     
+    EditorMode = EditorSubsystem.GetEditorMode();
+    
     int allocatorSize = GetAllocator().GetSize();
     int allocatorPageSize = GetAllocator().GetPageSize();
     int allocatorPages = GetAllocator().GetPagesCount();
@@ -55,6 +57,8 @@ void CGameEngine::Shutdown()
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplSDL3_Shutdown();
     ImGui::DestroyContext();
+    
+    EditorMode = nullptr;
 
     GameSubsystem.Shutdown();
     EditorSubsystem.Shutdown();

@@ -32,6 +32,8 @@ public:
     CInputSubsystem& GetInput() { return InputSubsystem; }
     CGameSubsystem& GetGame() { return GameSubsystem; }
     CEditorSubsystem& GetEditor() { return EditorSubsystem; }
+    //CCounter& GetCounter() { return Counter; }
+    EEditorMode* GetEditorMode() const { return EditorMode; }
 
     template <typename T> T* NewObject() { return Allocator.NewObject<T>(); }
     template <typename T> void FreeObject(T* InObject) { Allocator.FreeObject(InObject); }
@@ -49,6 +51,8 @@ private:
     CGameSubsystem GameSubsystem;
     CEditorSubsystem EditorSubsystem;
     CCounter Counter;
+    
+    EEditorMode* EditorMode = nullptr;
 
     bool bShouldQuit = false;
 };

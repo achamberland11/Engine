@@ -8,9 +8,14 @@
 void CGameSubsystem::Start()
 {
     FrameDuration.reserve(100);
+    
+    EditorMode = CGameEngine::Instance().GetEditor().GetEditorMode();
 }
 
-void CGameSubsystem::Shutdown() {}
+void CGameSubsystem::Shutdown()
+{
+    EditorMode = nullptr;
+}
 
 void CGameSubsystem::Update(float deltaSeconds)
 {
@@ -39,11 +44,16 @@ void CGameSubsystem::Update(float deltaSeconds)
     //if (CInputSubsystem::GetKeyPressed(SDL_SCANCODE_SPACE))
     //   BackgroundColor = { (float)(rand() % 256) / 255.0f, (float)(rand() % 256) / 255.0f, (float)(rand() % 256) / 255.0f };
 
-    if (CGameEngine::Instance().GetEditor().GetEditorMode() == Play)
-    {
-        if (CInputSubsystem::GetKeyPressed(SDL_SCANCODE_ESCAPE))
-            CGameEngine::Instance().GetEditor().ExitPlayMode();
-    }
+    if (*EditorMode == Editor )
+        return;
+    
+    if (CInputSubsystem::GetKeyPressed(SDL_SCANCODE_ESCAPE))
+        CGameEngine::Instance().GetEditor().ExitPlayMode();
+
+    if (CInputSubsystem::GetKeyPressed(SDL_SCANCODE_F5) && *EditorMode == Play)
+        CGameEngine::Instance().GetEditor().EnterPauseMode();
+    else if (CInputSubsystem::GetKeyPressed(SDL_SCANCODE_F5) && *EditorMode == Pause)
+        CGameEngine::Instance().GetEditor().EnterPlayMode();
 
 }
 

@@ -1,5 +1,7 @@
 ﻿#pragma once
 #include <vector>
+
+#include "EditorSubsystem.h"
 #include "Subsystem.h"
 #include "../Game/Entity.h"
 #include "../Structs/Vectors.h"
@@ -29,4 +31,5 @@ private:
     FColor BackgroundColor = { 0, 0, 0 };
 
     std::vector<GEntity*> Entities;
+    EEditorMode* EditorMode = nullptr;
 };
