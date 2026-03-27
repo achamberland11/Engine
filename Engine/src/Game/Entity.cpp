@@ -37,9 +37,11 @@ public:
     }
 };
 
+static CEntityRegistrar sEntityRegistrar;
+
 GEntity::GEntity()
 {
-    GTransformComponent::StaticClass().Factory(this);
+    GTransformComponent::StaticClass().Factory(this, Name);
 }
 
 GEntity::~GEntity()
@@ -102,4 +104,5 @@ void GEntity::RemoveComponent(GComponent* component)
 {
     auto it = std::find(Components.begin(), Components.end(), component);
     if (it != Components.end()) Components.erase(it);
+    CGameEngine::Instance().FreeObject(component);
 }

@@ -18,7 +18,7 @@ public:
     std::string DisplayName = ClassName;
     const CClass* Parent;
     std::vector<FProperty> Properties;
-    std::function<void(GEntity*)> Factory;
+    std::function<void(GEntity*, const std::string& name)> Factory;
     bool bCanDuplicate = true;
     bool bCanBeDeleted = true;
     bool bCanBeDisabled = true;

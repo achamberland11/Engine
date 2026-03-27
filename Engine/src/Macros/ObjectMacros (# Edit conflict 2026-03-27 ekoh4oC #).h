@@ -23,11 +23,11 @@ GComponentClass::StaticClass().Factory = [](GEntity* entity, const std::string& 
 }; \
 CComponentRegistry::Instance().RegisterComponent(GComponentClass::StaticClass());
 
-#define REGISTER_ENTITY(GEntityClass) \
+#define REGISTER_ENTITY(GEntityClass, EntityDisplayName) \
 GEntityClass::StaticClass().Factory = [](GEntity* entity, const std::string& name) \
 { \
     static CEntityFactory entityFactory; \
-    entityFactory.NewEntity<GEntityClass>(entity, name); \
+    entityFactory.NewEntity<GEntityClass>(EntityDisplayName); \
 }; \
 CEntityRegistry::Instance().RegisterEntity(GEntityClass::StaticClass());
 

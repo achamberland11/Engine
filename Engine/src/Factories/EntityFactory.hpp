@@ -5,21 +5,24 @@ class CEntityFactory
 {
 public:
     template <typename T>
-    void NewEntity(GEntity* parentEntity = nullptr);
+    void NewEntity(GEntity* parentEntity = nullptr, std::string name = "");
 };
 
 template <typename T>
-void CEntityFactory::NewEntity(GEntity* parentEntity)
+void CEntityFactory::NewEntity(GEntity* parentEntity, std::string name)
 {
-    GEntity* newEntity = CGameEngine::Instance().NewObject<T>();
+    if (name.empty())
+    {
+        name = T::StaticClass().DisplayName;
+    }
+    GEntity* newEntity = CGameEngine::Instance().CreateEntity(name);
 
     if (!newEntity->IsA(GEntity::StaticClass()))
     {
-        CGameEngine::Instance().FreeObject(newEntity);
+        CGameEngine::Instance().DestroyEntity(newEntity);
         return;
     }
 
-    // newEntity->Start();
     if (parentEntity != nullptr)
     {
         parentEntity->AddChild(newEntity);

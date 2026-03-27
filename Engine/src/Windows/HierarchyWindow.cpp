@@ -4,6 +4,8 @@
 #include "../Core/GameEngine.h"
 #include "HierarchyWindow.h"
 
+#include "../Game/Entities/EntityRegistry.h"
+
 // TODO: Implement CHierarchyWindow - full implementation
 // - Parenting support
 // - Drag and drop
@@ -14,7 +16,7 @@ void EHierarchyWindow::Render()
     {
         if (ImGui::Button("+ Create Entity"))
         {
-            bShowCreatePopup = true;
+            bShowSelectEntityPopup = true;
         }
         ImGui::Separator();
 
@@ -27,6 +29,7 @@ void EHierarchyWindow::Render()
             }
         }
 
+        RenderSelectEntityPopup();
         RenderCreateEntityPopup();
     }
 
@@ -80,17 +83,60 @@ void EHierarchyWindow::RenderEntityNode(GEntity* entity)
     }
 }
 
+void EHierarchyWindow::RenderSelectEntityPopup()
+{
+    if (bShowSelectEntityPopup)
+    {
+        ImGui::OpenPopup("Select Entity Type");
+        bShowSelectEntityPopup = false;
+        EntitySearchBuffer[0] = '\0';
+        SelectedEntityType = nullptr;
+    }
+
+    if (ImGui::BeginPopupModal("Select Entity Type", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+    {
+        ImGui::InputText("Search##EntitySearch", EntitySearchBuffer, sizeof(EntitySearchBuffer));
+        ImGui::Separator();
+
+        const auto& entityTypes = CEntityRegistry::Instance().GetAllEntities();
+        for (CClass* entityClass : entityTypes)
+        {
+            if (EntitySearchBuffer[0] != '\0' &&
+                !FuzzyMatch(EntitySearchBuffer, entityClass->DisplayName.c_str()))
+            {
+                continue;
+            }
+
+            if (ImGui::Selectable(entityClass->DisplayName.c_str()))
+            {
+                SelectedEntityType = entityClass;
+                bShowCreatePopup = true;
+                ImGui::CloseCurrentPopup();
+            }
+        }
+
+        ImGui::Separator();
+        if (ImGui::Button("Cancel##SelectEntity"))
+        {
+            ImGui::CloseCurrentPopup();
+        }
+        ImGui::EndPopup();
+    }
+}
+
+
 void EHierarchyWindow::RenderCreateEntityPopup()
 {
-    if (bShowCreatePopup)
+    if (bShowCreatePopup && SelectedEntityType)
     {
         ImGui::OpenPopup("Create Entity");
         bShowCreatePopup = false;
+        strcpy_s(NewEntityName, sizeof(NewEntityName), SelectedEntityType->DisplayName.c_str());
     }
 
     if (ImGui::BeginPopupModal("Create Entity", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
     {
-        ImGui::InputText("Name", NewEntityName, sizeof(NewEntityName));
+        ImGui::InputText("Name##EntityName", NewEntityName, sizeof(NewEntityName));
 
         if (ImGui::Button("Create"))
         {
@@ -101,20 +147,27 @@ void EHierarchyWindow::RenderCreateEntityPopup()
 
             MakeUniqueName(NewEntityName, sizeof(NewEntityName), baseName, entities);
 
-            CGameEngine::Instance().CreateEntity(NewEntityName);
+            if (SelectedEntityType->Factory)
+            {
+                SelectedEntityType->Factory(nullptr, NewEntityName);
+            }
+            
             strcpy_s(NewEntityName, sizeof(NewEntityName), "Entity");
+            SelectedEntityType = nullptr;
             ImGui::CloseCurrentPopup();
         }
         ImGui::SameLine();
-        if (ImGui::Button("Cancel"))
+        if (ImGui::Button("Cancel##CreateEntity"))
         {
             strcpy_s(NewEntityName, sizeof(NewEntityName), "Entity");
+            SelectedEntityType = nullptr;
             ImGui::CloseCurrentPopup();
         }
         ImGui::EndPopup();
     }
 }
 
+// TODO: Make this function global to the project
 bool EHierarchyWindow::NameExists(const std::vector<GEntity*>& entities, const std::string& name)
 {
     for (const GEntity* entity : entities)
@@ -125,6 +178,7 @@ bool EHierarchyWindow::NameExists(const std::vector<GEntity*>& entities, const s
     return false;
 }
 
+// TODO: Make this function global to the project
 void EHierarchyWindow::MakeUniqueName(char* outName, size_t outNameSize, const char* baseName,
                                       const std::vector<GEntity*>& entities)
 {
@@ -143,4 +197,22 @@ void EHierarchyWindow::MakeUniqueName(char* outName, size_t outNameSize, const c
     }
 
     std::snprintf(outName, outNameSize, "%s", "X");
+}
+
+// TODO: Make this function global to the project (and remove the other one)
+bool EHierarchyWindow::FuzzyMatch(const char* pattern, const char* text)
+{
+    const char* patternPtr = pattern;
+    const char* textPtr = text;
+
+    while (*patternPtr && *textPtr)
+    {
+        if (tolower(*patternPtr) == tolower(*textPtr))
+        {
+            patternPtr++;
+        }
+        textPtr++;
+    }
+
+    return *patternPtr == '\0'; 
 }

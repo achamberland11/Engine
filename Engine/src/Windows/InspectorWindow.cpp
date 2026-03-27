@@ -67,7 +67,7 @@ void EInspectorWindow::RenderComponentList(GEntity* entity)
                 {
                     if (ImGui::MenuItem("Duplicate"))
                     {
-                        component->GetClass()->Factory(entity);
+                        component->GetClass()->Factory(entity, component->GetName());
                     }
                 }
                 ImGui::EndPopup();
@@ -92,7 +92,6 @@ void EInspectorWindow::RenderComponentList(GEntity* entity)
     if (ComponentToDelete)
     {
         entity->RemoveComponent(ComponentToDelete);
-        CGameEngine::Instance().FreeObject(ComponentToDelete);
         ComponentToDelete = nullptr;
     }
 }
@@ -136,7 +135,7 @@ void EInspectorWindow::RenderAddComponentPopup(GEntity* entity)
             {
                 if (compClass->Factory)
                 {
-                    compClass->Factory(entity);
+                    compClass->Factory(entity, compClass->GetName());
                 }
                 ImGui::CloseCurrentPopup();
             }
