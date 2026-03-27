@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.4] - 27-03-2026
+
+### Added
+- **Entity Registry**: New `CEntityRegistry` class for managing all entities in the engine
+- **Entity Factory**: New `CEntityFactory` class for entity creation with registration system
+- **Entity Type Popup**: Added popup menu in Hierarchy window to select entity type when creating new entities
+- **Game Project**: Added separate Game project for game-specific code
+
+### Fixed
+- **Pause Mode Bug**: Fixed issue where editor would immediately pause when entering play mode
+
 ## [0.1.3] - 26-03-2026
 
 ### Added
@@ -18,9 +29,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - **Engine Loop Order**: EditorSubsystem now updates before GameSubsystem
 - **Input Processing**: Button state transitions now processed before event polling
-
-### Known Issues 
-- **Pause Mode Bug**: Issue where editor immediately pause when entering play mode
 
 ## [0.1.2] - 25-03-2026
 
