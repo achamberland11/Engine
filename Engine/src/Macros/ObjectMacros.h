@@ -18,7 +18,7 @@ const CClass* GetClass() const override { return &sClass; }
 #define REGISTER_COMPONENT(GComponent) \
 GComponent::StaticClass().Factory = [](GEntity* entity) \
 { \
-    static ComponentFactory compFactory; \
+    static CComponentFactory compFactory; \
     compFactory.NewComponent<GComponent>(entity); \
 }; \
 CComponentRegistry::Instance().RegisterComponent(GComponent::StaticClass());

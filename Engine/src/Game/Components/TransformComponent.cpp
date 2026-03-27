@@ -20,9 +20,9 @@ class CTransformComponentPropertyRegistrar
 public:
     CTransformComponentPropertyRegistrar()
     {
-        REGISTER_PROPERTY(GTransformComponent, "Position", Position, EPropertyType::Vector3);
-        REGISTER_PROPERTY(GTransformComponent, "Rotation", Rotation, EPropertyType::Vector3);
-        REGISTER_PROPERTY(GTransformComponent, "Scale", Scale, EPropertyType::Vector3);
+        REGISTER_PROPERTY(GTransformComponent, "Position", Position, EPropertyType::Vector3)
+        REGISTER_PROPERTY(GTransformComponent, "Rotation", Rotation, EPropertyType::Vector3)
+        REGISTER_PROPERTY(GTransformComponent, "Scale", Scale, EPropertyType::Vector3)
 
         GTransformComponent::StaticClass().bCanDuplicate = GTransformComponent::bCanDuplicate;
         GTransformComponent::StaticClass().bCanBeDeleted = GTransformComponent::bCanBeDeleted;
@@ -39,7 +39,7 @@ class CTransformComponentRegistrar
 public:
     CTransformComponentRegistrar()
     {
-        REGISTER_COMPONENT(GTransformComponent);
+        REGISTER_COMPONENT(GTransformComponent)
     }
 };
 

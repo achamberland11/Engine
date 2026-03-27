@@ -9,7 +9,7 @@ public:
     
     friend class CComponentPropertyRegistrar;
 
-    GComponent() {}
+    GComponent() = default;
     virtual ~GComponent() = default;
     
     virtual void Start() = 0;

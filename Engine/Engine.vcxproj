@@ -290,10 +290,12 @@
       <ClInclude Include="src\Core\GameEngine.h" />
       <ClInclude Include="src\Core\Scene.h" />
       <ClInclude Include="src\Factories\ComponentFactory.hpp" />
+      <ClInclude Include="src\Factories\EntityFactory.hpp" />
       <ClInclude Include="src\Game\Component.h" />
       <ClInclude Include="src\Game\Components\Colliders\ColliderComponent.h" />
       <ClInclude Include="src\Game\Components\ComponentRegistry.h" />
       <ClInclude Include="src\Game\Components\TransformComponent.h" />
+      <ClInclude Include="src\Game\Entities\EntityRegistry.h" />
       <ClInclude Include="src\Game\Entity.h" />
       <ClInclude Include="src\Game\Object.h" />
       <ClInclude Include="src\Macros\ObjectMacros.h" />
@@ -315,9 +317,6 @@
       <ClInclude Include="src\Windows\Window.h" />
       <ClInclude Include="src\Windows\WindowManager.h" />
       <ClInclude Include="src\Windows\WorkspaceWindow.h" />
-    </ItemGroup>
-    <ItemGroup>
-      <Folder Include="src\Game\Entities\" />
     </ItemGroup>
     <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
     <ImportGroup Label="ExtensionTargets">

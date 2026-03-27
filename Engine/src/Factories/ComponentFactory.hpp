@@ -4,7 +4,7 @@
 #include "../Game/Entity.h"
 #include "../Game/Component.h"
 
-class ComponentFactory
+class CComponentFactory
 {
 public:
     template <typename T> void NewComponent(GEntity* parent);
@@ -12,7 +12,7 @@ public:
 };
 
 template <typename T>
-void ComponentFactory::NewComponent(GEntity* parent)
+void CComponentFactory::NewComponent(GEntity* parent)
 {
     if (parent == nullptr) return;
     
@@ -31,7 +31,10 @@ void ComponentFactory::NewComponent(GEntity* parent)
         if (bComponentExists) return;
     }
     GComponent* newComponent = CGameEngine::Instance().NewObject<T>();
-    newComponent->Start();
+    // newComponent->Start();
+    
+    assert(newComponent->IsA(GComponent::StaticClass()), "Component is not a component");
+    if (!newComponent->IsA(GComponent::StaticClass())) return;
     parent->AddComponent(newComponent);
 }
 
