@@ -38,6 +38,7 @@ void EHierarchyWindow::Render()
 
 void EHierarchyWindow::RenderEntityNode(GEntity* entity)
 {
+    ImGui::PushID(entity);
     ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth;
 
     if (CGameEngine::Instance().GetEditor().GetSelectedEntity() == entity)
@@ -68,6 +69,7 @@ void EHierarchyWindow::RenderEntityNode(GEntity* entity)
             }
             ImGui::EndPopup();
             if (isOpen) ImGui::TreePop();
+            ImGui::PopID();
             return;
         }
         ImGui::EndPopup();
@@ -81,6 +83,7 @@ void EHierarchyWindow::RenderEntityNode(GEntity* entity)
         }
         ImGui::TreePop();
     }
+    ImGui::PopID();
 }
 
 void EHierarchyWindow::RenderSelectEntityPopup()
