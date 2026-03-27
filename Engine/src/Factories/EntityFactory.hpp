@@ -1,5 +1,4 @@
 #pragma once
-#include "../Entity.h"
 #include "../Game/Entity.h"
 
 class CEntityFactory
@@ -14,8 +13,11 @@ void CEntityFactory::NewEntity(GEntity* parentEntity)
 {
     GEntity* newEntity = CGameEngine::Instance().NewObject<T>();
 
-    assert(newEntity->IsA(GEntity::StaticClass()), "Entity is not a GEntity");
-    if (!newEntity->IsA(GEntity::StaticClass())) return;
+    if (!newEntity->IsA(GEntity::StaticClass()))
+    {
+        CGameEngine::Instance().FreeObject(newEntity);
+        return;
+    }
 
     // newEntity->Start();
     if (parentEntity != nullptr)

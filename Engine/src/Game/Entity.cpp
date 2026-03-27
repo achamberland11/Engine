@@ -3,6 +3,8 @@
 
 #include "../Core/GameEngine.h"
 #include "Components/TransformComponent.h"
+#include "Entities/EntityRegistry.h"
+#include "../Factories/EntityFactory.hpp"
 
 CClass GEntity::sClass = CClass{
     "CEntity",
@@ -25,6 +27,15 @@ public:
 };
 
 static CEntityPropertyRegistrar sEntityPropertyRegistrar;
+
+class CEntityRegistrar
+{
+public:
+    CEntityRegistrar()
+    {
+        REGISTER_ENTITY(GEntity)
+    }
+};
 
 GEntity::GEntity()
 {

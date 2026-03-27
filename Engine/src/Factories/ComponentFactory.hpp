@@ -21,7 +21,7 @@ void CComponentFactory::NewComponent(GEntity* parent)
         bool bComponentExists = false;
         for (GComponent* component : parent->GetComponents())
         {
-            if (component->IsA(GComponent::StaticClass()))
+            if (component->IsA(T::StaticClass()))
             {
                 bComponentExists = true;
                 break;
@@ -33,8 +33,11 @@ void CComponentFactory::NewComponent(GEntity* parent)
     GComponent* newComponent = CGameEngine::Instance().NewObject<T>();
     // newComponent->Start();
     
-    assert(newComponent->IsA(GComponent::StaticClass()), "Component is not a component");
-    if (!newComponent->IsA(GComponent::StaticClass())) return;
+    if (!newComponent->IsA(GComponent::StaticClass()))
+    {
+        CGameEngine::Instance().FreeObject(newComponent);
+        return;
+    }
     parent->AddComponent(newComponent);
 }
 
