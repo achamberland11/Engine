@@ -13,8 +13,6 @@ CClass GTransformComponent::sClass = CClass
 };
 
 // Property Registration
-// std::vector<CProperty> CTransformComponent::sProperties;
-
 class CTransformComponentPropertyRegistrar
 {
 public:
@@ -31,7 +29,6 @@ public:
 };
 
 static CTransformComponentPropertyRegistrar sTransformComponentPropertyRegistrar;
-
 
 // Component Class Registration
 class CTransformComponentRegistrar

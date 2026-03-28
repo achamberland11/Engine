@@ -58,6 +58,17 @@ GEntity::~GEntity()
     Components.clear();
 }
 
+void GEntity::Start()
+{
+    for (auto component : Components) component->Start();
+    SDL_Log("Start %s", Name.c_str());
+}
+
+void GEntity::Update(float deltaSeconds)
+{
+    for (auto component : Components) component->Update(deltaSeconds);
+}
+
 void GEntity::SetParent(GEntity* parent)
 {
     if (Parent == parent) return;

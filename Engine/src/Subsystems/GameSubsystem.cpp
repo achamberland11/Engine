@@ -46,6 +46,13 @@ void CGameSubsystem::Update(float deltaSeconds)
 
     if (*EditorMode == Editor )
         return;
-    
 
+    if (*EditorMode == Play)
+    {
+        std::vector<GEntity*> entities = CGameEngine::Instance().GetEntities();
+        for (GEntity* entity : entities)
+        {
+            entity->Update(deltaSeconds);
+        }
+    }
 }

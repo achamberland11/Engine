@@ -12,8 +12,8 @@ public:
     GEntity();
     virtual ~GEntity();
     
-    virtual void Start() {}
-    virtual void Update(float deltaSeconds) {}
+    virtual void Start();
+    virtual void Update(float deltaSeconds);
     
     std::string GetName() const { return Name; }
     void SetName(const std::string& name) { Name = name; }

@@ -51,6 +51,7 @@ public:
 private:
     void SetEditorMode(EEditorMode mode)
     {
+        LastEditorMode = *EditorMode;
         *EditorMode = mode;
         SDL_Log("Editor mode: %s", GetEditorModeName(*EditorMode));
     }
@@ -58,4 +59,5 @@ private:
     GEntity* SelectedEntity;
     CWindowManager* WindowManager;
     EEditorMode* EditorMode = nullptr;
+    EEditorMode LastEditorMode = Editor;
 };

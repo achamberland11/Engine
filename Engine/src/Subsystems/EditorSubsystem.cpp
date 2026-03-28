@@ -14,6 +14,7 @@ void CEditorSubsystem::Start()
 
     EditorMode = new EEditorMode();
     *EditorMode = Editor;
+    LastEditorMode = Editor;
 }
 
 void CEditorSubsystem::Shutdown()
@@ -27,12 +28,15 @@ void CEditorSubsystem::Update(float deltaSeconds)
     if (*EditorMode != Editor)
         return;
 
-    /*for (GEntity* entity : CGameEngine::Instance().GetEntities())
+    for (GEntity* entity : CGameEngine::Instance().GetEntities())
     {
-        if (entity->GetClass()->bUpdateInEditor)
-            entity->Update(deltaSeconds);
-    }*/
-
+        std::vector<GComponent*> components = entity->GetComponents();
+        for (GComponent* component : components)
+        {
+            if (component->GetClass()->bUpdateInEditor)
+                component->Update(deltaSeconds);
+        }
+    }
 }
 
 void CEditorSubsystem::Render() const
@@ -44,6 +48,14 @@ void CEditorSubsystem::EnterPlayMode()
 {
     SetEditorMode(Play);
     // TODO save entities state to cache
+
+    if (LastEditorMode == Pause) return;
+    
+    std::vector<GEntity*> entities = CGameEngine::Instance().GetEntities();
+    for (GEntity* entity : entities)
+    {
+        entity->Start();
+    }
 }
 
 void CEditorSubsystem::EnterPauseMode()
