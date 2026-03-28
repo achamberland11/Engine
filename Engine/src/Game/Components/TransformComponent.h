@@ -18,6 +18,9 @@ public:
     
     void Start() override {}
     void Update(float deltaSeconds) override {}
+    void SetPosition(FVector3 position) { Position = position; }
+    void SetRotation(FVector3 rotation) { Rotation = rotation; }
+    void SetScale(FVector3 scale) { Scale = scale; }
     
     FVector3 Position = {0,0,0};
     FVector3 Rotation = {0,0,0};

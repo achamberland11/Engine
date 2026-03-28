@@ -41,3 +41,4 @@ public:
 };
 
 static CTransformComponentRegistrar sTransformComponentRegistrar;
+
