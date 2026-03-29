@@ -12,6 +12,7 @@ public:
     void RemoveEntity(GEntity* entity);
     void Clear();
     const std::vector<GEntity*>& GetEntities() const { return Entities; }
+    GEntity* FindEntity(const std::string& name) const;
     
     std::string GetSceneName() const { return SceneName; }
     void SetSceneName(const std::string& name) { SceneName = name; }
@@ -25,6 +26,8 @@ public:
     bool Load();
     bool IsSaved() const { return !CurrentScenePath.empty(); }
     
+    bool IsLoadingScene() const { return bIsLoadingScene; }
+    
 private:
     void SerializeEntity(CJsonWriter& writer, GEntity* entity) const;
     void DeserializeEntity(CJsonReader& reader, GEntity* entity, std::vector<std::pair<std::string, std::string>>& parentLinks);
@@ -36,4 +39,5 @@ private:
     void SerializeProperty(CJsonWriter& writer, GObject* obj, const FProperty& prop, const std::string& key) const;
     void DeserializeProperty(CJsonReader& reader, GObject* obj, const FProperty& prop, const std::string& key) const;
     
+    std::atomic<bool> bIsLoadingScene = false;
 };

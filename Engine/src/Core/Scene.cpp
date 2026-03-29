@@ -27,8 +27,25 @@ void CScene::RemoveEntity(GEntity* entity)
 
 void CScene::Clear()
 {
-    for (auto entity : Entities) CGameEngine::Instance().FreeObject(entity);
+    for (GEntity* entity : Entities)
+    {
+        entity->SetParent(nullptr);
+    }
+    for (auto entity : Entities)
+    {
+        CGameEngine::Instance().FreeObject(entity);
+    }
     Entities.clear();
+}
+
+GEntity* CScene::FindEntity(const std::string& name) const
+{
+    for (GEntity* entity : Entities)
+    {
+        if (entity->GetName() == name)
+            return entity;
+    }
+    return nullptr;
 }
 
 bool CScene::SaveToFile(const std::string& filePath)
@@ -71,21 +88,24 @@ bool CScene::Save()
 
 bool CScene::LoadFromFile(const std::string& filePath)
 {
+    bIsLoadingScene = true;
+    
     CJsonReader reader;
     
     if (!reader.LoadFromFile(filePath))
     {
         SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Failed to load scene from file: %s", filePath.c_str());
+        bIsLoadingScene = false;
         return false;
     }
     
-    Clear();
+    std::string loadedSceneName = "Scene";
+    std::vector<std::pair<std::string, std::string>> parentLinks;
+    std::vector<GEntity*> tempEntities;
     
     reader.EnterObject("Scene");
     {
-        reader.ReadString("Name", SceneName);
-        
-        std::vector<std::pair<std::string, std::string>> parentLinks;
+        reader.ReadString("Name", loadedSceneName);
         
         reader.EnterArray("Entities");
         {
@@ -94,37 +114,40 @@ bool CScene::LoadFromFile(const std::string& filePath)
             {
                 reader.EnterArrayElement(i);
                 {
-                    GEntity* newEntity = CGameEngine::Instance().CreateEntity("TempEntity");
+                    GEntity* newEntity = CGameEngine::Instance().NewObject<GEntity>();
                     DeserializeEntity(reader, newEntity, parentLinks);
+                    tempEntities.push_back(newEntity);
                 }
                 reader.LeaveObject();
             }
         }
         reader.LeaveArray();
-        
-        for (auto& link : parentLinks)
-        {
-            GEntity* child = nullptr;
-            GEntity* parent = nullptr;
-            
-            for (GEntity* entity : Entities)
-            {
-                if (entity->GetName() == link.first)
-                    child = entity;
-                if (entity->GetName() == link.second)
-                    parent = entity;
-            }
-            
-            if (child && parent)
-            {
-                child->SetParent(parent);
-            }
-        }
     }
     reader.LeaveObject();
     
+    Clear();
+    
+    SceneName = loadedSceneName;
+    
+    for (GEntity* entity : tempEntities)
+    {
+        Entities.push_back(entity);
+    }
+    tempEntities.clear();
+    
+    for (auto& link : parentLinks)
+    {
+        GEntity* child = FindEntity(link.first);
+        GEntity* parent = FindEntity(link.second);
+        if (child && parent)
+        {
+            child->SetParent(parent);
+        }
+    }
+    
     CurrentScenePath = filePath;
     SDL_Log("Scene loaded: %s", filePath.c_str());
+    bIsLoadingScene = false;
     return true;
 }
 
@@ -276,8 +299,9 @@ void CScene::DeserializeEntity(CJsonReader& reader, GEntity* entity, std::vector
         {
             reader.EnterArrayElement(i);
             {
-                GEntity* childEntity = CGameEngine::Instance().CreateEntity("TempChild");
+                GEntity* childEntity = CGameEngine::Instance().NewObject<GEntity>();
                 DeserializeEntity(reader, childEntity, parentLinks);
+                entity->AddChild(childEntity);
             }
             reader.LeaveObject();
         }

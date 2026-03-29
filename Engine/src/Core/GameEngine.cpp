@@ -33,10 +33,13 @@ void CGameEngine::Loop()
     float deltaSeconds = (currentTime - lastTime) / 1000.0f;
     lastTime = currentTime;
 
-    InputSubsystem.Update(deltaSeconds);
-    EditorSubsystem.Update(deltaSeconds);
-    GameSubsystem.Update(deltaSeconds);
-    Counter.Update(deltaSeconds);
+    if (!GetCurrentScene()->IsLoadingScene())
+    {
+        InputSubsystem.Update(deltaSeconds);
+        EditorSubsystem.Update(deltaSeconds);
+        GameSubsystem.Update(deltaSeconds);
+        Counter.Update(deltaSeconds);
+    }
 
     switch (*EditorMode)
     {
