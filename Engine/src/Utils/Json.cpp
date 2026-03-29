@@ -108,8 +108,17 @@ void CJsonWriter::WriteObjectBegin(const char* key)
 {
     if (auto* current = GetCurrent())
     {
-        (*current)[key] = json::object();
-        Stack.push_back(&(*current)[key]);
+        if (key == nullptr)
+        {
+            json newObject = json::object();
+            current->push_back(newObject);
+            Stack.push_back(&(*current)[current->size() - 1]);
+        }
+        else
+        {
+            (*current)[key] = json::object();
+            Stack.push_back(&(*current)[key]);
+        }
     }
 }
 
@@ -125,8 +134,17 @@ void CJsonWriter::WriteArrayBegin(const char* key)
 {
     if (auto* current = GetCurrent())
     {
-        (*current)[key] = json::array();
-        Stack.push_back(&(*current)[key]);
+        if (key == nullptr)
+        {
+            json newArray = json::array();
+            current->push_back(newArray);
+            Stack.push_back(&(*current)[current->size() - 1]);
+        }
+        else
+        {
+            (*current)[key] = json::array();
+            Stack.push_back(&(*current)[key]);
+        }
     }
 }
 
@@ -145,7 +163,7 @@ bool CJsonWriter::SaveToFile(const std::string& filePath) const
         std::ofstream file(filePath);
         if (!file.is_open())
             return false;
-        
+
         file << Root.dump(2); // Pretty print with 2-space indent
         file.close();
         return true;
@@ -182,7 +200,7 @@ bool CJsonReader::LoadFromFile(const std::string& filePath)
         std::ifstream file(filePath);
         if (!file.is_open())
             return false;
-        
+
         file >> Root;
         Stack.clear();
         Stack.push_back(&Root);
@@ -362,6 +380,18 @@ bool CJsonReader::HasKey(const char* key) const
     return false;
 }
 
+bool CJsonReader::IsValueNull(const char* key) const
+{
+    if (auto* current = GetCurrent())
+    {
+        if (current->contains(key))
+        {
+            return current->at(key).is_null();
+        }
+    }
+    return false;
+}
+
 int CJsonReader::GetArraySize() const
 {
     if (auto* current = GetCurrent())
@@ -391,5 +421,17 @@ void CJsonReader::MoveToArrayElement(int index)
     if (!ArrayIndices.empty() && IsArrayElement(index))
     {
         ArrayIndices.back() = index;
+    }
+}
+
+void CJsonReader::EnterArrayElement(int index)
+{
+    if (auto* current = GetCurrent())
+    {
+        if (current->is_array() && index >= 0 && index < static_cast<int>(current->size()))
+        {
+            Stack.push_back(&(*current)[index]);
+            ArrayIndices.push_back(0);
+        }
     }
 }

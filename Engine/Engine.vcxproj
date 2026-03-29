@@ -270,6 +270,7 @@
         <ClCompile Include="src\Windows\InspectorWindow.cpp" />
         <ClCompile Include="src\Windows\WindowManager.cpp" />
         <ClCompile Include="src\Windows\WorkspaceWindow.cpp" />
+        <ClCompile Include="src\Windows\ToolbarWindow.cpp" />
     </ItemGroup>
     <ItemGroup>
         <!-- Remove this project reference if you're including ImGui source directly -->
@@ -317,6 +318,7 @@
       <ClInclude Include="src\Windows\Window.h" />
       <ClInclude Include="src\Windows\WindowManager.h" />
       <ClInclude Include="src\Windows\WorkspaceWindow.h" />
+      <ClInclude Include="src\Windows\ToolbarWindow.h" />
     </ItemGroup>
     <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
     <ImportGroup Label="ExtensionTargets">

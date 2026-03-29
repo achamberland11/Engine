@@ -73,7 +73,9 @@ public:
     void LeaveObject();
     void EnterArray(const char* key);
     void LeaveArray();
+    void EnterArrayElement(int index);
     bool HasKey(const char* key) const;
+    bool IsValueNull(const char* key) const;
     int GetArraySize() const;
     bool IsArrayElement(int index);
     void MoveToArrayElement(int index);

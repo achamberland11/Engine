@@ -4,7 +4,7 @@
 void EDebugWindow::Render()
 {
     ImGui::SetNextWindowBgAlpha(0.5f);
-    ImGui::SetNextWindowPos(ImVec2(10, 50), ImGuiCond_Always);
+    ImGui::SetNextWindowPos(ImVec2(10, 150), ImGuiCond_Always);
 
     if (ImGui::Begin("Debug##DebugOverlay", nullptr, GetFlags()))
     {

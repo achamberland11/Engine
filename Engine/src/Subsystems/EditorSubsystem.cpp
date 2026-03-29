@@ -2,10 +2,12 @@
 
 #include "InputSubsystem.h"
 #include "../Core/GameEngine.h"
+#include "../Windows/ToolbarWindow.h"
 
 void CEditorSubsystem::Start()
 {
     WindowManager = new CWindowManager();
+    WindowManager->RegisterWindow<EToolbarWindow>();
     WindowManager->RegisterWindow<EWorkspaceWindow>();
     WindowManager->RegisterWindow<EDebugWindow>();
     WindowManager->RegisterWindow<EConsoleWindow>();

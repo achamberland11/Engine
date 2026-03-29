@@ -44,6 +44,7 @@ public:
     GEntity* CreateEntity(const std::string& name) const;
     void DestroyEntity(GEntity* entity) const;
     const CScene* GetCurrentScene() const { return CurrentScene; }
+    CScene* GetCurrentScene() { return CurrentScene; }
     const std::vector<GEntity*>& GetEntities() const { return CurrentScene->GetEntities(); }
     
 
