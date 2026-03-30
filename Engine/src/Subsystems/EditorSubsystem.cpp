@@ -6,10 +6,14 @@
 
 void CEditorSubsystem::Start()
 {
+    WorkerThread = new PrimeWorker();
+
     WindowManager = new CWindowManager();
     WindowManager->RegisterWindow<EToolbarWindow>();
     WindowManager->RegisterWindow<EWorkspaceWindow>();
     WindowManager->RegisterWindow<EDebugWindow>();
+    WindowManager->GetWindow<EDebugWindow>()->SetPrimeWorker(WorkerThread);
+    WindowManager->GetWindow<EDebugWindow>()->SetDisplayedPrimes(&DisplayedPrimes);
     WindowManager->RegisterWindow<EConsoleWindow>();
     WindowManager->RegisterWindow<EInspectorWindow>();
     WindowManager->RegisterWindow<EHierarchyWindow>();
@@ -21,6 +25,15 @@ void CEditorSubsystem::Start()
 
 void CEditorSubsystem::Shutdown()
 {
+    // Threading
+    if (WorkerThread)
+    {
+        WorkerThread->StopWorker();
+        delete WorkerThread;
+        WorkerThread = nullptr;
+    }
+    //
+    
     delete WindowManager;
     delete EditorMode;
 }
@@ -29,6 +42,14 @@ void CEditorSubsystem::Update(float deltaSeconds)
 {
     if (*EditorMode != Editor)
         return;
+
+    PollTimer += deltaSeconds;
+    if (PollTimer >= 2.0f && WorkerThread)
+    {
+        PollTimer = 0.0f;
+        std::vector<int> newPrimes = WorkerThread->PollPrimes();
+        DisplayedPrimes.insert(DisplayedPrimes.end(), newPrimes.begin(), newPrimes.end());
+    }
 
     for (GEntity* entity : CGameEngine::Instance().GetEntities())
     {

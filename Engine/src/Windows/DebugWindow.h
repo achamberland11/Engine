@@ -1,10 +1,14 @@
 #pragma once
 #include "../Windows/Window.h"
+#include "../Utils/PrimeWorker.h"
 
 class EDebugWindow : public IWindow
 {
 public:
     EDebugWindow() { Title = "Debug"; }
+
+    void SetPrimeWorker(PrimeWorker* worker) { PrimeWorkerPtr = worker; }
+    void SetDisplayedPrimes(std::vector<int>* primes) { DisplayedPrimes = primes; }
 
     const char* GetWindowName() const override { return "Debug##DebugWindow"; }
 
@@ -46,4 +50,7 @@ private:
     int MemoryReserved = 0;
     int PageSize = 0;
     int NbrPages = 0;
+
+    PrimeWorker* PrimeWorkerPtr = nullptr;
+    std::vector<int>* DisplayedPrimes = nullptr;
 };

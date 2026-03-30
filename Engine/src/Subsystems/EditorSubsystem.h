@@ -2,6 +2,7 @@
 
 #include "Subsystem.h"
 #include "../Game/Entity.h"
+#include "../Utils/PrimeWorker.h"
 #include "../Windows/WindowManager.h"
 #include "../Windows/DebugWindow.h"
 #include "../Windows/HierarchyWindow.h"
@@ -60,4 +61,12 @@ private:
     CWindowManager* WindowManager;
     EEditorMode* EditorMode = nullptr;
     EEditorMode LastEditorMode = Editor;
+
+    PrimeWorker* GetPrimeWorker() const { return WorkerThread; }
+    std::vector<int>& GetDisplayedPrimes() { return DisplayedPrimes; }
+
+private:
+    PrimeWorker* WorkerThread = nullptr;
+    std::vector<int> DisplayedPrimes;
+    float PollTimer = 0.0f;
 };
