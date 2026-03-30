@@ -10,7 +10,8 @@ struct PrimeWorker
 
     std::mutex mutex;
     std::vector<int> primes;
-    size_t lastPrimeIndex = 0;
+    size_t lastPrimeIndex;
+    int lastSearchedNum = 2;
 
     std::atomic<bool> running{ false };
     std::thread workerThread;

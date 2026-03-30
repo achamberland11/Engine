@@ -12,11 +12,12 @@ void CEditorSubsystem::Start()
     WindowManager->RegisterWindow<EToolbarWindow>();
     WindowManager->RegisterWindow<EWorkspaceWindow>();
     WindowManager->RegisterWindow<EDebugWindow>();
-    WindowManager->GetWindow<EDebugWindow>()->SetPrimeWorker(WorkerThread);
-    WindowManager->GetWindow<EDebugWindow>()->SetDisplayedPrimes(&DisplayedPrimes);
     WindowManager->RegisterWindow<EConsoleWindow>();
     WindowManager->RegisterWindow<EInspectorWindow>();
     WindowManager->RegisterWindow<EHierarchyWindow>();
+    
+    WindowManager->GetWindow<EDebugWindow>()->SetPrimeWorker(WorkerThread);
+    WindowManager->GetWindow<EDebugWindow>()->SetDisplayedPrimes(&DisplayedPrimes);
 
     EditorMode = new EEditorMode();
     *EditorMode = Editor;

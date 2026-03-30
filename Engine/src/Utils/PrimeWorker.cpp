@@ -17,6 +17,8 @@ void PrimeWorker::StopWorker()
 
 std::vector<int> PrimeWorker::PollPrimes()
 {
+    if (!running) return {};
+    
     std::scoped_lock lock(mutex);
     std::vector<int> newPrimes;
     for (size_t i = lastPrimeIndex; i < primes.size(); ++i)
@@ -31,7 +33,7 @@ std::vector<int> PrimeWorker::PollPrimes()
 /// --------
 void WorkerFunction(PrimeWorker* worker)
 {
-    int currentNum = 2;
+    int currentNum = worker->lastSearchedNum;
     while (worker->running)
     {
         if (IsPrime(currentNum))
@@ -40,6 +42,12 @@ void WorkerFunction(PrimeWorker* worker)
             worker->primes.push_back(currentNum);
         }
         currentNum++;
+        
+        {
+            std::scoped_lock lock(worker->mutex);
+            worker->lastSearchedNum = currentNum;
+        }
+        
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
 }
