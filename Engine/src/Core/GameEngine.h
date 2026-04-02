@@ -46,7 +46,6 @@ public:
     const CScene* GetCurrentScene() const { return CurrentScene; }
     CScene* GetCurrentScene() { return CurrentScene; }
     const std::vector<GEntity*>& GetEntities() const { return CurrentScene->GetEntities(); }
-    
 
 private:
     CGameEngine() = default;

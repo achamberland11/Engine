@@ -22,6 +22,8 @@ void CGameEngine::Init()
     int allocatorPages = GetAllocator().GetPagesCount();
     EditorSubsystem.GetWindowManager().GetWindow<EDebugWindow>()->SetMemoryStats(
         allocatorSize, allocatorPageSize, allocatorPages);
+    
+    
 }
 
 void CGameEngine::Loop()

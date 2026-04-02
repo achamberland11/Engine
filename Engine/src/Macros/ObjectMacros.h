@@ -20,6 +20,7 @@ GComponentClass::StaticClass().Factory = [](GEntity* entity, const std::string& 
 { \
     static CComponentFactory compFactory; \
     compFactory.NewComponent<GComponentClass>(entity); \
+    SDL_Log("Component: %s registered", GComponentClass::StaticClass().ClassName.c_str()); \
 }; \
 CComponentRegistry::Instance().RegisterComponent(GComponentClass::StaticClass());
 
@@ -28,6 +29,7 @@ GEntityClass::StaticClass().Factory = [](GEntity* entity, const std::string& nam
 { \
     static CEntityFactory entityFactory; \
     entityFactory.NewEntity<GEntityClass>(entity, name); \
+    SDL_Log("Entity: %s registered", GEntityClass::StaticClass().ClassName.c_str()); \
 }; \
 CEntityRegistry::Instance().RegisterEntity(GEntityClass::StaticClass());
 

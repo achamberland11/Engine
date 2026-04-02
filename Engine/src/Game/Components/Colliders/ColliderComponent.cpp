@@ -22,7 +22,7 @@ public:
         GColliderComponent::StaticClass().bCanDuplicate = GColliderComponent::bCanDuplicate;
         GColliderComponent::StaticClass().bCanBeDeleted = GColliderComponent::bCanBeDeleted;
         GColliderComponent::StaticClass().bCanBeDisabled = GColliderComponent::bCanBeDisabled;
-        GColliderComponent::StaticClass().bUpdateInEditor = GColliderComponent::bUpdateInEditor;
+        // GColliderComponent::StaticClass().bUpdateInEditor = GColliderComponent::bUpdateInEditor;
     }
 };
 
@@ -34,7 +34,7 @@ class CColliderComponentRegistrar
 public:
     CColliderComponentRegistrar()
     {
-        REGISTER_COMPONENT(GColliderComponent);
+        REGISTER_COMPONENT(GColliderComponent)
     }
 };
 
