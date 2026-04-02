@@ -32,7 +32,7 @@ enum class EColliderType3D
     Mesh
 };
 
-static const char* sColliderTypeNames[] = { "Box", "Sphere", "Capsule", "Mesh" };
+static const char* sColliderTypeNames[] = {"Box", "Sphere", "Capsule", "Mesh"};
 
 enum class EColliderType2D
 {
@@ -40,7 +40,7 @@ enum class EColliderType2D
     Circle
 };
 
-static const char* sColliderType2DNames[] = { "Rectangle", "Circle" };
+static const char* sColliderType2DNames[] = {"Rectangle", "Circle"};
 
 struct FProperty
 {
@@ -86,7 +86,8 @@ struct FProperty
             ImGui::DragFloat4(Name.c_str(), static_cast<float*>(ptr), 0.1f);
             break;
         case EPropertyType::ColliderType2D:
-            ImGui::Combo("Collider Type", static_cast<int*>(ptr), sColliderType2DNames, IM_ARRAYSIZE(sColliderType2DNames));
+            ImGui::Combo("Collider Type", static_cast<int*>(ptr), sColliderType2DNames,
+                         IM_ARRAYSIZE(sColliderType2DNames));
             break;
         case EPropertyType::ColliderType3D:
             ImGui::Combo("Collider Type", static_cast<int*>(ptr), sColliderTypeNames, IM_ARRAYSIZE(sColliderTypeNames));
@@ -126,6 +127,12 @@ struct FProperty
             break;
         case EPropertyType::Quaternion:
             writer.WriteQuaternion(Name.c_str(), *(FQuaternion*)ptr);
+            break;
+        case EPropertyType::ColliderType2D:
+            writer.WriteInt(Name.c_str(), static_cast<int>(*(EColliderType2D*)ptr));
+            break;
+        case EPropertyType::ColliderType3D:
+            writer.WriteInt(Name.c_str(), static_cast<int>(*(EColliderType3D*)ptr));
             break;
         default:
             break;
@@ -193,6 +200,18 @@ struct FProperty
                 reader.ReadQuaternion(Name.c_str(), value);
                 *(FQuaternion*)ptr = value;
                 break;
+            }
+        case EPropertyType::ColliderType2D:
+            {
+                int value;
+                reader.ReadInt(Name.c_str(), value);
+                *(EColliderType2D*)ptr = (EColliderType2D)value;
+            }
+        case EPropertyType::ColliderType3D:
+            {
+                int value;
+                reader.ReadInt(Name.c_str(), value);
+                *(EColliderType3D*)ptr = (EColliderType3D)value;
             }
         default:
             break;
