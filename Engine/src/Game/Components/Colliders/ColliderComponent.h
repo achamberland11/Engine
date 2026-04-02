@@ -16,4 +16,6 @@ public:
     
     void Start() override {}
     void Update(float deltaSeconds) override {}
+   
+    EColliderType3D ColliderType3D = EColliderType3D::Box;
 };

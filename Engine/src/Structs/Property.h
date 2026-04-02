@@ -19,8 +19,28 @@ enum class EPropertyType
     Vector3,
     Quaternion,
     Matrix4x4,
-    Object
+    Object,
+    ColliderType2D,
+    ColliderType3D,
 };
+
+enum class EColliderType3D
+{
+    Box,
+    Sphere,
+    Capsule,
+    Mesh
+};
+
+static const char* sColliderTypeNames[] = { "Box", "Sphere", "Capsule", "Mesh" };
+
+enum class EColliderType2D
+{
+    Rectangle,
+    Circle
+};
+
+static const char* sColliderType2DNames[] = { "Rectangle", "Circle" };
 
 struct FProperty
 {
@@ -61,6 +81,15 @@ struct FProperty
             break;
         case EPropertyType::Vector3:
             ImGui::DragFloat3(Name.c_str(), static_cast<float*>(ptr), 0.1f);
+            break;
+        case EPropertyType::Quaternion:
+            ImGui::DragFloat4(Name.c_str(), static_cast<float*>(ptr), 0.1f);
+            break;
+        case EPropertyType::ColliderType2D:
+            ImGui::Combo("Collider Type", static_cast<int*>(ptr), sColliderType2DNames, IM_ARRAYSIZE(sColliderType2DNames));
+            break;
+        case EPropertyType::ColliderType3D:
+            ImGui::Combo("Collider Type", static_cast<int*>(ptr), sColliderTypeNames, IM_ARRAYSIZE(sColliderTypeNames));
             break;
         default:
             ImGui::Text("%s: (unsupported)", Name.c_str());

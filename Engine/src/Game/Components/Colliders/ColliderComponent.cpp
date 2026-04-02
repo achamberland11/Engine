@@ -12,17 +12,17 @@ CClass GColliderComponent::sClass = CClass
 };
 
 // Property Registration
-// std::vector<CProperty> CColliderComponent::sProperties;
-
 class CColliderComponentPropertyRegistrar
 {
 public:
     CColliderComponentPropertyRegistrar()
     {
+        REGISTER_PROPERTY(GColliderComponent, "Collider Type", ColliderType3D, EPropertyType::ColliderType3D)
+        
         GColliderComponent::StaticClass().bCanDuplicate = GColliderComponent::bCanDuplicate;
         GColliderComponent::StaticClass().bCanBeDeleted = GColliderComponent::bCanBeDeleted;
         GColliderComponent::StaticClass().bCanBeDisabled = GColliderComponent::bCanBeDisabled;
-        // GColliderComponent::StaticClass().bUpdateInEditor = GColliderComponent::bUpdateInEditor;
+        GColliderComponent::StaticClass().bUpdateInEditor = GColliderComponent::bUpdateInEditor;
     }
 };
 

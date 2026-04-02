@@ -293,6 +293,7 @@
       <ClInclude Include="src\Factories\ComponentFactory.hpp" />
       <ClInclude Include="src\Factories\EntityFactory.hpp" />
       <ClInclude Include="src\Game\Component.h" />
+      <ClInclude Include="src\Game\Components\ComponentsLinker.h" />
       <ClInclude Include="src\Game\Components\Colliders\ColliderComponent.h" />
       <ClInclude Include="src\Game\Components\ComponentRegistry.h" />
       <ClInclude Include="src\Game\Components\TransformComponent.h" />

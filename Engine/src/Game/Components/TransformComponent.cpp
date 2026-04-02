@@ -25,6 +25,7 @@ public:
         GTransformComponent::StaticClass().bCanDuplicate = GTransformComponent::bCanDuplicate;
         GTransformComponent::StaticClass().bCanBeDeleted = GTransformComponent::bCanBeDeleted;
         GTransformComponent::StaticClass().bCanBeDisabled = GTransformComponent::bCanBeDisabled;
+        GTransformComponent::StaticClass().bUpdateInEditor = GTransformComponent::bUpdateInEditor;
     }
 };
 

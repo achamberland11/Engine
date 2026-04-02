@@ -2,7 +2,7 @@
 #include <algorithm>
 
 #include "../Core/GameEngine.h"
-#include "Components/TransformComponent.h"
+#include "Components/ComponentsLinker.h"
 #include "Entities/EntityRegistry.h"
 #include "../Factories/EntityFactory.hpp"
 
@@ -19,10 +19,8 @@ class CEntityPropertyRegistrar
 public:
     CEntityPropertyRegistrar()
     {
-        REGISTER_PROPERTY(GEntity, "Name", Name, EPropertyType::String);
-        REGISTER_PROPERTY(GEntity, "Active", bActive, EPropertyType::Bool);
-
-        // CEntity::StaticClass().Properties = CEntity::ClassProperties();
+        REGISTER_PROPERTY(GEntity, "Name", Name, EPropertyType::String)
+        REGISTER_PROPERTY(GEntity, "Active", bActive, EPropertyType::Bool)
     }
 };
 
