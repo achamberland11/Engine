@@ -6,20 +6,20 @@
 
 CJsonWriter::CJsonWriter()
 {
-    Root = json::object();
+    Root = JSON::object();
     Stack.push_back(&Root);
 }
 
 CJsonWriter::~CJsonWriter() = default;
 
-json* CJsonWriter::GetCurrent()
+JSON* CJsonWriter::GetCurrent() const
 {
     if (Stack.empty())
         return nullptr;
     return Stack.back();
 }
 
-void CJsonWriter::WriteInt(const char* key, int value)
+void CJsonWriter::WriteInt(const char* key, int value) const
 {
     if (auto* current = GetCurrent())
     {
@@ -27,7 +27,7 @@ void CJsonWriter::WriteInt(const char* key, int value)
     }
 }
 
-void CJsonWriter::WriteFloat(const char* key, float value)
+void CJsonWriter::WriteFloat(const char* key, float value) const
 {
     if (auto* current = GetCurrent())
     {
@@ -35,7 +35,7 @@ void CJsonWriter::WriteFloat(const char* key, float value)
     }
 }
 
-void CJsonWriter::WriteBool(const char* key, bool value)
+void CJsonWriter::WriteBool(const char* key, bool value) const
 {
     if (auto* current = GetCurrent())
     {
@@ -43,7 +43,7 @@ void CJsonWriter::WriteBool(const char* key, bool value)
     }
 }
 
-void CJsonWriter::WriteString(const char* key, const char* value)
+void CJsonWriter::WriteString(const char* key, const char* value) const
 {
     if (auto* current = GetCurrent())
     {
@@ -51,32 +51,32 @@ void CJsonWriter::WriteString(const char* key, const char* value)
     }
 }
 
-void CJsonWriter::WriteVector2(const char* key, const FVector2& value)
+void CJsonWriter::WriteVector2(const char* key, const FVector2& value) const
 {
     if (auto* current = GetCurrent())
     {
-        (*current)[key] = json::object();
+        (*current)[key] = JSON::object();
         (*current)[key]["X"] = value.x;
         (*current)[key]["Y"] = value.y;
     }
 }
 
-void CJsonWriter::WriteVector3(const char* key, const FVector3& value)
+void CJsonWriter::WriteVector3(const char* key, const FVector3& value) const
 {
     if (auto* current = GetCurrent())
     {
-        (*current)[key] = json::object();
+        (*current)[key] = JSON::object();
         (*current)[key]["X"] = value.x;
         (*current)[key]["Y"] = value.y;
         (*current)[key]["Z"] = value.z;
     }
 }
 
-void CJsonWriter::WriteQuaternion(const char* key, const FQuaternion& value)
+void CJsonWriter::WriteQuaternion(const char* key, const FQuaternion& value) const
 {
     if (auto* current = GetCurrent())
     {
-        (*current)[key] = json::object();
+        (*current)[key] = JSON::object();
         (*current)[key]["X"] = value.x;
         (*current)[key]["Y"] = value.y;
         (*current)[key]["Z"] = value.z;
@@ -84,19 +84,19 @@ void CJsonWriter::WriteQuaternion(const char* key, const FQuaternion& value)
     }
 }
 
-void CJsonWriter::WriteColor(const char* key, const FColor& value)
+void CJsonWriter::WriteColor(const char* key, const FColor& value) const
 {
     if (auto* current = GetCurrent())
     {
-        (*current)[key] = json::object();
+        (*current)[key] = JSON::object();
         (*current)[key]["R"] = static_cast<int>(value.r * 255.0f);
         (*current)[key]["G"] = static_cast<int>(value.g * 255.0f);
         (*current)[key]["B"] = static_cast<int>(value.b * 255.0f);
-        (*current)[key]["A"] = 255;
+        (*current)[key]["A"] = static_cast<int>(value.a * 255.0f);
     }
 }
 
-void CJsonWriter::WriteNull(const char* key)
+void CJsonWriter::WriteNull(const char* key) const
 {
     if (auto* current = GetCurrent())
     {
@@ -110,13 +110,13 @@ void CJsonWriter::WriteObjectBegin(const char* key)
     {
         if (key == nullptr)
         {
-            json newObject = json::object();
+            JSON newObject = JSON::object();
             current->push_back(newObject);
             Stack.push_back(&(*current)[current->size() - 1]);
         }
         else
         {
-            (*current)[key] = json::object();
+            (*current)[key] = JSON::object();
             Stack.push_back(&(*current)[key]);
         }
     }
@@ -136,13 +136,13 @@ void CJsonWriter::WriteArrayBegin(const char* key)
     {
         if (key == nullptr)
         {
-            json newArray = json::array();
+            JSON newArray = JSON::array();
             current->push_back(newArray);
             Stack.push_back(&(*current)[current->size() - 1]);
         }
         else
         {
-            (*current)[key] = json::array();
+            (*current)[key] = JSON::array();
             Stack.push_back(&(*current)[key]);
         }
     }
@@ -186,7 +186,7 @@ CJsonReader::CJsonReader() = default;
 
 CJsonReader::~CJsonReader() = default;
 
-json* CJsonReader::GetCurrent() const
+JSON* CJsonReader::GetCurrent() const
 {
     if (Stack.empty())
         return nullptr;
@@ -218,7 +218,7 @@ bool CJsonReader::LoadFromString(const std::string& jsonString)
 {
     try
     {
-        Root = json::parse(jsonString);
+        Root = JSON::parse(jsonString);
         Stack.clear();
         Stack.push_back(&Root);
         ArrayIndices.clear();
@@ -231,7 +231,7 @@ bool CJsonReader::LoadFromString(const std::string& jsonString)
     }
 }
 
-void CJsonReader::ReadInt(const char* key, int& value)
+void CJsonReader::ReadInt(const char* key, int& value) const
 {
     if (auto* current = GetCurrent())
     {
@@ -242,7 +242,7 @@ void CJsonReader::ReadInt(const char* key, int& value)
     }
 }
 
-void CJsonReader::ReadFloat(const char* key, float& value)
+void CJsonReader::ReadFloat(const char* key, float& value) const
 {
     if (auto* current = GetCurrent())
     {
@@ -253,7 +253,7 @@ void CJsonReader::ReadFloat(const char* key, float& value)
     }
 }
 
-void CJsonReader::ReadBool(const char* key, bool& value)
+void CJsonReader::ReadBool(const char* key, bool& value) const
 {
     if (auto* current = GetCurrent())
     {
@@ -264,7 +264,7 @@ void CJsonReader::ReadBool(const char* key, bool& value)
     }
 }
 
-void CJsonReader::ReadString(const char* key, std::string& value)
+void CJsonReader::ReadString(const char* key, std::string& value) const
 {
     if (auto* current = GetCurrent())
     {
@@ -275,7 +275,7 @@ void CJsonReader::ReadString(const char* key, std::string& value)
     }
 }
 
-void CJsonReader::ReadVector2(const char* key, FVector2& value)
+void CJsonReader::ReadVector2(const char* key, FVector2& value) const
 {
     if (auto* current = GetCurrent())
     {
@@ -288,7 +288,7 @@ void CJsonReader::ReadVector2(const char* key, FVector2& value)
     }
 }
 
-void CJsonReader::ReadVector3(const char* key, FVector3& value)
+void CJsonReader::ReadVector3(const char* key, FVector3& value) const
 {
     if (auto* current = GetCurrent())
     {
@@ -302,7 +302,7 @@ void CJsonReader::ReadVector3(const char* key, FVector3& value)
     }
 }
 
-void CJsonReader::ReadQuaternion(const char* key, FQuaternion& value)
+void CJsonReader::ReadQuaternion(const char* key, FQuaternion& value) const
 {
     if (auto* current = GetCurrent())
     {
@@ -317,7 +317,7 @@ void CJsonReader::ReadQuaternion(const char* key, FQuaternion& value)
     }
 }
 
-void CJsonReader::ReadColor(const char* key, FColor& value)
+void CJsonReader::ReadColor(const char* key, FColor& value) const
 {
     if (auto* current = GetCurrent())
     {
@@ -404,7 +404,7 @@ int CJsonReader::GetArraySize() const
     return 0;
 }
 
-bool CJsonReader::IsArrayElement(int index)
+bool CJsonReader::IsArrayElement(int index) const
 {
     if (auto* current = GetCurrent())
     {

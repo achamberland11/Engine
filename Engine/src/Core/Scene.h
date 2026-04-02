@@ -29,15 +29,12 @@ public:
     bool IsLoadingScene() const { return bIsLoadingScene; }
     
 private:
-    void SerializeEntity(CJsonWriter& writer, GEntity* entity) const;
+    void SerializeEntity(CJsonWriter& writer, const GEntity* entity) const;
     void DeserializeEntity(CJsonReader& reader, GEntity* entity, std::vector<std::pair<std::string, std::string>>& parentLinks);
     
     std::vector<GEntity*> Entities;
     std::string SceneName = "Scene";
     std::string CurrentScenePath;
-    
-    void SerializeProperty(CJsonWriter& writer, GObject* obj, const FProperty& prop, const std::string& key) const;
-    void DeserializeProperty(CJsonReader& reader, GObject* obj, const FProperty& prop, const std::string& key) const;
     
     std::atomic<bool> bIsLoadingScene = false;
 };

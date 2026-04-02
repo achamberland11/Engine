@@ -156,15 +156,14 @@ bool CScene::Load()
     return false;
 }
 
-void CScene::SerializeEntity(CJsonWriter& writer, GEntity* entity) const
+void CScene::SerializeEntity(CJsonWriter& writer, const GEntity* entity) const
 {
     writer.WriteObjectBegin(nullptr);
     {
         writer.WriteString("Name", entity->GetName().c_str());
         writer.WriteBool("Active", entity->IsActive());
-        
-        GEntity* parent = entity->GetParent();
-        if (parent)
+
+        if (const GEntity* parent = entity->GetParent())
             writer.WriteString("Parent", parent->GetName().c_str());
         else
             writer.WriteNull("Parent");
@@ -179,7 +178,7 @@ void CScene::SerializeEntity(CJsonWriter& writer, GEntity* entity) const
                     
                     for (const FProperty& prop : component->GetClass()->Properties)
                     {
-                        SerializeProperty(writer, component, prop, prop.Name);
+                        prop.SerializeProperty(writer, component);
                     }
                 }
                 writer.WriteObjectEnd();
@@ -197,38 +196,6 @@ void CScene::SerializeEntity(CJsonWriter& writer, GEntity* entity) const
         writer.WriteArrayEnd();
     }
     writer.WriteObjectEnd();
-}
-
-void CScene::SerializeProperty(CJsonWriter& writer, GObject* obj, const FProperty& prop, const std::string& key) const
-{
-    void* ptr = (char*)obj + prop.Offset;
-    
-    switch (prop.Type)
-    {
-    case EPropertyType::Int:
-        writer.WriteInt(key.c_str(), *(int*)ptr);
-        break;
-    case EPropertyType::Float:
-        writer.WriteFloat(key.c_str(), *(float*)ptr);
-        break;
-    case EPropertyType::Bool:
-        writer.WriteBool(key.c_str(), *(bool*)ptr);
-        break;
-    case EPropertyType::String:
-        writer.WriteString(key.c_str(), ((std::string*)ptr)->c_str());
-        break;
-    case EPropertyType::Vector2:
-        writer.WriteVector2(key.c_str(), *(FVector2*)ptr);
-        break;
-    case EPropertyType::Vector3:
-        writer.WriteVector3(key.c_str(), *(FVector3*)ptr);
-        break;
-    case EPropertyType::Quaternion:
-        writer.WriteQuaternion(key.c_str(), *(FQuaternion*)ptr);
-        break;
-    default:
-        break;
-    }
 }
 
 void CScene::DeserializeEntity(CJsonReader& reader, GEntity* entity, std::vector<std::pair<std::string, std::string>>& parentLinks)
@@ -282,7 +249,7 @@ void CScene::DeserializeEntity(CJsonReader& reader, GEntity* entity, std::vector
                     {
                         if (reader.HasKey(prop.Name.c_str()))
                         {
-                            DeserializeProperty(reader, component, prop, prop.Name);
+                            prop.DeserializeProperty(reader, component);
                         }
                     }
                 }
@@ -307,64 +274,4 @@ void CScene::DeserializeEntity(CJsonReader& reader, GEntity* entity, std::vector
         }
     }
     reader.LeaveArray();
-}
-
-void CScene::DeserializeProperty(CJsonReader& reader, GObject* obj, const FProperty& prop, const std::string& key) const
-{
-    void* ptr = (char*)obj + prop.Offset;
-    
-    switch (prop.Type)
-    {
-    case EPropertyType::Int:
-    {
-        int value;
-        reader.ReadInt(key.c_str(), value);
-        *(int*)ptr = value;
-        break;
-    }
-    case EPropertyType::Float:
-    {
-        float value;
-        reader.ReadFloat(key.c_str(), value);
-        *(float*)ptr = value;
-        break;
-    }
-    case EPropertyType::Bool:
-    {
-        bool value;
-        reader.ReadBool(key.c_str(), value);
-        *(bool*)ptr = value;
-        break;
-    }
-    case EPropertyType::String:
-    {
-        std::string value;
-        reader.ReadString(key.c_str(), value);
-        *(std::string*)ptr = value;
-        break;
-    }
-    case EPropertyType::Vector2:
-    {
-        FVector2 value;
-        reader.ReadVector2(key.c_str(), value);
-        *(FVector2*)ptr = value;
-        break;
-    }
-    case EPropertyType::Vector3:
-    {
-        FVector3 value;
-        reader.ReadVector3(key.c_str(), value);
-        *(FVector3*)ptr = value;
-        break;
-    }
-    case EPropertyType::Quaternion:
-    {
-        FQuaternion value;
-        reader.ReadQuaternion(key.c_str(), value);
-        *(FQuaternion*)ptr = value;
-        break;
-    }
-    default:
-        break;
-    }
 }

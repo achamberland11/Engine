@@ -6,12 +6,10 @@
         "Children": [],
         "Components": [
           {
-            "Enabled": true,
-            "Name": "Transform",
             "Position": {
-              "X": 0.0,
+              "X": 42.70000076293945,
               "Y": 0.0,
-              "Z": 0.0
+              "Z": 51.79999923706055
             },
             "Rotation": {
               "X": 0.0,
