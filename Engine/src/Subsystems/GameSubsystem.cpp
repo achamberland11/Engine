@@ -38,12 +38,6 @@ void CGameSubsystem::Update(float deltaSeconds)
         TimeAccumulator = 0.0f;
     }
 
-    //if (CInputSubsystem::GetKeyPressed(SDL_SCANCODE_ESCAPE))
-    //    CGameEngine::Instance().Quit();
-
-    //if (CInputSubsystem::GetKeyPressed(SDL_SCANCODE_SPACE))
-    //   BackgroundColor = { (float)(rand() % 256) / 255.0f, (float)(rand() % 256) / 255.0f, (float)(rand() % 256) / 255.0f };
-
     if (*EditorMode == Editor )
         return;
 
