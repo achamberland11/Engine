@@ -3,6 +3,7 @@
 #include <imgui.h>
 #include <string>
 
+#include "Colliders.h"
 #include "../Utils/Json.h"
 
 class GObject;
@@ -24,22 +25,7 @@ enum class EPropertyType
     ColliderType3D,
 };
 
-enum class EColliderType3D
-{
-    Box,
-    Sphere,
-    Capsule,
-    Mesh
-};
-
 static const char* sColliderTypeNames[] = {"Box", "Sphere", "Capsule", "Mesh"};
-
-enum class EColliderType2D
-{
-    Rectangle,
-    Circle
-};
-
 static const char* sColliderType2DNames[] = {"Rectangle", "Circle"};
 
 struct FProperty

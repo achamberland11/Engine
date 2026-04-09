@@ -1,7 +1,7 @@
 <map id="GColliderComponent" name="GColliderComponent">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,453,215,581"/>
-<area shape="rect" id="Node000002" href="$class_g_component.html" title=" " alt="" coords="33,219,188,405"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="111,418,113,454,108,453,109,423"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,587,215,731"/>
+<area shape="rect" id="Node000002" href="$class_g_component.html" title=" " alt="" coords="32,219,188,539"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="111,551,113,588,108,587,109,556"/>
 <area shape="rect" id="Node000003" href="$class_g_object.html" title=" " alt="" coords="12,5,209,171"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="111,183,113,219,108,218,110,188"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="111,183,113,219,108,219,110,188"/>
 </map>

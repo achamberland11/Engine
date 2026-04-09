@@ -1,6 +1,6 @@
 <map id="GObject" name="GObject">
-<area shape="rect" id="Node000001" title=" " alt="" coords="10,517,207,683"/>
-<area shape="rect" id="Node000002" href="$class_c_class.html" title=" " alt="" coords="5,5,212,453"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="110,451,111,501,106,500,108,456"/>
-<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="211,184,232,201,239,229,236,249,228,263,223,261,231,247,234,229,227,204,212,189"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="10,555,207,720"/>
+<area shape="rect" id="Node000002" href="$class_c_class.html" title=" " alt="" coords="5,5,212,491"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="110,488,111,538,106,537,108,493"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="211,199,232,218,239,248,236,269,227,285,223,282,231,268,234,248,227,220,212,204"/>
 </map>

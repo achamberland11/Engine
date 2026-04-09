@@ -1,5 +1,5 @@
 <map id="GEntity" name="GEntity">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,219,227,672"/>
-<area shape="rect" id="Node000002" href="$class_g_object.html" title=" " alt="" coords="18,5,215,171"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="117,183,119,219,114,219,116,188"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="16,219,191,699"/>
+<area shape="rect" id="Node000002" href="$class_g_object.html" title=" " alt="" coords="5,5,202,171"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="104,183,106,219,101,219,104,188"/>
 </map>

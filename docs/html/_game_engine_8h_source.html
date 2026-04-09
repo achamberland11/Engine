@@ -87,65 +87,79 @@ $(function() { codefold.init(0); });
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &lt;mutex&gt;</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;Counter.h&quot;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;../Memory/PageAllocator.hpp&quot;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;../Subsystems/GameSubsystem.h&quot;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;../Subsystems/InputSubsystem.h&quot;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;../Subsystems/RendererSubsystem.h&quot;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;../Subsystems/EditorSubsystem.h&quot;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="foldopen" id="foldopen00011" data-start="{" data-end="};">
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="class_c_game_engine.html">   11</a></span><span class="keyword">class </span><a class="code hl_class" href="class_c_game_engine.html">CGameEngine</a></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>{</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keyword">static</span> <a class="code hl_class" href="class_c_game_engine.html">CGameEngine</a>&amp; Instance()</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    {</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        <span class="keyword">static</span> <a class="code hl_class" href="class_c_game_engine.html">CGameEngine</a> instance;</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        <span class="keywordflow">return</span> instance;</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    }</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <a class="code hl_class" href="class_c_game_engine.html">CGameEngine</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_c_game_engine.html">CGameEngine</a>&amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <a class="code hl_class" href="class_c_game_engine.html">CGameEngine</a>&amp; operator=(<span class="keyword">const</span> <a class="code hl_class" href="class_c_game_engine.html">CGameEngine</a>&amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <a class="code hl_class" href="class_c_game_engine.html">CGameEngine</a>(<a class="code hl_class" href="class_c_game_engine.html">CGameEngine</a>&amp;&amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <a class="code hl_class" href="class_c_game_engine.html">CGameEngine</a>&amp; operator=(<a class="code hl_class" href="class_c_game_engine.html">CGameEngine</a>&amp;&amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keywordtype">void</span> Init();</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keywordtype">void</span> Loop();</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keywordtype">void</span> Shutdown();</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keywordtype">void</span> Quit() { bShouldQuit = <span class="keyword">true</span>; }</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordtype">bool</span> ShouldQuit()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> bShouldQuit; }</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <a class="code hl_class" href="class_c_renderer_subsystem.html">CRendererSubsystem</a>&amp; GetRenderer() { <span class="keywordflow">return</span> RendererSubsystem; }</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <a class="code hl_class" href="class_c_input_subsystem.html">CInputSubsystem</a>&amp; GetInput() { <span class="keywordflow">return</span> InputSubsystem; }</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <a class="code hl_class" href="class_c_game_subsystem.html">CGameSubsystem</a>&amp; GetGame() { <span class="keywordflow">return</span> GameSubsystem; }</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <a class="code hl_class" href="class_c_editor_subsystem.html">CEditorSubsystem</a>&amp; GetEditor() { <span class="keywordflow">return</span> EditorSubsystem; }</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; T* NewObject() { <span class="keywordflow">return</span> Allocator.NewObject&lt;T&gt;(); }</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keywordtype">void</span> FreeObject(T* InObject) { Allocator.FreeObject(InObject); }</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;Scene.h&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;../Memory/PageAllocator.hpp&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;../Subsystems/GameSubsystem.h&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;../Subsystems/InputSubsystem.h&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;../Subsystems/RendererSubsystem.h&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;../Subsystems/EditorSubsystem.h&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="foldopen" id="foldopen00012" data-start="{" data-end="};">
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="class_c_game_engine.html">   12</a></span><span class="keyword">class </span><a class="code hl_class" href="class_c_game_engine.html">CGameEngine</a></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>{</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keyword">static</span> <a class="code hl_class" href="class_c_game_engine.html">CGameEngine</a>&amp; Instance()</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        <span class="keyword">static</span> <a class="code hl_class" href="class_c_game_engine.html">CGameEngine</a> instance;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <span class="keywordflow">return</span> instance;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    }</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <a class="code hl_class" href="class_c_game_engine.html">CGameEngine</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_c_game_engine.html">CGameEngine</a>&amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <a class="code hl_class" href="class_c_game_engine.html">CGameEngine</a>&amp; operator=(<span class="keyword">const</span> <a class="code hl_class" href="class_c_game_engine.html">CGameEngine</a>&amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <a class="code hl_class" href="class_c_game_engine.html">CGameEngine</a>(<a class="code hl_class" href="class_c_game_engine.html">CGameEngine</a>&amp;&amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <a class="code hl_class" href="class_c_game_engine.html">CGameEngine</a>&amp; operator=(<a class="code hl_class" href="class_c_game_engine.html">CGameEngine</a>&amp;&amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keywordtype">void</span> Init();</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keywordtype">void</span> Loop();</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keywordtype">void</span> Shutdown();</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordtype">void</span> Quit() { bShouldQuit = <span class="keyword">true</span>; }</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keywordtype">bool</span> ShouldQuit()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> bShouldQuit; }</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <a class="code hl_class" href="class_c_renderer_subsystem.html">CRendererSubsystem</a>&amp; GetRenderer() { <span class="keywordflow">return</span> RendererSubsystem; }</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <a class="code hl_class" href="class_c_input_subsystem.html">CInputSubsystem</a>&amp; GetInput() { <span class="keywordflow">return</span> InputSubsystem; }</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <a class="code hl_class" href="class_c_game_subsystem.html">CGameSubsystem</a>&amp; GetGame() { <span class="keywordflow">return</span> GameSubsystem; }</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <a class="code hl_class" href="class_c_editor_subsystem.html">CEditorSubsystem</a>&amp; GetEditor() { <span class="keywordflow">return</span> EditorSubsystem; }</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="comment">//CCounter&amp; GetCounter() { return Counter; }</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    EEditorMode* GetEditorMode()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> EditorMode; }</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <a class="code hl_class" href="class_c_page_allocator.html">CPageAllocator&lt;128, 1024 * 1024&gt;</a>&amp; GetAllocator() { <span class="keywordflow">return</span> Allocator; }</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <a class="code hl_class" href="class_c_game_engine.html">CGameEngine</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <a class="code hl_class" href="class_c_game_engine.html">~CGameEngine</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <a class="code hl_class" href="class_c_page_allocator.html">CPageAllocator&lt;128, 1024 * 1024&gt;</a> Allocator;</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <a class="code hl_class" href="class_c_renderer_subsystem.html">CRendererSubsystem</a> RendererSubsystem;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <a class="code hl_class" href="class_c_input_subsystem.html">CInputSubsystem</a> InputSubsystem;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <a class="code hl_class" href="class_c_game_subsystem.html">CGameSubsystem</a> GameSubsystem;</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <a class="code hl_class" href="class_c_editor_subsystem.html">CEditorSubsystem</a> EditorSubsystem;</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <a class="code hl_class" href="class_c_counter.html">CCounter</a> Counter;</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keywordtype">bool</span> bShouldQuit = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>};</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; T* NewObject() { <span class="keywordflow">return</span> Allocator.NewObject&lt;T&gt;(); }</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keywordtype">void</span> FreeObject(T* InObject) { Allocator.FreeObject(InObject); }</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <a class="code hl_class" href="class_c_page_allocator.html">CPageAllocator&lt;128, 1024 * 1024&gt;</a>&amp; GetAllocator() { <span class="keywordflow">return</span> Allocator; }</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <a class="code hl_class" href="class_g_entity.html">GEntity</a>* CreateEntity(<span class="keyword">const</span> std::string&amp; name) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordtype">void</span> DestroyEntity(<a class="code hl_class" href="class_g_entity.html">GEntity</a>* entity) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_c_scene.html">CScene</a>* GetCurrentScene()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> CurrentScene; }</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <a class="code hl_class" href="class_c_scene.html">CScene</a>* GetCurrentScene() { <span class="keywordflow">return</span> CurrentScene; }</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keyword">const</span> std::vector&lt;GEntity*&gt;&amp; GetEntities()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> CurrentScene-&gt;GetEntities(); }</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <a class="code hl_class" href="class_c_game_engine.html">CGameEngine</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <a class="code hl_class" href="class_c_game_engine.html">~CGameEngine</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <a class="code hl_class" href="class_c_page_allocator.html">CPageAllocator&lt;128, 1024 * 1024&gt;</a> Allocator;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <a class="code hl_class" href="class_c_renderer_subsystem.html">CRendererSubsystem</a> RendererSubsystem;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <a class="code hl_class" href="class_c_input_subsystem.html">CInputSubsystem</a> InputSubsystem;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <a class="code hl_class" href="class_c_game_subsystem.html">CGameSubsystem</a> GameSubsystem;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <a class="code hl_class" href="class_c_editor_subsystem.html">CEditorSubsystem</a> EditorSubsystem;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <a class="code hl_class" href="class_c_counter.html">CCounter</a> Counter;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    EEditorMode* EditorMode = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <a class="code hl_class" href="class_c_scene.html">CScene</a>* CurrentScene = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keywordtype">bool</span> bShouldQuit = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>};</div>
 </div>
 <div class="ttc" id="aclass_c_counter_html"><div class="ttname"><a href="class_c_counter.html">CCounter</a></div><div class="ttdef"><b>Definition</b> Counter.h:4</div></div>
-<div class="ttc" id="aclass_c_editor_subsystem_html"><div class="ttname"><a href="class_c_editor_subsystem.html">CEditorSubsystem</a></div><div class="ttdef"><b>Definition</b> EditorSubsystem.h:13</div></div>
-<div class="ttc" id="aclass_c_game_engine_html"><div class="ttname"><a href="class_c_game_engine.html">CGameEngine</a></div><div class="ttdef"><b>Definition</b> GameEngine.h:12</div></div>
-<div class="ttc" id="aclass_c_game_subsystem_html"><div class="ttname"><a href="class_c_game_subsystem.html">CGameSubsystem</a></div><div class="ttdef"><b>Definition</b> GameSubsystem.h:8</div></div>
+<div class="ttc" id="aclass_c_editor_subsystem_html"><div class="ttname"><a href="class_c_editor_subsystem.html">CEditorSubsystem</a></div><div class="ttdef"><b>Definition</b> EditorSubsystem.h:31</div></div>
+<div class="ttc" id="aclass_c_game_engine_html"><div class="ttname"><a href="class_c_game_engine.html">CGameEngine</a></div><div class="ttdef"><b>Definition</b> GameEngine.h:13</div></div>
+<div class="ttc" id="aclass_c_game_subsystem_html"><div class="ttname"><a href="class_c_game_subsystem.html">CGameSubsystem</a></div><div class="ttdef"><b>Definition</b> GameSubsystem.h:10</div></div>
 <div class="ttc" id="aclass_c_input_subsystem_html"><div class="ttname"><a href="class_c_input_subsystem.html">CInputSubsystem</a></div><div class="ttdef"><b>Definition</b> InputSubsystem.h:18</div></div>
 <div class="ttc" id="aclass_c_page_allocator_html"><div class="ttname"><a href="class_c_page_allocator.html">CPageAllocator</a></div><div class="ttdef"><b>Definition</b> PageAllocator.hpp:13</div></div>
-<div class="ttc" id="aclass_c_renderer_subsystem_html"><div class="ttname"><a href="class_c_renderer_subsystem.html">CRendererSubsystem</a></div><div class="ttdef"><b>Definition</b> RendererSubsystem.h:13</div></div>
+<div class="ttc" id="aclass_c_renderer_subsystem_html"><div class="ttname"><a href="class_c_renderer_subsystem.html">CRendererSubsystem</a></div><div class="ttdef"><b>Definition</b> RendererSubsystem.h:16</div></div>
+<div class="ttc" id="aclass_c_scene_html"><div class="ttname"><a href="class_c_scene.html">CScene</a></div><div class="ttdef"><b>Definition</b> Scene.h:6</div></div>
+<div class="ttc" id="aclass_g_entity_html"><div class="ttname"><a href="class_g_entity.html">GEntity</a></div><div class="ttdef"><b>Definition</b> Entity.h:6</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
