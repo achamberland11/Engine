@@ -72,8 +72,7 @@ struct FProperty
             ImGui::DragFloat4(Name.c_str(), static_cast<float*>(ptr), 0.1f);
             break;
         case EPropertyType::ColliderType2D:
-            ImGui::Combo("Collider Type", static_cast<int*>(ptr), sColliderType2DNames,
-                         IM_ARRAYSIZE(sColliderType2DNames));
+            ImGui::Combo("Collider Type", static_cast<int*>(ptr), sColliderType2DNames, IM_ARRAYSIZE(sColliderType2DNames));
             break;
         case EPropertyType::ColliderType3D:
             ImGui::Combo("Collider Type", static_cast<int*>(ptr), sColliderTypeNames, IM_ARRAYSIZE(sColliderTypeNames));
