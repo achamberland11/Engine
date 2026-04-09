@@ -36,7 +36,7 @@ void CRendererSubsystem::Start()
     float scale = SDL_GetDisplayContentScale(SDL_GetPrimaryDisplay());
     SDL_WindowFlags window_flags = SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_HIGH_PIXEL_DENSITY;
 
-    window = SDL_CreateWindow("Main Engine", (int)(1280 * scale), (int)(800 * scale), window_flags);
+    window = SDL_CreateWindow("Asimov Engine", (int)(ViewportSize.x * scale), (int)(ViewportSize.y * scale), window_flags);
 
     if (!window)
     {
@@ -55,10 +55,11 @@ void CRendererSubsystem::Start()
     }
 
     SDL_GL_MakeCurrent(window, glContext);
+    gladLoadGLLoader((GLADloadproc)SDL_GL_GetProcAddress);
+    
     SDL_GL_SetSwapInterval(1);
     SDL_ShowWindow(window);
 
-    // TODO: ImGui docking setup - in RendererSubsystem
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO();
@@ -70,10 +71,30 @@ void CRendererSubsystem::Start()
 
     ImGui_ImplSDL3_InitForOpenGL(window, glContext);
     ImGui_ImplOpenGL3_Init("#version 410");
+    
+    InitializeFrameBuffer(ViewportSize.x, ViewportSize.y);
 }
 
 void CRendererSubsystem::Shutdown()
 {
+    if (SceneTexture != 0)
+    {
+        glDeleteTextures(1, &SceneTexture);
+        SceneTexture = 0;
+    }
+    
+    if (DepthRenderBuffer != 0)
+    {
+        glDeleteRenderbuffers(1, &DepthRenderBuffer);
+        DepthRenderBuffer = 0;
+    }
+    
+    if (FrameBuffer != 0)
+    {
+        glDeleteFramebuffers(1, &FrameBuffer);
+        FrameBuffer = 0;
+    }
+    
     if (glContext)
     {
         SDL_GL_DestroyContext(glContext);
@@ -93,14 +114,34 @@ void CRendererSubsystem::Update(float deltaSeconds)
 
 void CRendererSubsystem::Render() const
 {
+    RenderScene();
     CGameEngine::Instance().GetEditor().Render();
+}
+
+void CRendererSubsystem::RenderScene() const
+{
+    glBindFramebuffer(GL_FRAMEBUFFER, FrameBuffer);
+    
+    glViewport(0, 0, ViewportSize.x, ViewportSize.y);
+    glClearColor(ClearColor.r, ClearColor.g, ClearColor.b, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_CULL_FACE);
+    
+    // TODO: Entity rendering
+    
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
 void CRendererSubsystem::OnBeginFrame() const
 {
-    glViewport(0, 0, 1280, 800);
+    FVector2i size;
+    SDL_GetWindowSize(window, &size.x, &size.y);
+    
+    glViewport(0, 0, size.x, size.y);
     glClearColor(ClearColor.r, ClearColor.g, ClearColor.b, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplSDL3_NewFrame();
@@ -132,4 +173,35 @@ void CRendererSubsystem::OnEndFrame() const
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
     SDL_GL_SwapWindow(window);
+}
+
+void CRendererSubsystem::InitializeFrameBuffer(int width, int height)
+{
+    glGenFramebuffers(1, &FrameBuffer);
+    glBindFramebuffer(GL_FRAMEBUFFER, FrameBuffer);
+    
+    glGenTextures(1, &SceneTexture);
+    glBindTexture(GL_TEXTURE_2D, SceneTexture);
+    
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, nullptr);
+    
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, SceneTexture, 0);
+    
+    glGenRenderbuffers(1, &DepthRenderBuffer);
+    glBindRenderbuffer(GL_RENDERBUFFER, DepthRenderBuffer);
+    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, width, height);
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, DepthRenderBuffer);
+    
+    if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+    {
+        SDL_Log("Error: Framebuffer is not complete!");
+    }
+    
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    glBindTexture(GL_TEXTURE_2D, 0);
 }

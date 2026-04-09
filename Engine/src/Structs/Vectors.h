@@ -25,3 +25,18 @@ struct FMatrix4x4
 {
     float m[4][4];
 };
+
+struct FVector2i
+{
+    int x = 0, y = 0;
+};
+
+struct FVector3i
+{
+    int x = 0, y = 0, z = 0;
+};
+
+struct FQuaternioni
+{
+    float x = 0, y = 0, z = 0, w = 0;
+};

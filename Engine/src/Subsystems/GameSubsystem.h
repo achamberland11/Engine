@@ -25,7 +25,7 @@ private:
     float TimeAccumulator = 0.0f;
     float CurrentAverage = 0.0f;
 
-    FColor BackgroundColor = { 0, 0, 0 };
+    FColor BackgroundColor = { 0.1f, 0.1f, 0.1f };
 
     std::vector<GEntity*> Entities;
     EEditorMode* EditorMode = nullptr;

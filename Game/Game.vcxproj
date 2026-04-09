@@ -78,14 +78,16 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)\..\external\SDL\include;$(ProjectDir)\..\external\ImGui;$(ProjectDir)\..\external\ImGui\backends;$(ProjectDir)\..\external\JSON\include</IncludePath>
-    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)\..\external\SDL\include;$(ProjectDir)\..\external\ImGui;$(ProjectDir)\..\external\ImGui\backends;$(ProjectDir)\..\external\JSON\include</ExternalIncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)\..\external\SDL\include;$(ProjectDir)\..\external\ImGui;$(ProjectDir)\..\external\ImGui\backends;$(ProjectDir)\..\external\JSON\include;$(ProjectDir)\..\external\GLAD;$(ProjectDir)\..\external\GLAD\include;</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)\..\external\SDL\include;$(ProjectDir)\..\external\ImGui;$(ProjectDir)\..\external\ImGui\backends;$(ProjectDir)\..\external\JSON\include;$(ProjectDir)\..\external\GLAD;$(ProjectDir)\..\external\GLAD\include;</ExternalIncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)\..\external\SDL\include;$(ProjectDir)\..\external\ImGui;$(ProjectDir)\..\external\ImGui\backends;$(ProjectDir)\..\external\JSON\include;$(ProjectDir)\..\external\GLAD;$(ProjectDir)\..\external\GLAD\include;</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)\..\external\SDL\include;$(ProjectDir)\..\external\ImGui;$(ProjectDir)\..\external\ImGui\backends;$(ProjectDir)\..\external\JSON\include;$(ProjectDir)\..\external\GLAD;$(ProjectDir)\..\external\GLAD\include;</ExternalIncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -113,7 +115,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)\..\external\SDL\include;$(ProjectDir)\..\external\ImGui;$(ProjectDir)\..\external\JSON\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..\external\SDL\include;$(ProjectDir)\..\external\ImGui;$(ProjectDir)\..\external\JSON\include;$(ProjectDir)\..\external\GLAD;$(ProjectDir)\..\external\GLAD\include;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -153,6 +155,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..\external\SDL\include;$(ProjectDir)\..\external\ImGui;$(ProjectDir)\..\external\JSON\include;$(ProjectDir)\..\external\GLAD;$(ProjectDir)\..\external\GLAD\include;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

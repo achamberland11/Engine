@@ -78,8 +78,8 @@
     </PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
         <LinkIncremental>true</LinkIncremental>
-        <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)\..\external\SDL\include;$(ProjectDir)\..\external\ImGui;$(ProjectDir)\..\external\ImGui\backends;$(ProjectDir)\..\external\JSON\include</IncludePath>
-        <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)\..\external\SDL\include;$(ProjectDir)\..\external\ImGui;$(ProjectDir)\..\external\ImGui\backends;$(ProjectDir)\..\external\JSON\include</ExternalIncludePath>
+        <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)\..\external\SDL\include;$(ProjectDir)\..\external\ImGui;$(ProjectDir)\..\external\ImGui\backends;$(ProjectDir)\..\external\JSON\include;$(ProjectDir)\..\external\GLAD;$(ProjectDir)\..\external\GLAD\include;</IncludePath>
+        <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)\..\external\SDL\include;$(ProjectDir)\..\external\ImGui;$(ProjectDir)\..\external\ImGui\backends;$(ProjectDir)\..\external\JSON\include;$(ProjectDir)\..\external\GLAD;$(ProjectDir)\..\external\GLAD\include;</ExternalIncludePath>
         <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(ProjectDir)\..\libs</LibraryPath>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -87,6 +87,8 @@
     </PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
         <LinkIncremental>false</LinkIncremental>
+        <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)\..\external\SDL\include;$(ProjectDir)\..\external\ImGui;$(ProjectDir)\..\external\ImGui\backends;$(ProjectDir)\..\external\JSON\include;$(ProjectDir)\..\external\GLAD;$(ProjectDir)\..\external\GLAD\include;</IncludePath>
+        <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)\..\external\SDL\include;$(ProjectDir)\..\external\ImGui;$(ProjectDir)\..\external\ImGui\backends;$(ProjectDir)\..\external\JSON\include;$(ProjectDir)\..\external\GLAD;$(ProjectDir)\..\external\GLAD\include;</ExternalIncludePath>
     </PropertyGroup>
     <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
         <ClCompile>
@@ -113,7 +115,7 @@
             <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
             <ConformanceMode>true</ConformanceMode>
             <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-            <AdditionalIncludeDirectories>$(ProjectDir)\..\external\SDL\include;$(ProjectDir)\..\external\ImGui;$(ProjectDir)\..\external\JSON\include</AdditionalIncludeDirectories>
+            <AdditionalIncludeDirectories>$(ProjectDir)\..\external\SDL\include;$(ProjectDir)\..\external\ImGui;$(ProjectDir)\..\external\JSON\include;$(ProjectDir)\..\external\GLAD;$(ProjectDir)\..\external\GLAD\include;</AdditionalIncludeDirectories>
             <LanguageStandard>stdcpp20</LanguageStandard>
         </ClCompile>
         <Link>
@@ -153,7 +155,7 @@
             <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
             <ConformanceMode>true</ConformanceMode>
             <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-            <AdditionalIncludeDirectories>$(ProjectDir)\..\external\SDL\include;$(ProjectDir)\..\external\ImGui;$(ProjectDir)\..\external\ImGui\backends</AdditionalIncludeDirectories>
+            <AdditionalIncludeDirectories>$(ProjectDir)\..\external\SDL\include;$(ProjectDir)\..\external\ImGui;$(ProjectDir)\..\external\JSON\include;$(ProjectDir)\..\external\GLAD;$(ProjectDir)\..\external\GLAD\include;</AdditionalIncludeDirectories>
             <LanguageStandard>stdcpp20</LanguageStandard>
         </ClCompile>
         <Link>
@@ -165,6 +167,7 @@
     </ItemDefinitionGroup>
     <ItemGroup>
 <!--        <ClCompile Include="main.cpp"/>-->
+        <ClCompile Include="..\external\GLAD\src\glad.c" />
         <ClCompile Include="src\Core\Class.cpp" />
         <ClCompile Include="src\Core\Counter.cpp" />
         <ClCompile Include="src\Core\GameEngine.cpp" />
